@@ -1,0 +1,37 @@
+{
+  "name": "pollenium-orchid",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "tsc": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/pollenium/.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pollenium//issues"
+  },
+  "homepage": "https://github.com/pollenium/#readme",
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-as-promised": "^7.1.1",
+    "jest": "^24.9.0",
+    "mocha": "^6.2.2",
+    "pollenium-wallflower": "^1.1.3",
+    "ts-jest": "^24.1.0",
+    "tsc": "^1.20150623.0",
+    "typescript": "^3.7.2",
+    "wallflower": "^0.1.0"
+  },
+  "dependencies": {
+    "@types/jest": "^24.0.23",
+    "bn.js": "^5.0.0",
+    "pollenium-buttercup": "^11.0.0",
+    "pollenium-ilex": "^4.0.0"
+  }
+}
