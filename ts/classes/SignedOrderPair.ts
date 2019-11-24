@@ -1,35 +1,37 @@
-import { Bytes20, Uint256, Uint8, Bytes32 } from 'pollenium-buttercup'
+import { Address, Uint256, Uint8, Bytes32 } from 'pollenium-buttercup'
 import { SignedOrder } from './SignedOrder'
 import { OrderPair } from './OrderPair'
-import { ChainState } from '../interfaces/ChainState'
-import { ORDER_TYPE } from '../enums' 
+import { ORDER_TYPE } from '../enums'
+import { ChainStateInterface } from '../interfaces/ChainState'
+import { SignedOrderPairInterface } from '../interfaces/SignedOrderPair'
 
-export class SignedOrderPair extends OrderPair {
+export class SignedOrderPair extends OrderPair implements SignedOrderPairInterface {
 
-  private Bytes20Vars: Bytes20[];
+  public buyyOrder: SignedOrder;
+  public sellOrder: SignedOrder;
+
+  private AddressVars: Address[];
   private uint256Vars: Uint256[];
   private uint008Vars: Uint8[];
   private bytes32Vars: Bytes32[];
 
-  constructor(
-    public buyyOrder: SignedOrder,
-    public sellOrder: SignedOrder
-  ) {
-    super(buyyOrder, sellOrder)
+  constructor(struct: SignedOrderPairInterface) {
+    super(struct)
+    Object.assign(this, struct)
   }
-  getBytes20Vars(): Bytes20[] {
-    if (this.Bytes20Vars) {
-      return this.Bytes20Vars
+  getAddressVars(): Address[] {
+    if (this.AddressVars) {
+      return this.AddressVars
     }
-    this.Bytes20Vars = [
+    this.AddressVars = [
       this.quotToken,
       this.variToken,
       this.buyyOrder.originator,
       this.sellOrder.originator
     ]
-    return this.Bytes20Vars
+    return this.AddressVars
   }
-  getUint256Vars(chainState: ChainState): Uint256[] {
+  getUint256Vars(chainState: ChainStateInterface): Uint256[] {
 
     if (this.uint256Vars) {
       return this.uint256Vars
@@ -60,7 +62,7 @@ export class SignedOrderPair extends OrderPair {
     }
     this.uint008Vars = [
       this.buyyOrder.signature.v,
-      this.buyyOrder.signature.v
+      this.sellOrder.signature.v
     ]
     return this.uint008Vars
   }

@@ -1,6 +1,6 @@
 import { Uint256 } from 'pollenium-buttercup'
 
-export interface ChainState {
+export interface ChainStateInterface {
   buyyOrderTokenFilled: Uint256,
   sellOrderTokenFilled: Uint256,
   buyyOrderTokenBalance: Uint256,

@@ -1,15 +1,13 @@
-import { Bytes20, Uint256, Bytes, Bytes1 } from 'pollenium-buttercup'
-import { Ilex } from 'pollenium-ilex'
-import { PERSONAL_MESSAGE_PREFIX } from '../constants'
+import { Address, Uint256, Bytes, Bytes1 } from 'pollenium-buttercup'
 import { ORDER_TYPE } from '../enums'
-import { OrderStruct } from '../interfaces/OrderStruct'
+import { OrderInterface } from '../interfaces/Order'
 
-export class Order implements OrderStruct {
+export class Order implements OrderInterface {
 
   public type: ORDER_TYPE;
-  public quotToken: Bytes20;
-  public variToken: Bytes20;
-  public originator: Bytes20;
+  public quotToken: Address;
+  public variToken: Address;
+  public originator: Address;
   public tokenLimit: Uint256;
   public priceNumer: Uint256;
   public priceDenom: Uint256;
@@ -17,21 +15,45 @@ export class Order implements OrderStruct {
   public salt: Uint256;
 
 
-  constructor(public struct: OrderStruct) {
+  constructor(struct: OrderInterface) {
     Object.assign(this, struct)
-  }
 
-  getPersonalMessage(): Bytes {
-    return PERSONAL_MESSAGE_PREFIX
-      .getAppended(Bytes1.fromArray([this.type]))
-      .getAppended(this.quotToken)
-      .getAppended(this.variToken)
-      .getAppended(this.originator)
-      .getAppended(this.tokenLimit)
-      .getAppended(this.priceNumer)
-      .getAppended(this.priceDenom)
-      .getAppended(this.expiration)
-      .getAppended(this.salt)
+    if (this.quotToken.getIsEqual(this.variToken)) {
+      throw new QuotVariTokenMatchError(this.quotToken)
+    }
+
+    if (this.quotToken.getIsNull()) {
+      throw new NullQuotTokenError
+    }
+
+    if (this.variToken.getIsNull()) {
+      throw new NullVariTokenError
+    }
+
+    if (this.originator.getIsNull()) {
+      throw new NullOriginatorError
+    }
+
+    if (this.tokenLimit.getIsZero()) {
+      throw new ZeroTokenLimitError
+    }
+
+    if (this.priceNumer.getIsZero()) {
+      throw new ZeroPriceNumerError
+    }
+
+    if (this.priceDenom.getIsZero()) {
+      throw new ZeroPriceDenomError
+    }
+
+    if (this.expiration.getIsZero()) {
+      throw new ZeroExpirationError
+    }
+
+    if (this.salt.getIsZero()) {
+      throw new ZeroSaltError
+    }
+
   }
 
   getTokenUnfilled(tokenFilled: Uint256): Uint256 {
@@ -47,4 +69,79 @@ export class Order implements OrderStruct {
     }
   }
 
+}
+
+export class QuotVariTokenMatchError extends Error {
+  constructor(token) {
+    super(`quotToken and variToken should be different, received ${token.getHex()} for both`)
+    Object.setPrototypeOf(this, QuotVariTokenMatchError.prototype)
+  }
+}
+
+class NullError extends Error {
+  constructor(variableName: string) {
+    super(`${variableName} should not be null`)
+  }
+}
+
+class ZeroError extends Error {
+  constructor(variableName: string) {
+    super(`${variableName} should not be zero`)
+  }
+}
+
+export class NullQuotTokenError extends NullError {
+  constructor() {
+    super('quotToken')
+    Object.setPrototypeOf(this, NullQuotTokenError.prototype)
+  }
+}
+
+export class NullVariTokenError extends NullError {
+  constructor() {
+    super('variToken')
+    Object.setPrototypeOf(this, NullVariTokenError.prototype)
+  }
+}
+
+export class NullOriginatorError extends NullError {
+  constructor() {
+    super('originator')
+    Object.setPrototypeOf(this, NullOriginatorError.prototype)
+  }
+}
+
+export class ZeroTokenLimitError extends ZeroError {
+  constructor() {
+    super('tokenLimit')
+    Object.setPrototypeOf(this, ZeroTokenLimitError.prototype)
+  }
+}
+
+export class ZeroPriceNumerError extends ZeroError {
+  constructor() {
+    super('priceNumer')
+    Object.setPrototypeOf(this, ZeroPriceNumerError.prototype)
+  }
+}
+
+export class ZeroPriceDenomError extends ZeroError {
+  constructor() {
+    super('priceDenom')
+    Object.setPrototypeOf(this, ZeroPriceDenomError.prototype)
+  }
+}
+
+export class ZeroExpirationError extends ZeroError {
+  constructor() {
+    super('expiration')
+    Object.setPrototypeOf(this, ZeroExpirationError.prototype)
+  }
+}
+
+export class ZeroSaltError extends ZeroError {
+  constructor() {
+    super('salt')
+    Object.setPrototypeOf(this, ZeroSaltError.prototype)
+  }
 }

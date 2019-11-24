@@ -1,51 +1,71 @@
 import { ORDER_TYPE } from '../enums'
-import { Bytes20, Uint256 } from 'pollenium-buttercup'
+import { Address, Uint256 } from 'pollenium-buttercup'
 import { Order } from './Order'
-import { ChainState } from '../interfaces/ChainState'
-import { Solution } from '../interfaces/Solution'
+import { ChainStateInterface } from '../interfaces/ChainState'
+import { SolutionInterface } from '../interfaces/Solution'
+import { OrderPairInterface } from '../interfaces/OrderPair'
 import Bn from 'bn.js'
 
-export class OrderPair {
+export class OrderPair implements OrderPairInterface {
 
-  public quotToken: Bytes20;
-  public variToken: Bytes20;
+  public buyyOrder: Order;
+  public sellOrder: Order;
+  public quotToken: Address;
+  public variToken: Address;
 
-  constructor(
-    public buyyOrder: Order,
-    public sellOrder: Order
-  ) {
+  constructor(struct: OrderPairInterface) {
+
+    Object.assign(this, struct)
+
+    if (this.buyyOrder.type !== ORDER_TYPE.BUYY) {
+      throw new InvalidBuyyOrderTypeError()
+    }
+
+    if (this.sellOrder.type !== ORDER_TYPE.SELL) {
+      throw new InvalidSellOrderTypeError()
+    }
+
+    if (!this.buyyOrder.quotToken.getIsEqual(this.sellOrder.quotToken)) {
+      throw new QuotTokenMismatchError()
+    }
+
+    if (!this.buyyOrder.variToken.getIsEqual(this.sellOrder.variToken)) {
+      throw new VariTokenMismatchError()
+    }
+
+    if (
+      this.buyyOrder.priceNumer.mul(this.sellOrder.priceDenom)
+        .lt(
+          this.buyyOrder.priceDenom.mul(this.sellOrder.priceNumer)
+        )
+    ) {
+      throw new PriceConstraintError
+    }
+
     this.quotToken = this.buyyOrder.quotToken,
     this.variToken = this.buyyOrder.variToken
   }
 
-  getSolution(chainState: ChainState): Solution {
+  getSolution(chainState: ChainStateInterface): SolutionInterface {
 
     const quotTokenAvail = this.buyyOrder.getTokenAvail(
       chainState.buyyOrderTokenFilled,
       chainState.buyyOrderTokenBalance
     )
-    const variTokenAvail = this.buyyOrder.getTokenAvail(
+    const variTokenAvail = this.sellOrder.getTokenAvail(
       chainState.buyyOrderTokenFilled,
       chainState.buyyOrderTokenBalance
     )
 
     const buyyOrderVariTokenTransMax
       = quotTokenAvail
-        .mul(this.sellOrder.priceDenom)
-        .divDn(this.sellOrder.priceDenom)
+        .mul(this.buyyOrder.priceDenom)
+        .divDn(this.buyyOrder.priceNumer)
 
-    console.log('buyyOrderVariTokenTransMax', buyyOrderVariTokenTransMax.getNumber())
-
-    const variTokenTransMax
-      = (buyyOrderVariTokenTransMax < variTokenAvail)
+    const variTokenTrans
+      = (buyyOrderVariTokenTransMax.lt(variTokenAvail))
       ? buyyOrderVariTokenTransMax
       : variTokenAvail
-
-    console.log('variTokenTransMax', variTokenTransMax.getNumber())
-
-    const variTokenTransRemainder = Uint256.fromNumber(0)
-
-    const variTokenTrans = variTokenTransMax.sub(variTokenTransRemainder)
 
     const quotTokenTrans
       = variTokenTrans
@@ -58,12 +78,45 @@ export class OrderPair {
         .divDn(this.buyyOrder.priceDenom)
         .sub(quotTokenTrans)
 
-
-
     return {
       quotTokenTrans,
       quotTokenArbit,
       variTokenTrans
     }
+  }
+}
+
+export class InvalidBuyyOrderTypeError extends Error {
+  constructor() {
+    super('buyyOrder has invalid type')
+    Object.setPrototypeOf(this, InvalidBuyyOrderTypeError.prototype)
+  }
+}
+
+export class InvalidSellOrderTypeError extends Error {
+  constructor() {
+    super('sellOrder has invalid type')
+    Object.setPrototypeOf(this, InvalidSellOrderTypeError.prototype)
+  }
+}
+
+export class QuotTokenMismatchError extends Error {
+  constructor() {
+    super('quotToken mismatch')
+    Object.setPrototypeOf(this, QuotTokenMismatchError.prototype)
+  }
+}
+
+export class VariTokenMismatchError extends Error {
+  constructor() {
+    super('variToken mismatch')
+    Object.setPrototypeOf(this, VariTokenMismatchError.prototype)
+  }
+}
+
+export class PriceConstraintError extends Error {
+  constructor() {
+    super('buyy order price should not be less than sell order price')
+    Object.setPrototypeOf(this, PriceConstraintError.prototype)
   }
 }

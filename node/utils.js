@@ -1,19 +1,21 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 exports.__esModule = true;
-var bn_js_1 = __importDefault(require("bn.js"));
-var pollenium_buttercup_1 = require("pollenium-buttercup");
-function getNowNumber() {
-    return Math.floor((new Date).getTime() / 1000);
+var enums_1 = require("./enums");
+function getOrderTypeString(type) {
+    switch (type) {
+        case enums_1.ORDER_TYPE.BUYY:
+            return 'buyy';
+        case enums_1.ORDER_TYPE.SELL:
+            return 'sell';
+    }
 }
-exports.getNowNumber = getNowNumber;
-function getNowBn() {
-    return new bn_js_1["default"](getNowNumber());
+exports.getOrderTypeString = getOrderTypeString;
+function getTokenTypeString(type) {
+    switch (type) {
+        case enums_1.TOKEN_TYPE.QUOT:
+            return 'quot';
+        case enums_1.TOKEN_TYPE.VARI:
+            return 'vari';
+    }
 }
-exports.getNowBn = getNowBn;
-function generateSalt() {
-    return pollenium_buttercup_1.Buttercup.random(32);
-}
-exports.generateSalt = generateSalt;
+exports.getTokenTypeString = getTokenTypeString;

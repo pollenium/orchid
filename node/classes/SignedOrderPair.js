@@ -16,23 +16,22 @@ exports.__esModule = true;
 var OrderPair_1 = require("./OrderPair");
 var SignedOrderPair = /** @class */ (function (_super) {
     __extends(SignedOrderPair, _super);
-    function SignedOrderPair(buyyOrder, sellOrder) {
-        var _this = _super.call(this, buyyOrder, sellOrder) || this;
-        _this.buyyOrder = buyyOrder;
-        _this.sellOrder = sellOrder;
+    function SignedOrderPair(struct) {
+        var _this = _super.call(this, struct) || this;
+        Object.assign(_this, struct);
         return _this;
     }
-    SignedOrderPair.prototype.getBytes20Vars = function () {
-        if (this.Bytes20Vars) {
-            return this.Bytes20Vars;
+    SignedOrderPair.prototype.getAddressVars = function () {
+        if (this.AddressVars) {
+            return this.AddressVars;
         }
-        this.Bytes20Vars = [
+        this.AddressVars = [
             this.quotToken,
             this.variToken,
             this.buyyOrder.originator,
             this.sellOrder.originator
         ];
-        return this.Bytes20Vars;
+        return this.AddressVars;
     };
     SignedOrderPair.prototype.getUint256Vars = function (chainState) {
         if (this.uint256Vars) {
@@ -62,7 +61,7 @@ var SignedOrderPair = /** @class */ (function (_super) {
         }
         this.uint008Vars = [
             this.buyyOrder.signature.v,
-            this.buyyOrder.signature.v
+            this.sellOrder.signature.v
         ];
         return this.uint008Vars;
     };

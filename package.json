@@ -31,7 +31,7 @@
   "dependencies": {
     "@types/jest": "^24.0.23",
     "bn.js": "^5.0.0",
-    "pollenium-buttercup": "^11.0.0",
-    "pollenium-ilex": "^4.0.0"
+    "pollenium-buttercup": "^13.3.1",
+    "pollenium-ilex": "^6.0.0"
   }
 }

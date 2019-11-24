@@ -1,4 +1,7 @@
-import { Bytes, Bytes1 } from 'pollenium-buttercup'
+import { Bytes32, Bytes1 } from 'pollenium-buttercup'
+import crypto from 'crypto'
 
-export const PERSONAL_MESSAGE_PREFIX_UTF8 ='Alchemilla V1 Order:\n'
-export const PERSONAL_MESSAGE_PREFIX = Bytes.fromBuffer(Buffer.from(PERSONAL_MESSAGE_PREFIX_UTF8, 'utf8'))
+export const ORDER_ENCODING_PREFIX_PREHASH_UTF8 ='\x00Alchemilla V1 Order'
+export const ORDER_ENCODING_PREFIX = Bytes32.fromBuffer(
+  crypto.createHash('sha256').update(ORDER_ENCODING_PREFIX_PREHASH_UTF8).digest()
+)

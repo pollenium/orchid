@@ -1,11 +1,11 @@
 import { ORDER_TYPE } from '../enums'
-import { Bytes20, Uint256 } from 'pollenium-buttercup'
+import { Address, Uint256 } from 'pollenium-buttercup'
 
-export interface OrderStruct {
+export interface OrderInterface {
   type: ORDER_TYPE,
-  quotToken: Bytes20,
-  variToken: Bytes20,
-  originator: Bytes20,
+  quotToken: Address,
+  variToken: Address,
+  originator: Address,
   priceNumer: Uint256,
   priceDenom: Uint256,
   tokenLimit: Uint256,
