@@ -1,21 +1,8 @@
 "use strict";
 exports.__esModule = true;
 var fixtures_1 = require("../fixtures");
-var pollenium_buttercup_1 = require("pollenium-buttercup");
-var enums_1 = require("../enums");
 var Order_1 = require("./Order");
-var validOrder = {
-    type: enums_1.ORDER_TYPE.BUYY,
-    quotToken: fixtures_1.usdc,
-    variToken: fixtures_1.weth,
-    originator: fixtures_1.alice,
-    tokenLimit: pollenium_buttercup_1.Uint256.fromNumber(1),
-    priceNumer: pollenium_buttercup_1.Uint256.fromNumber(1),
-    priceDenom: pollenium_buttercup_1.Uint256.fromNumber(1),
-    expiration: pollenium_buttercup_1.Uint256.fromNumber(1),
-    salt: pollenium_buttercup_1.Uint256.fromNumber(1)
-};
-var invalidOrderFixtures = [
+var invalidOrderStructFixtures = [
     {
         error: Order_1.QuotVariTokenMatchError,
         delta: {
@@ -72,12 +59,12 @@ var invalidOrderFixtures = [
     }
 ];
 test('valid', function () {
-    new Order_1.Order(validOrder);
+    new Order_1.Order(fixtures_1.validOrderStruct);
 });
-invalidOrderFixtures.forEach(function (fixture) {
+invalidOrderStructFixtures.forEach(function (fixture) {
     test(fixture.error.name, function () {
         expect(function () {
-            var orderStruct = Object.assign(Object.assign({}, validOrder), fixture.delta);
+            var orderStruct = Object.assign(Object.assign({}, fixtures_1.validOrderStruct), fixture.delta);
             new Order_1.Order(orderStruct);
         }).toThrow(fixture.error);
     });

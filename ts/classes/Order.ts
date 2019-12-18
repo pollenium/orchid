@@ -1,6 +1,8 @@
-import { Address, Uint256, Bytes, Bytes1 } from 'pollenium-buttercup'
+import { Address, Uint256, Bytes, Bytes1, Bytes32, Uint8 } from 'pollenium-buttercup'
 import { ORDER_TYPE } from '../enums'
 import { OrderInterface } from '../interfaces/Order'
+import { ORDER_ENCODING_PREFIX } from '../constants'
+import crypto from 'crypto'
 
 export class Order implements OrderInterface {
 
@@ -14,6 +16,8 @@ export class Order implements OrderInterface {
   public expiration: Uint256;
   public salt: Uint256;
 
+  private encoding: Bytes;
+  private encodingHash: Bytes32;
 
   constructor(struct: OrderInterface) {
     Object.assign(this, struct)
@@ -55,6 +59,34 @@ export class Order implements OrderInterface {
     }
 
   }
+
+  private getEncoding(): Bytes {
+    if (this.encoding) {
+      return this.encoding
+    }
+    this.encoding = ORDER_ENCODING_PREFIX.getCasted(Bytes)
+      .getAppended(Uint8.fromArray([this.type]))
+      .getAppended(this.quotToken)
+      .getAppended(this.variToken)
+      .getAppended(this.originator)
+      .getAppended(this.tokenLimit)
+      .getAppended(this.priceNumer)
+      .getAppended(this.priceDenom)
+      .getAppended(this.expiration)
+      .getAppended(this.salt)
+    return this.encoding
+  }
+
+  getEncodingHash(): Bytes32 {
+    if (this.encodingHash) {
+      return this.encodingHash
+    }
+    this.encodingHash = Bytes32.fromBuffer(
+      crypto.createHash('sha256').update(this.getEncoding().getBuffer()).digest()
+    )
+    return this.encodingHash
+  }
+
 
   getTokenUnfilled(tokenFilled: Uint256): Uint256 {
     return this.tokenLimit.sub(tokenFilled)

@@ -12,7 +12,13 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 exports.__esModule = true;
+var pollenium_buttercup_1 = require("pollenium-buttercup");
+var constants_1 = require("../constants");
+var crypto_1 = __importDefault(require("crypto"));
 var Order = /** @class */ (function () {
     function Order(struct) {
         Object.assign(this, struct);
@@ -44,6 +50,29 @@ var Order = /** @class */ (function () {
             throw new ZeroSaltError;
         }
     }
+    Order.prototype.getEncoding = function () {
+        if (this.encoding) {
+            return this.encoding;
+        }
+        this.encoding = constants_1.ORDER_ENCODING_PREFIX.getCasted(pollenium_buttercup_1.Bytes)
+            .getAppended(pollenium_buttercup_1.Uint8.fromArray([this.type]))
+            .getAppended(this.quotToken)
+            .getAppended(this.variToken)
+            .getAppended(this.originator)
+            .getAppended(this.tokenLimit)
+            .getAppended(this.priceNumer)
+            .getAppended(this.priceDenom)
+            .getAppended(this.expiration)
+            .getAppended(this.salt);
+        return this.encoding;
+    };
+    Order.prototype.getEncodingHash = function () {
+        if (this.encodingHash) {
+            return this.encodingHash;
+        }
+        this.encodingHash = pollenium_buttercup_1.Bytes32.fromBuffer(crypto_1["default"].createHash('sha256').update(this.getEncoding().getBuffer()).digest());
+        return this.encodingHash;
+    };
     Order.prototype.getTokenUnfilled = function (tokenFilled) {
         return this.tokenLimit.sub(tokenFilled);
     };

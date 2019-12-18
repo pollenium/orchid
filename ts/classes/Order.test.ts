@@ -1,4 +1,11 @@
-import { alice, weth, usdc, nullAddress, uint256Zero } from '../fixtures'
+import {
+  alice,
+  weth,
+  usdc,
+  nullAddress,
+  uint256Zero,
+  validOrderStruct
+} from '../fixtures'
 import { Uint256 } from 'pollenium-buttercup'
 import { ORDER_TYPE } from '../enums'
 import {
@@ -14,19 +21,7 @@ import {
   ZeroSaltError
 } from './Order'
 
-const validOrder = {
-  type: ORDER_TYPE.BUYY,
-  quotToken: usdc,
-  variToken: weth,
-  originator: alice,
-  tokenLimit: Uint256.fromNumber(1),
-  priceNumer: Uint256.fromNumber(1),
-  priceDenom: Uint256.fromNumber(1),
-  expiration: Uint256.fromNumber(1),
-  salt: Uint256.fromNumber(1)
-}
-
-const invalidOrderFixtures = [
+const invalidOrderStructFixtures = [
   {
     error: QuotVariTokenMatchError,
     delta: {
@@ -84,13 +79,13 @@ const invalidOrderFixtures = [
 ]
 
 test('valid', () => {
-  new Order(validOrder)
+  new Order(validOrderStruct)
 })
 
-invalidOrderFixtures.forEach((fixture) => {
+invalidOrderStructFixtures.forEach((fixture) => {
   test(fixture.error.name, () => {
     expect(() => {
-      const orderStruct = Object.assign(Object.assign({}, validOrder), fixture.delta)
+      const orderStruct = Object.assign(Object.assign({}, validOrderStruct), fixture.delta)
       new Order(orderStruct)
     }).toThrow(fixture.error)
   })
