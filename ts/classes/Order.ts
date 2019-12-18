@@ -1,7 +1,6 @@
 import { Address, Uint256, Bytes, Bytes1, Bytes32, Uint8 } from 'pollenium-buttercup'
 import { ORDER_TYPE } from '../enums'
 import { OrderInterface } from '../interfaces/Order'
-import { ORDER_ENCODING_PREFIX } from '../constants'
 import crypto from 'crypto'
 
 export class Order implements OrderInterface {
@@ -64,8 +63,7 @@ export class Order implements OrderInterface {
     if (this.encoding) {
       return this.encoding
     }
-    this.encoding = ORDER_ENCODING_PREFIX.getCasted(Bytes)
-      .getAppended(Uint8.fromArray([this.type]))
+    this.encoding = Bytes.fromArray([this.type])
       .getAppended(this.quotToken)
       .getAppended(this.variToken)
       .getAppended(this.originator)

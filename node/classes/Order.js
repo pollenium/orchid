@@ -17,7 +17,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 exports.__esModule = true;
 var pollenium_buttercup_1 = require("pollenium-buttercup");
-var constants_1 = require("../constants");
 var crypto_1 = __importDefault(require("crypto"));
 var Order = /** @class */ (function () {
     function Order(struct) {
@@ -54,8 +53,7 @@ var Order = /** @class */ (function () {
         if (this.encoding) {
             return this.encoding;
         }
-        this.encoding = constants_1.ORDER_ENCODING_PREFIX.getCasted(pollenium_buttercup_1.Bytes)
-            .getAppended(pollenium_buttercup_1.Uint8.fromArray([this.type]))
+        this.encoding = pollenium_buttercup_1.Bytes.fromArray([this.type])
             .getAppended(this.quotToken)
             .getAppended(this.variToken)
             .getAppended(this.originator)
