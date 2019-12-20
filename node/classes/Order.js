@@ -12,12 +12,9 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 exports.__esModule = true;
 var pollenium_buttercup_1 = require("pollenium-buttercup");
-var crypto_1 = __importDefault(require("crypto"));
+var web3_utils_1 = require("web3-utils");
 var Order = /** @class */ (function () {
     function Order(struct) {
         Object.assign(this, struct);
@@ -63,7 +60,10 @@ var Order = /** @class */ (function () {
         if (this.anchorHash) {
             return this.anchorHash;
         }
-        this.anchorHash = pollenium_buttercup_1.Bytes32.fromBuffer(crypto_1["default"].createHash('sha256').update(this.getAnchor().getBuffer()).digest());
+        this.anchorHash = pollenium_buttercup_1.Bytes32.fromHexish(web3_utils_1.soliditySha3({
+            t: 'bytes',
+            v: this.getAnchor().getPhex()
+        }));
         return this.anchorHash;
     };
     Order.prototype.getEncoding = function () {
@@ -82,7 +82,10 @@ var Order = /** @class */ (function () {
         if (this.encodingHash) {
             return this.encodingHash;
         }
-        this.encodingHash = pollenium_buttercup_1.Bytes32.fromBuffer(crypto_1["default"].createHash('sha256').update(this.getEncoding().getBuffer()).digest());
+        this.encodingHash = pollenium_buttercup_1.Bytes32.fromHexish(web3_utils_1.soliditySha3({
+            t: 'bytes',
+            v: this.getEncoding().getPhex()
+        }));
         return this.encodingHash;
     };
     Order.prototype.getTokenUnfilled = function (tokenFilled) {

@@ -1,7 +1,7 @@
 import { Address, Uint256, Bytes, Bytes1, Bytes32, Uint8 } from 'pollenium-buttercup'
 import { ORDER_TYPE } from '../enums'
 import { OrderInterface } from '../interfaces/Order'
-import crypto from 'crypto'
+import { soliditySha3 } from 'web3-utils'
 
 export class Order implements OrderInterface {
 
@@ -77,8 +77,11 @@ export class Order implements OrderInterface {
     if (this.anchorHash) {
       return this.anchorHash
     }
-    this.anchorHash = Bytes32.fromBuffer(
-      crypto.createHash('sha256').update(this.getAnchor().getBuffer()).digest()
+    this.anchorHash = Bytes32.fromHexish(
+      soliditySha3({
+        t: 'bytes',
+        v: this.getAnchor().getPhex()
+      })
     )
     return this.anchorHash
   }
@@ -100,8 +103,11 @@ export class Order implements OrderInterface {
     if (this.encodingHash) {
       return this.encodingHash
     }
-    this.encodingHash = Bytes32.fromBuffer(
-      crypto.createHash('sha256').update(this.getEncoding().getBuffer()).digest()
+    this.encodingHash = Bytes32.fromHexish(
+      soliditySha3({
+        t: 'bytes',
+        v: this.getEncoding().getPhex()
+      })
     )
     return this.encodingHash
   }
