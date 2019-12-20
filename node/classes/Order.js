@@ -71,7 +71,7 @@ var Order = /** @class */ (function () {
             return this.encoding;
         }
         this.encoding = pollenium_buttercup_1.Bytes.fromArray([])
-            .getAppended(this.getAnchor())
+            .getAppended(this.getAnchorHash())
             .getAppended(pollenium_buttercup_1.Uint8.fromNumber(this.type))
             .getAppended(this.priceNumer)
             .getAppended(this.priceDenom)

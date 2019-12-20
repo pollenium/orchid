@@ -61,9 +61,6 @@ var invalidOrderStructFixtures = [
 test('valid', function () {
     new Order_1.Order(fixtures_1.validOrderStruct);
 });
-test('getEncodingHash', function () {
-    console.log((new Order_1.Order(fixtures_1.validOrderStruct)).getEncodingHash().getPhex());
-});
 invalidOrderStructFixtures.forEach(function (fixture) {
     test(fixture.error.name, function () {
         expect(function () {

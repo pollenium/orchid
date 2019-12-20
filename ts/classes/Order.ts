@@ -91,7 +91,7 @@ export class Order implements OrderInterface {
       return this.encoding
     }
     this.encoding = Bytes.fromArray([])
-      .getAppended(this.getAnchor())
+      .getAppended(this.getAnchorHash())
       .getAppended(Uint8.fromNumber(this.type))
       .getAppended(this.priceNumer)
       .getAppended(this.priceDenom)
