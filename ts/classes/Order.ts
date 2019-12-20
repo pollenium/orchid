@@ -6,6 +6,7 @@ import crypto from 'crypto'
 export class Order implements OrderInterface {
 
   public type: ORDER_TYPE;
+  public prevBlockHash: Bytes32;
   public quotToken: Address;
   public variToken: Address;
   public originator: Address;
@@ -15,6 +16,8 @@ export class Order implements OrderInterface {
   public expiration: Uint256;
   public salt: Uint256;
 
+  private anchor: Bytes;
+  private anchorHash: Bytes32;
   private encoding: Bytes;
   private encodingHash: Bytes32;
 
@@ -59,19 +62,37 @@ export class Order implements OrderInterface {
 
   }
 
+  getAnchor(): Bytes {
+    if (this.anchor) {
+      return this.anchor
+    }
+    this.anchor = Bytes.fromArray([])
+      .getAppended(this.prevBlockHash)
+      .getAppended(this.quotToken)
+      .getAppended(this.variToken)
+    return this.anchor
+  }
+
+  getAnchorHash(): Bytes32 {
+    if (this.anchorHash) {
+      return this.anchorHash
+    }
+    this.anchorHash = Bytes32.fromBuffer(
+      crypto.createHash('sha256').update(this.getAnchor().getBuffer()).digest()
+    )
+    return this.anchorHash
+  }
+
   private getEncoding(): Bytes {
     if (this.encoding) {
       return this.encoding
     }
-    this.encoding = Bytes.fromArray([this.type])
-      .getAppended(this.quotToken)
-      .getAppended(this.variToken)
-      .getAppended(this.originator)
-      .getAppended(this.tokenLimit)
+    this.encoding = Bytes.fromArray([])
+      .getAppended(this.getAnchor())
+      .getAppended(Uint8.fromNumber(this.type))
       .getAppended(this.priceNumer)
       .getAppended(this.priceDenom)
-      .getAppended(this.expiration)
-      .getAppended(this.salt)
+      .getAppended(this.tokenLimit)
     return this.encoding
   }
 

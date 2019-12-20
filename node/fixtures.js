@@ -15,8 +15,10 @@ exports.weth = pollenium_buttercup_1.Address.fromBuffer(crypto_1["default"].rand
 exports.mkr = pollenium_buttercup_1.Address.fromBuffer(crypto_1["default"].randomBytes(20));
 exports.nullAddress = pollenium_buttercup_1.Address.genNull();
 exports.uint256Zero = pollenium_buttercup_1.Uint256.fromNumber(0);
+exports.nullBytes32 = new pollenium_buttercup_1.Bytes32((new Uint8Array(32)).fill(0));
 exports.keypair = pollenium_ilex_1.Keypair.generate();
 exports.validOrderStruct = {
+    prevBlockHash: exports.nullBytes32,
     type: enums_1.ORDER_TYPE.BUYY,
     quotToken: exports.usdc,
     variToken: exports.weth,

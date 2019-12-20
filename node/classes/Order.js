@@ -49,19 +49,33 @@ var Order = /** @class */ (function () {
             throw new ZeroSaltError;
         }
     }
+    Order.prototype.getAnchor = function () {
+        if (this.anchor) {
+            return this.anchor;
+        }
+        this.anchor = pollenium_buttercup_1.Bytes.fromArray([])
+            .getAppended(this.prevBlockHash)
+            .getAppended(this.quotToken)
+            .getAppended(this.variToken);
+        return this.anchor;
+    };
+    Order.prototype.getAnchorHash = function () {
+        if (this.anchorHash) {
+            return this.anchorHash;
+        }
+        this.anchorHash = pollenium_buttercup_1.Bytes32.fromBuffer(crypto_1["default"].createHash('sha256').update(this.getAnchor().getBuffer()).digest());
+        return this.anchorHash;
+    };
     Order.prototype.getEncoding = function () {
         if (this.encoding) {
             return this.encoding;
         }
-        this.encoding = pollenium_buttercup_1.Bytes.fromArray([this.type])
-            .getAppended(this.quotToken)
-            .getAppended(this.variToken)
-            .getAppended(this.originator)
-            .getAppended(this.tokenLimit)
+        this.encoding = pollenium_buttercup_1.Bytes.fromArray([])
+            .getAppended(this.getAnchor())
+            .getAppended(pollenium_buttercup_1.Uint8.fromNumber(this.type))
             .getAppended(this.priceNumer)
             .getAppended(this.priceDenom)
-            .getAppended(this.expiration)
-            .getAppended(this.salt);
+            .getAppended(this.tokenLimit);
         return this.encoding;
     };
     Order.prototype.getEncodingHash = function () {
