@@ -46,33 +46,15 @@ var Order = /** @class */ (function () {
             throw new ZeroSaltError;
         }
     }
-    Order.prototype.getAnchor = function () {
-        if (this.anchor) {
-            return this.anchor;
-        }
-        this.anchor = pollenium_buttercup_1.Bytes.fromArray([])
-            .getAppended(this.prevBlockHash)
-            .getAppended(this.quotToken)
-            .getAppended(this.variToken);
-        return this.anchor;
-    };
-    Order.prototype.getAnchorHash = function () {
-        if (this.anchorHash) {
-            return this.anchorHash;
-        }
-        this.anchorHash = pollenium_buttercup_1.Bytes32.fromHexish(web3_utils_1.soliditySha3({
-            t: 'bytes',
-            v: this.getAnchor().getPhex()
-        }));
-        return this.anchorHash;
-    };
     Order.prototype.getEncoding = function () {
         if (this.encoding) {
             return this.encoding;
         }
         this.encoding = pollenium_buttercup_1.Bytes.fromArray([])
-            .getAppended(this.getAnchorHash())
+            .getAppended(this.prevBlockHash)
             .getAppended(pollenium_buttercup_1.Uint8.fromNumber(this.type))
+            .getAppended(this.quotToken)
+            .getAppended(this.variToken)
             .getAppended(this.priceNumer)
             .getAppended(this.priceDenom)
             .getAppended(this.tokenLimit);

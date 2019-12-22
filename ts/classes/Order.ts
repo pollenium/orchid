@@ -62,37 +62,16 @@ export class Order implements OrderInterface {
 
   }
 
-  getAnchor(): Bytes {
-    if (this.anchor) {
-      return this.anchor
-    }
-    this.anchor = Bytes.fromArray([])
-      .getAppended(this.prevBlockHash)
-      .getAppended(this.quotToken)
-      .getAppended(this.variToken)
-    return this.anchor
-  }
-
-  getAnchorHash(): Bytes32 {
-    if (this.anchorHash) {
-      return this.anchorHash
-    }
-    this.anchorHash = Bytes32.fromHexish(
-      soliditySha3({
-        t: 'bytes',
-        v: this.getAnchor().getPhex()
-      })
-    )
-    return this.anchorHash
-  }
 
   private getEncoding(): Bytes {
     if (this.encoding) {
       return this.encoding
     }
     this.encoding = Bytes.fromArray([])
-      .getAppended(this.getAnchorHash())
+      .getAppended(this.prevBlockHash)
       .getAppended(Uint8.fromNumber(this.type))
+      .getAppended(this.quotToken)
+      .getAppended(this.variToken)
       .getAppended(this.priceNumer)
       .getAppended(this.priceDenom)
       .getAppended(this.tokenLimit)
