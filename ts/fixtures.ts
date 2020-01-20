@@ -25,7 +25,5 @@ export const validOrderStruct = {
   originator: keypair.getAddress(),
   tokenLimit: Uint256.fromNumber(1),
   priceNumer: Uint256.fromNumber(1),
-  priceDenom: Uint256.fromNumber(1),
-  expiration: Uint256.fromNumber(1),
-  salt: Uint256.fromNumber(1)
+  priceDenom: Uint256.fromNumber(1)
 }

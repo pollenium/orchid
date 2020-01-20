@@ -32,6 +32,19 @@ var SignedOrder = /** @class */ (function (_super) {
         this.isValidSignature = signer.getIsEqual(this.originator);
         return this.isValidSignature;
     };
+    SignedOrder.prototype.getEthersArg = function () {
+        return [
+            this.originator.getPhex(),
+            this.quotToken.getPhex(),
+            this.variToken.getPhex(),
+            this.priceNumer.getPhex(),
+            this.priceDenom.getPhex(),
+            this.tokenLimit.getPhex(),
+            this.signature.v.getNumber(),
+            this.signature.r.getPhex(),
+            this.signature.s.getPhex()
+        ];
+    };
     return SignedOrder;
 }(Order_1.Order));
 exports.SignedOrder = SignedOrder;

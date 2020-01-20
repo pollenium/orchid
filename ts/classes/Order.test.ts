@@ -16,9 +16,7 @@ import {
   NullOriginatorError,
   ZeroTokenLimitError,
   ZeroPriceNumerError,
-  ZeroPriceDenomError,
-  ZeroExpirationError,
-  ZeroSaltError
+  ZeroPriceDenomError
 } from './Order'
 
 const invalidOrderStructFixtures = [
@@ -62,18 +60,6 @@ const invalidOrderStructFixtures = [
     error: ZeroPriceDenomError,
     delta: {
       priceDenom: uint256Zero
-    }
-  },
-  {
-    error: ZeroExpirationError,
-    delta: {
-      expiration: uint256Zero
-    }
-  },
-  {
-    error: ZeroSaltError,
-    delta: {
-      salt: uint256Zero
     }
   }
 ]

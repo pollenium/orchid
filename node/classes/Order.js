@@ -39,12 +39,6 @@ var Order = /** @class */ (function () {
         if (this.priceDenom.getIsZero()) {
             throw new ZeroPriceDenomError;
         }
-        if (this.expiration.getIsZero()) {
-            throw new ZeroExpirationError;
-        }
-        if (this.salt.getIsZero()) {
-            throw new ZeroSaltError;
-        }
     }
     Order.prototype.getEncoding = function () {
         if (this.encoding) {
@@ -169,23 +163,3 @@ var ZeroPriceDenomError = /** @class */ (function (_super) {
     return ZeroPriceDenomError;
 }(ZeroError));
 exports.ZeroPriceDenomError = ZeroPriceDenomError;
-var ZeroExpirationError = /** @class */ (function (_super) {
-    __extends(ZeroExpirationError, _super);
-    function ZeroExpirationError() {
-        var _this = _super.call(this, 'expiration') || this;
-        Object.setPrototypeOf(_this, ZeroExpirationError.prototype);
-        return _this;
-    }
-    return ZeroExpirationError;
-}(ZeroError));
-exports.ZeroExpirationError = ZeroExpirationError;
-var ZeroSaltError = /** @class */ (function (_super) {
-    __extends(ZeroSaltError, _super);
-    function ZeroSaltError() {
-        var _this = _super.call(this, 'salt') || this;
-        Object.setPrototypeOf(_this, ZeroSaltError.prototype);
-        return _this;
-    }
-    return ZeroSaltError;
-}(ZeroError));
-exports.ZeroSaltError = ZeroSaltError;

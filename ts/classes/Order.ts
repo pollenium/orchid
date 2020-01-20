@@ -13,8 +13,6 @@ export class Order implements OrderInterface {
   public tokenLimit: Uint256;
   public priceNumer: Uint256;
   public priceDenom: Uint256;
-  public expiration: Uint256;
-  public salt: Uint256;
 
   private anchor: Bytes;
   private anchorHash: Bytes32;
@@ -50,14 +48,6 @@ export class Order implements OrderInterface {
 
     if (this.priceDenom.getIsZero()) {
       throw new ZeroPriceDenomError
-    }
-
-    if (this.expiration.getIsZero()) {
-      throw new ZeroExpirationError
-    }
-
-    if (this.salt.getIsZero()) {
-      throw new ZeroSaltError
     }
 
   }
@@ -165,19 +155,5 @@ export class ZeroPriceDenomError extends ZeroError {
   constructor() {
     super('priceDenom')
     Object.setPrototypeOf(this, ZeroPriceDenomError.prototype)
-  }
-}
-
-export class ZeroExpirationError extends ZeroError {
-  constructor() {
-    super('expiration')
-    Object.setPrototypeOf(this, ZeroExpirationError.prototype)
-  }
-}
-
-export class ZeroSaltError extends ZeroError {
-  constructor() {
-    super('salt')
-    Object.setPrototypeOf(this, ZeroSaltError.prototype)
   }
 }

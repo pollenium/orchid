@@ -1,14 +1,7 @@
 "use strict";
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
-    result["default"] = mod;
-    return result;
-};
 exports.__esModule = true;
-var _enums = __importStar(require("./enums"));
-exports.enums = _enums;
+var enums_1 = require("./enums");
+exports.ORDER_TYPE = enums_1.ORDER_TYPE;
 var Order_1 = require("./classes/Order");
 exports.Order = Order_1.Order;
 var SignedOrder_1 = require("./classes/SignedOrder");

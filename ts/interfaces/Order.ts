@@ -10,6 +10,4 @@ export interface OrderInterface {
   priceNumer: Uint256,
   priceDenom: Uint256,
   tokenLimit: Uint256,
-  expiration: Uint256,
-  salt: Uint256,
 }

@@ -16,13 +16,27 @@ export class SignedOrder extends Order implements SignedOrderInterface {
     }
   }
 
-  private getIsValidSignature(): boolean {
+  public getIsValidSignature(): boolean {
     if (this.isValidSignature) {
       return this.isValidSignature
     }
     const signer = this.signature.getSigner(this.getEncodingHash())
     this.isValidSignature = signer.getIsEqual(this.originator)
     return this.isValidSignature
+  }
+
+  public getEthersArg(): any {
+    return [
+      this.originator.getPhex(),
+      this.quotToken.getPhex(),
+      this.variToken.getPhex(),
+      this.priceNumer.getPhex(),
+      this.priceDenom.getPhex(),
+      this.tokenLimit.getPhex(),
+      this.signature.v.getNumber(),
+      this.signature.r.getPhex(),
+      this.signature.s.getPhex()
+    ]
   }
 
 }

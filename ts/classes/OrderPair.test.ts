@@ -30,9 +30,7 @@ frangipani.forEach((fixture, index) => {
     originator: alice,
     tokenLimit: Uint256.fromNumber(fixture.orders.buyy.tokenLimit),
     priceNumer: Uint256.fromNumber(fixture.orders.buyy.priceNumer),
-    priceDenom: Uint256.fromNumber(fixture.orders.buyy.priceDenom),
-    expiration: Uint256.fromNumber(1),
-    salt: Uint256.fromNumber(1)
+    priceDenom: Uint256.fromNumber(fixture.orders.buyy.priceDenom)
   })
 
   const sellOrder = new Order({
@@ -44,8 +42,6 @@ frangipani.forEach((fixture, index) => {
     tokenLimit: Uint256.fromNumber(fixture.orders.sell.tokenLimit),
     priceNumer: Uint256.fromNumber(fixture.orders.sell.priceNumer),
     priceDenom: Uint256.fromNumber(fixture.orders.sell.priceDenom),
-    expiration: Uint256.fromNumber(1),
-    salt: Uint256.fromNumber(1)
   })
 
   const orderPair = new OrderPair({ buyyOrder, sellOrder })
@@ -72,9 +68,7 @@ test('InvalidBuyyOrderTypeError', () => {
     originator: alice,
     tokenLimit: Uint256.fromNumber(1),
     priceNumer: Uint256.fromNumber(1),
-    priceDenom: Uint256.fromNumber(1),
-    expiration: Uint256.fromNumber(1),
-    salt: Uint256.fromNumber(1)
+    priceDenom: Uint256.fromNumber(1)
   })
 
   const sellOrder = new Order({
@@ -86,8 +80,6 @@ test('InvalidBuyyOrderTypeError', () => {
     tokenLimit: Uint256.fromNumber(1),
     priceNumer: Uint256.fromNumber(1),
     priceDenom: Uint256.fromNumber(1),
-    expiration: Uint256.fromNumber(1),
-    salt: Uint256.fromNumber(1)
   })
 
   expect(() => {
@@ -104,9 +96,7 @@ test('InvalidSellOrderTypeError', () => {
     originator: alice,
     tokenLimit: Uint256.fromNumber(1),
     priceNumer: Uint256.fromNumber(1),
-    priceDenom: Uint256.fromNumber(1),
-    expiration: Uint256.fromNumber(1),
-    salt: Uint256.fromNumber(1)
+    priceDenom: Uint256.fromNumber(1)
   })
 
   const sellOrder = new Order({
@@ -117,9 +107,7 @@ test('InvalidSellOrderTypeError', () => {
     originator: bob,
     tokenLimit: Uint256.fromNumber(1),
     priceNumer: Uint256.fromNumber(1),
-    priceDenom: Uint256.fromNumber(1),
-    expiration: Uint256.fromNumber(1),
-    salt: Uint256.fromNumber(1)
+    priceDenom: Uint256.fromNumber(1)
   })
 
   expect(() => {
@@ -136,9 +124,7 @@ test('QuotTokenMismatchError', () => {
     originator: alice,
     tokenLimit: Uint256.fromNumber(1),
     priceNumer: Uint256.fromNumber(1),
-    priceDenom: Uint256.fromNumber(1),
-    expiration: Uint256.fromNumber(1),
-    salt: Uint256.fromNumber(1)
+    priceDenom: Uint256.fromNumber(1)
   })
 
   const sellOrder = new Order({
@@ -149,9 +135,7 @@ test('QuotTokenMismatchError', () => {
     originator: bob,
     tokenLimit: Uint256.fromNumber(1),
     priceNumer: Uint256.fromNumber(1),
-    priceDenom: Uint256.fromNumber(1),
-    expiration: Uint256.fromNumber(1),
-    salt: Uint256.fromNumber(1)
+    priceDenom: Uint256.fromNumber(1)
   })
 
   expect(() => {
@@ -169,9 +153,7 @@ test('VariTokenMismatchError', () => {
     originator: alice,
     tokenLimit: Uint256.fromNumber(1),
     priceNumer: Uint256.fromNumber(1),
-    priceDenom: Uint256.fromNumber(1),
-    expiration: Uint256.fromNumber(1),
-    salt: Uint256.fromNumber(1)
+    priceDenom: Uint256.fromNumber(1)
   })
 
   const sellOrder = new Order({
@@ -182,9 +164,7 @@ test('VariTokenMismatchError', () => {
     originator: bob,
     tokenLimit: Uint256.fromNumber(1),
     priceNumer: Uint256.fromNumber(1),
-    priceDenom: Uint256.fromNumber(1),
-    expiration: Uint256.fromNumber(1),
-    salt: Uint256.fromNumber(1)
+    priceDenom: Uint256.fromNumber(1)
   })
 
   expect(() => {
@@ -201,9 +181,7 @@ test('PriceConstraintError', () => {
     originator: alice,
     tokenLimit: Uint256.fromNumber(1),
     priceNumer: Uint256.fromNumber(1),
-    priceDenom: Uint256.fromNumber(1),
-    expiration: Uint256.fromNumber(1),
-    salt: Uint256.fromNumber(1)
+    priceDenom: Uint256.fromNumber(1)
   })
 
   const sellOrder = new Order({
@@ -214,9 +192,7 @@ test('PriceConstraintError', () => {
     originator: bob,
     tokenLimit: Uint256.fromNumber(1),
     priceNumer: Uint256.fromNumber(2),
-    priceDenom: Uint256.fromNumber(1),
-    expiration: Uint256.fromNumber(1),
-    salt: Uint256.fromNumber(1)
+    priceDenom: Uint256.fromNumber(1)
   })
 
   expect(() => {

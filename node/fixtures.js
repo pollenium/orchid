@@ -25,7 +25,5 @@ exports.validOrderStruct = {
     originator: exports.keypair.getAddress(),
     tokenLimit: pollenium_buttercup_1.Uint256.fromNumber(1),
     priceNumer: pollenium_buttercup_1.Uint256.fromNumber(1),
-    priceDenom: pollenium_buttercup_1.Uint256.fromNumber(1),
-    expiration: pollenium_buttercup_1.Uint256.fromNumber(1),
-    salt: pollenium_buttercup_1.Uint256.fromNumber(1)
+    priceDenom: pollenium_buttercup_1.Uint256.fromNumber(1)
 };

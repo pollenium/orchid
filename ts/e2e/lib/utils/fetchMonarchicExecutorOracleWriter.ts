@@ -1,0 +1,18 @@
+import { MonarchicExecutorOracleWriter } from '../../../classes/Contract'
+import { fetchOrDeployMonarchicExecutorOracleAddress } from './fetchOrDeployMonarchicExecutorOracleAddress'
+import { AccountNames } from '../fixtures'
+import { getWallet } from './getWallet'
+
+let monarchicExecutorOracleWriters = {}
+
+export async function fetchMonarchicExecutorOracleWriter(accountName: AccountNames): Promise<MonarchicExecutorOracleWriter> {
+  if (monarchicExecutorOracleWriters[accountName]) {
+    return monarchicExecutorOracleWriters[accountName]
+  }
+  const monarchicExecutorOracleAddress = await fetchOrDeployMonarchicExecutorOracleAddress()
+  monarchicExecutorOracleWriters[accountName] = new MonarchicExecutorOracleWriter(
+    getWallet(accountName),
+    monarchicExecutorOracleAddress
+  )
+  return monarchicExecutorOracleWriters[accountName]
+}

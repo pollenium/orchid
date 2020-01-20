@@ -25,9 +25,7 @@ pollenium_frangipani_1["default"].forEach(function (fixture, index) {
         originator: fixtures_1.alice,
         tokenLimit: pollenium_buttercup_1.Uint256.fromNumber(fixture.orders.buyy.tokenLimit),
         priceNumer: pollenium_buttercup_1.Uint256.fromNumber(fixture.orders.buyy.priceNumer),
-        priceDenom: pollenium_buttercup_1.Uint256.fromNumber(fixture.orders.buyy.priceDenom),
-        expiration: pollenium_buttercup_1.Uint256.fromNumber(1),
-        salt: pollenium_buttercup_1.Uint256.fromNumber(1)
+        priceDenom: pollenium_buttercup_1.Uint256.fromNumber(fixture.orders.buyy.priceDenom)
     });
     var sellOrder = new __1.Order({
         prevBlockHash: fixtures_1.nullBytes32,
@@ -37,9 +35,7 @@ pollenium_frangipani_1["default"].forEach(function (fixture, index) {
         originator: fixtures_1.bob,
         tokenLimit: pollenium_buttercup_1.Uint256.fromNumber(fixture.orders.sell.tokenLimit),
         priceNumer: pollenium_buttercup_1.Uint256.fromNumber(fixture.orders.sell.priceNumer),
-        priceDenom: pollenium_buttercup_1.Uint256.fromNumber(fixture.orders.sell.priceDenom),
-        expiration: pollenium_buttercup_1.Uint256.fromNumber(1),
-        salt: pollenium_buttercup_1.Uint256.fromNumber(1)
+        priceDenom: pollenium_buttercup_1.Uint256.fromNumber(fixture.orders.sell.priceDenom)
     });
     var orderPair = new __2.OrderPair({ buyyOrder: buyyOrder, sellOrder: sellOrder });
     var solution = orderPair.getSolution(chainState);
@@ -62,9 +58,7 @@ test('InvalidBuyyOrderTypeError', function () {
         originator: fixtures_1.alice,
         tokenLimit: pollenium_buttercup_1.Uint256.fromNumber(1),
         priceNumer: pollenium_buttercup_1.Uint256.fromNumber(1),
-        priceDenom: pollenium_buttercup_1.Uint256.fromNumber(1),
-        expiration: pollenium_buttercup_1.Uint256.fromNumber(1),
-        salt: pollenium_buttercup_1.Uint256.fromNumber(1)
+        priceDenom: pollenium_buttercup_1.Uint256.fromNumber(1)
     });
     var sellOrder = new __1.Order({
         prevBlockHash: fixtures_1.nullBytes32,
@@ -74,9 +68,7 @@ test('InvalidBuyyOrderTypeError', function () {
         originator: fixtures_1.bob,
         tokenLimit: pollenium_buttercup_1.Uint256.fromNumber(1),
         priceNumer: pollenium_buttercup_1.Uint256.fromNumber(1),
-        priceDenom: pollenium_buttercup_1.Uint256.fromNumber(1),
-        expiration: pollenium_buttercup_1.Uint256.fromNumber(1),
-        salt: pollenium_buttercup_1.Uint256.fromNumber(1)
+        priceDenom: pollenium_buttercup_1.Uint256.fromNumber(1)
     });
     expect(function () {
         new __2.OrderPair({ buyyOrder: buyyOrder, sellOrder: sellOrder });
@@ -91,9 +83,7 @@ test('InvalidSellOrderTypeError', function () {
         originator: fixtures_1.alice,
         tokenLimit: pollenium_buttercup_1.Uint256.fromNumber(1),
         priceNumer: pollenium_buttercup_1.Uint256.fromNumber(1),
-        priceDenom: pollenium_buttercup_1.Uint256.fromNumber(1),
-        expiration: pollenium_buttercup_1.Uint256.fromNumber(1),
-        salt: pollenium_buttercup_1.Uint256.fromNumber(1)
+        priceDenom: pollenium_buttercup_1.Uint256.fromNumber(1)
     });
     var sellOrder = new __1.Order({
         prevBlockHash: fixtures_1.nullBytes32,
@@ -103,9 +93,7 @@ test('InvalidSellOrderTypeError', function () {
         originator: fixtures_1.bob,
         tokenLimit: pollenium_buttercup_1.Uint256.fromNumber(1),
         priceNumer: pollenium_buttercup_1.Uint256.fromNumber(1),
-        priceDenom: pollenium_buttercup_1.Uint256.fromNumber(1),
-        expiration: pollenium_buttercup_1.Uint256.fromNumber(1),
-        salt: pollenium_buttercup_1.Uint256.fromNumber(1)
+        priceDenom: pollenium_buttercup_1.Uint256.fromNumber(1)
     });
     expect(function () {
         new __2.OrderPair({ buyyOrder: buyyOrder, sellOrder: sellOrder });
@@ -120,9 +108,7 @@ test('QuotTokenMismatchError', function () {
         originator: fixtures_1.alice,
         tokenLimit: pollenium_buttercup_1.Uint256.fromNumber(1),
         priceNumer: pollenium_buttercup_1.Uint256.fromNumber(1),
-        priceDenom: pollenium_buttercup_1.Uint256.fromNumber(1),
-        expiration: pollenium_buttercup_1.Uint256.fromNumber(1),
-        salt: pollenium_buttercup_1.Uint256.fromNumber(1)
+        priceDenom: pollenium_buttercup_1.Uint256.fromNumber(1)
     });
     var sellOrder = new __1.Order({
         prevBlockHash: fixtures_1.nullBytes32,
@@ -132,9 +118,7 @@ test('QuotTokenMismatchError', function () {
         originator: fixtures_1.bob,
         tokenLimit: pollenium_buttercup_1.Uint256.fromNumber(1),
         priceNumer: pollenium_buttercup_1.Uint256.fromNumber(1),
-        priceDenom: pollenium_buttercup_1.Uint256.fromNumber(1),
-        expiration: pollenium_buttercup_1.Uint256.fromNumber(1),
-        salt: pollenium_buttercup_1.Uint256.fromNumber(1)
+        priceDenom: pollenium_buttercup_1.Uint256.fromNumber(1)
     });
     expect(function () {
         new __2.OrderPair({ buyyOrder: buyyOrder, sellOrder: sellOrder });
@@ -149,9 +133,7 @@ test('VariTokenMismatchError', function () {
         originator: fixtures_1.alice,
         tokenLimit: pollenium_buttercup_1.Uint256.fromNumber(1),
         priceNumer: pollenium_buttercup_1.Uint256.fromNumber(1),
-        priceDenom: pollenium_buttercup_1.Uint256.fromNumber(1),
-        expiration: pollenium_buttercup_1.Uint256.fromNumber(1),
-        salt: pollenium_buttercup_1.Uint256.fromNumber(1)
+        priceDenom: pollenium_buttercup_1.Uint256.fromNumber(1)
     });
     var sellOrder = new __1.Order({
         prevBlockHash: fixtures_1.nullBytes32,
@@ -161,9 +143,7 @@ test('VariTokenMismatchError', function () {
         originator: fixtures_1.bob,
         tokenLimit: pollenium_buttercup_1.Uint256.fromNumber(1),
         priceNumer: pollenium_buttercup_1.Uint256.fromNumber(1),
-        priceDenom: pollenium_buttercup_1.Uint256.fromNumber(1),
-        expiration: pollenium_buttercup_1.Uint256.fromNumber(1),
-        salt: pollenium_buttercup_1.Uint256.fromNumber(1)
+        priceDenom: pollenium_buttercup_1.Uint256.fromNumber(1)
     });
     expect(function () {
         new __2.OrderPair({ buyyOrder: buyyOrder, sellOrder: sellOrder });
@@ -178,9 +158,7 @@ test('PriceConstraintError', function () {
         originator: fixtures_1.alice,
         tokenLimit: pollenium_buttercup_1.Uint256.fromNumber(1),
         priceNumer: pollenium_buttercup_1.Uint256.fromNumber(1),
-        priceDenom: pollenium_buttercup_1.Uint256.fromNumber(1),
-        expiration: pollenium_buttercup_1.Uint256.fromNumber(1),
-        salt: pollenium_buttercup_1.Uint256.fromNumber(1)
+        priceDenom: pollenium_buttercup_1.Uint256.fromNumber(1)
     });
     var sellOrder = new __1.Order({
         prevBlockHash: fixtures_1.nullBytes32,
@@ -190,9 +168,7 @@ test('PriceConstraintError', function () {
         originator: fixtures_1.bob,
         tokenLimit: pollenium_buttercup_1.Uint256.fromNumber(1),
         priceNumer: pollenium_buttercup_1.Uint256.fromNumber(2),
-        priceDenom: pollenium_buttercup_1.Uint256.fromNumber(1),
-        expiration: pollenium_buttercup_1.Uint256.fromNumber(1),
-        salt: pollenium_buttercup_1.Uint256.fromNumber(1)
+        priceDenom: pollenium_buttercup_1.Uint256.fromNumber(1)
     });
     expect(function () {
         new __2.OrderPair({ buyyOrder: buyyOrder, sellOrder: sellOrder });

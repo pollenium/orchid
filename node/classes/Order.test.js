@@ -44,18 +44,6 @@ var invalidOrderStructFixtures = [
         delta: {
             priceDenom: fixtures_1.uint256Zero
         }
-    },
-    {
-        error: Order_1.ZeroExpirationError,
-        delta: {
-            expiration: fixtures_1.uint256Zero
-        }
-    },
-    {
-        error: Order_1.ZeroSaltError,
-        delta: {
-            salt: fixtures_1.uint256Zero
-        }
     }
 ];
 test('valid', function () {
