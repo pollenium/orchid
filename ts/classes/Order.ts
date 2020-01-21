@@ -14,8 +14,6 @@ export class Order implements OrderInterface {
   public priceNumer: Uint256;
   public priceDenom: Uint256;
 
-  private anchor: Bytes;
-  private anchorHash: Bytes32;
   private encoding: Bytes;
   private encodingHash: Bytes32;
 
