@@ -14,8 +14,8 @@ export class Order implements OrderInterface {
   public priceNumer: Uint256;
   public priceDenom: Uint256;
 
-  private encoding: Bytes;
-  private encodingHash: Bytes32;
+  private sugma: Bytes;
+  private sugmaHash: Bytes32;
 
   constructor(struct: OrderInterface) {
     Object.assign(this, struct)
@@ -51,11 +51,12 @@ export class Order implements OrderInterface {
   }
 
 
-  private getEncoding(): Bytes {
-    if (this.encoding) {
-      return this.encoding
+  private getSugma(): Bytes {
+    if (this.sugma) {
+      return this.sugma
     }
-    this.encoding = Bytes.fromArray([])
+
+    this.sugma = Bytes.fromArray([])
       .getAppended(this.prevBlockHash)
       .getAppended(Uint8.fromNumber(this.type))
       .getAppended(this.quotToken)
@@ -63,20 +64,20 @@ export class Order implements OrderInterface {
       .getAppended(this.priceNumer)
       .getAppended(this.priceDenom)
       .getAppended(this.tokenLimit)
-    return this.encoding
+    return this.sugma
   }
 
-  getEncodingHash(): Bytes32 {
-    if (this.encodingHash) {
-      return this.encodingHash
+  getSugmaHash(): Bytes32 {
+    if (this.sugmaHash) {
+      return this.sugmaHash
     }
-    this.encodingHash = Bytes32.fromHexish(
+    this.sugmaHash = Bytes32.fromHexish(
       soliditySha3({
         t: 'bytes',
-        v: this.getEncoding().getPhex()
+        v: this.getSugma().getHex()
       })
     )
-    return this.encodingHash
+    return this.sugmaHash
   }
 
 

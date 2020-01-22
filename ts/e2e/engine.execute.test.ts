@@ -86,12 +86,12 @@ frangipani.forEach(async (fixture, index) => {
 
         const signedBuyyOrder = new SignedOrder(
           buyyOrder,
-          getKeypair(AccountNames.ALICE).getSignature(buyyOrder.getEncodingHash())
+          getKeypair(AccountNames.ALICE).getSignature(buyyOrder.getSugmaHash())
         )
 
         const signedSellOrder = new SignedOrder(
           sellOrder,
-          getKeypair(AccountNames.BOB).getSignature(sellOrder.getEncodingHash())
+          getKeypair(AccountNames.BOB).getSignature(sellOrder.getSugmaHash())
         )
 
         expect(signedBuyyOrder.getIsValidSignature()).toBe(true)
@@ -210,12 +210,12 @@ describe('multis', () => {
 
         const signedBuyyOrder = new SignedOrder(
           buyyOrder,
-          getKeypair(AccountNames.ALICE).getSignature(buyyOrder.getEncodingHash())
+          getKeypair(AccountNames.ALICE).getSignature(buyyOrder.getSugmaHash())
         )
 
         const signedSellOrder = new SignedOrder(
           sellOrder,
-          getKeypair(AccountNames.BOB).getSignature(sellOrder.getEncodingHash())
+          getKeypair(AccountNames.BOB).getSignature(sellOrder.getSugmaHash())
         )
 
         const signedBuyyOrders = []

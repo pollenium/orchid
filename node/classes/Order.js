@@ -40,11 +40,11 @@ var Order = /** @class */ (function () {
             throw new ZeroPriceDenomError;
         }
     }
-    Order.prototype.getEncoding = function () {
-        if (this.encoding) {
-            return this.encoding;
+    Order.prototype.getSugma = function () {
+        if (this.sugma) {
+            return this.sugma;
         }
-        this.encoding = pollenium_buttercup_1.Bytes.fromArray([])
+        this.sugma = pollenium_buttercup_1.Bytes.fromArray([])
             .getAppended(this.prevBlockHash)
             .getAppended(pollenium_buttercup_1.Uint8.fromNumber(this.type))
             .getAppended(this.quotToken)
@@ -52,17 +52,17 @@ var Order = /** @class */ (function () {
             .getAppended(this.priceNumer)
             .getAppended(this.priceDenom)
             .getAppended(this.tokenLimit);
-        return this.encoding;
+        return this.sugma;
     };
-    Order.prototype.getEncodingHash = function () {
-        if (this.encodingHash) {
-            return this.encodingHash;
+    Order.prototype.getSugmaHash = function () {
+        if (this.sugmaHash) {
+            return this.sugmaHash;
         }
-        this.encodingHash = pollenium_buttercup_1.Bytes32.fromHexish(web3_utils_1.soliditySha3({
+        this.sugmaHash = pollenium_buttercup_1.Bytes32.fromHexish(web3_utils_1.soliditySha3({
             t: 'bytes',
-            v: this.getEncoding().getPhex()
+            v: this.getSugma().getHex()
         }));
-        return this.encodingHash;
+        return this.sugmaHash;
     };
     Order.prototype.getTokenUnfilled = function (tokenFilled) {
         return this.tokenLimit.sub(tokenFilled);

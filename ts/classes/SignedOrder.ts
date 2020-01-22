@@ -20,7 +20,7 @@ export class SignedOrder extends Order implements SignedOrderInterface {
     if (this.isValidSignature) {
       return this.isValidSignature
     }
-    const signer = this.signature.getSigner(this.getEncodingHash())
+    const signer = this.signature.getSigner(this.getSugmaHash())
     this.isValidSignature = signer.getIsEqual(this.originator)
     return this.isValidSignature
   }

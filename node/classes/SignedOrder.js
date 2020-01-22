@@ -28,7 +28,7 @@ var SignedOrder = /** @class */ (function (_super) {
         if (this.isValidSignature) {
             return this.isValidSignature;
         }
-        var signer = this.signature.getSigner(this.getEncodingHash());
+        var signer = this.signature.getSigner(this.getSugmaHash());
         this.isValidSignature = signer.getIsEqual(this.originator);
         return this.isValidSignature;
     };

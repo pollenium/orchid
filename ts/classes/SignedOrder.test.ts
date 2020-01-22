@@ -6,7 +6,7 @@ import { Signature } from 'pollenium-ilex'
 
 const order = new Order(validOrderStruct)
 const signature = keypair.getSignature(
-  order.getEncodingHash()
+  order.getSugmaHash()
 )
 const invalidSignature = keypair.getSignature(
   Bytes32.fromArray([])
