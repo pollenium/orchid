@@ -9,7 +9,6 @@ export class Order implements OrderInterface {
   public prevBlockHash: Bytes32;
   public quotToken: Address;
   public variToken: Address;
-  public originator: Address;
   public tokenLimit: Uint256;
   public priceNumer: Uint256;
   public priceDenom: Uint256;
@@ -30,10 +29,6 @@ export class Order implements OrderInterface {
 
     if (this.variToken.getIsNull()) {
       throw new NullVariTokenError
-    }
-
-    if (this.originator.getIsNull()) {
-      throw new NullOriginatorError
     }
 
     if (this.tokenLimit.getIsZero()) {
@@ -126,13 +121,6 @@ export class NullVariTokenError extends NullError {
   constructor() {
     super('variToken')
     Object.setPrototypeOf(this, NullVariTokenError.prototype)
-  }
-}
-
-export class NullOriginatorError extends NullError {
-  constructor() {
-    super('originator')
-    Object.setPrototypeOf(this, NullOriginatorError.prototype)
   }
 }
 

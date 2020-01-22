@@ -22,12 +22,6 @@ var invalidOrderStructFixtures = [
         }
     },
     {
-        error: Order_1.NullOriginatorError,
-        delta: {
-            originator: fixtures_1.nullAddress
-        }
-    },
-    {
         error: Order_1.ZeroTokenLimitError,
         delta: {
             tokenLimit: fixtures_1.uint256Zero

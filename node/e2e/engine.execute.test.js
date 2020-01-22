@@ -133,7 +133,6 @@ pollenium_frangipani_1["default"].forEach(function (fixture, index) { return __a
                                 return [4 /*yield*/, utils_1.fetchOrDeployTokenAddress(fixtures_1.TokenNames.WETH)];
                             case 5:
                                 buyyOrder = new (_a.apply(__1.Order, [void 0, (_b.variToken = _e.sent(),
-                                        _b.originator = utils_1.getAccountAddress(fixtures_1.AccountNames.ALICE),
                                         _b.tokenLimit = pollenium_buttercup_1.Uint256.fromNumber(fixture.orders.buyy.tokenLimit),
                                         _b.priceNumer = pollenium_buttercup_1.Uint256.fromNumber(fixture.orders.buyy.priceNumer),
                                         _b.priceDenom = pollenium_buttercup_1.Uint256.fromNumber(fixture.orders.buyy.priceDenom),
@@ -149,15 +148,12 @@ pollenium_frangipani_1["default"].forEach(function (fixture, index) { return __a
                                 return [4 /*yield*/, utils_1.fetchOrDeployTokenAddress(fixtures_1.TokenNames.WETH)];
                             case 7:
                                 sellOrder = new (_c.apply(__1.Order, [void 0, (_d.variToken = _e.sent(),
-                                        _d.originator = utils_1.getAccountAddress(fixtures_1.AccountNames.BOB),
                                         _d.tokenLimit = pollenium_buttercup_1.Uint256.fromNumber(fixture.orders.sell.tokenLimit),
                                         _d.priceNumer = pollenium_buttercup_1.Uint256.fromNumber(fixture.orders.sell.priceNumer),
                                         _d.priceDenom = pollenium_buttercup_1.Uint256.fromNumber(fixture.orders.sell.priceDenom),
                                         _d)]))();
                                 signedBuyyOrder = new __1.SignedOrder(buyyOrder, utils_1.getKeypair(fixtures_1.AccountNames.ALICE).getSignature(buyyOrder.getSugmaHash()));
                                 signedSellOrder = new __1.SignedOrder(sellOrder, utils_1.getKeypair(fixtures_1.AccountNames.BOB).getSignature(sellOrder.getSugmaHash()));
-                                expect(signedBuyyOrder.getIsValidSignature()).toBe(true);
-                                expect(signedSellOrder.getIsValidSignature()).toBe(true);
                                 return [4 /*yield*/, utils_1.fetchEngineWriter(fixtures_1.AccountNames.MONARCH_HOT)];
                             case 8:
                                 engineWriter = _e.sent();
@@ -307,7 +303,6 @@ describe('multis', function () {
                             return [4 /*yield*/, utils_1.fetchOrDeployTokenAddress(fixtures_1.TokenNames.WETH)];
                         case 5:
                             buyyOrder = new (_a.apply(__1.Order, [void 0, (_b.variToken = _e.sent(),
-                                    _b.originator = utils_1.getAccountAddress(fixtures_1.AccountNames.ALICE),
                                     _b.tokenLimit = pollenium_buttercup_1.Uint256.fromNumber(multisFixture.buyyOrderTokenLimit),
                                     _b.priceNumer = pollenium_buttercup_1.Uint256.fromNumber(1),
                                     _b.priceDenom = pollenium_buttercup_1.Uint256.fromNumber(1),
@@ -323,7 +318,6 @@ describe('multis', function () {
                             return [4 /*yield*/, utils_1.fetchOrDeployTokenAddress(fixtures_1.TokenNames.WETH)];
                         case 7:
                             sellOrder = new (_c.apply(__1.Order, [void 0, (_d.variToken = _e.sent(),
-                                    _d.originator = utils_1.getAccountAddress(fixtures_1.AccountNames.BOB),
                                     _d.tokenLimit = pollenium_buttercup_1.Uint256.fromNumber(multisFixture.sellOrderTokenLimit),
                                     _d.priceNumer = pollenium_buttercup_1.Uint256.fromNumber(1),
                                     _d.priceDenom = pollenium_buttercup_1.Uint256.fromNumber(1),

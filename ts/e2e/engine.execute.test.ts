@@ -67,7 +67,6 @@ frangipani.forEach(async (fixture, index) => {
           type: ORDER_TYPE.BUYY,
           quotToken: await fetchOrDeployTokenAddress(TokenNames.DAI),
           variToken: await fetchOrDeployTokenAddress(TokenNames.WETH),
-          originator: getAccountAddress(AccountNames.ALICE),
           tokenLimit: Uint256.fromNumber(fixture.orders.buyy.tokenLimit),
           priceNumer: Uint256.fromNumber(fixture.orders.buyy.priceNumer),
           priceDenom: Uint256.fromNumber(fixture.orders.buyy.priceDenom)
@@ -78,7 +77,6 @@ frangipani.forEach(async (fixture, index) => {
           type: ORDER_TYPE.SELL,
           quotToken: await fetchOrDeployTokenAddress(TokenNames.DAI),
           variToken: await fetchOrDeployTokenAddress(TokenNames.WETH),
-          originator: getAccountAddress(AccountNames.BOB),
           tokenLimit: Uint256.fromNumber(fixture.orders.sell.tokenLimit),
           priceNumer: Uint256.fromNumber(fixture.orders.sell.priceNumer),
           priceDenom: Uint256.fromNumber(fixture.orders.sell.priceDenom)
@@ -93,9 +91,6 @@ frangipani.forEach(async (fixture, index) => {
           sellOrder,
           getKeypair(AccountNames.BOB).getSignature(sellOrder.getSugmaHash())
         )
-
-        expect(signedBuyyOrder.getIsValidSignature()).toBe(true)
-        expect(signedSellOrder.getIsValidSignature()).toBe(true)
 
         const engineWriter = await fetchEngineWriter(AccountNames.MONARCH_HOT)
         await engineWriter.execute({
@@ -191,7 +186,6 @@ describe('multis', () => {
           type: ORDER_TYPE.BUYY,
           quotToken: await fetchOrDeployTokenAddress(TokenNames.DAI),
           variToken: await fetchOrDeployTokenAddress(TokenNames.WETH),
-          originator: getAccountAddress(AccountNames.ALICE),
           tokenLimit: Uint256.fromNumber(multisFixture.buyyOrderTokenLimit),
           priceNumer: Uint256.fromNumber(1),
           priceDenom: Uint256.fromNumber(1)
@@ -202,7 +196,6 @@ describe('multis', () => {
           type: ORDER_TYPE.SELL,
           quotToken: await fetchOrDeployTokenAddress(TokenNames.DAI),
           variToken: await fetchOrDeployTokenAddress(TokenNames.WETH),
-          originator: getAccountAddress(AccountNames.BOB),
           tokenLimit: Uint256.fromNumber(multisFixture.sellOrderTokenLimit),
           priceNumer: Uint256.fromNumber(1),
           priceDenom: Uint256.fromNumber(1)

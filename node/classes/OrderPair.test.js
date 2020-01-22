@@ -22,7 +22,6 @@ pollenium_frangipani_1["default"].forEach(function (fixture, index) {
         type: enums_1.ORDER_TYPE.BUYY,
         quotToken: fixtures_1.dai,
         variToken: fixtures_1.weth,
-        originator: fixtures_1.alice,
         tokenLimit: pollenium_buttercup_1.Uint256.fromNumber(fixture.orders.buyy.tokenLimit),
         priceNumer: pollenium_buttercup_1.Uint256.fromNumber(fixture.orders.buyy.priceNumer),
         priceDenom: pollenium_buttercup_1.Uint256.fromNumber(fixture.orders.buyy.priceDenom)
@@ -32,7 +31,6 @@ pollenium_frangipani_1["default"].forEach(function (fixture, index) {
         type: enums_1.ORDER_TYPE.SELL,
         quotToken: fixtures_1.dai,
         variToken: fixtures_1.weth,
-        originator: fixtures_1.bob,
         tokenLimit: pollenium_buttercup_1.Uint256.fromNumber(fixture.orders.sell.tokenLimit),
         priceNumer: pollenium_buttercup_1.Uint256.fromNumber(fixture.orders.sell.priceNumer),
         priceDenom: pollenium_buttercup_1.Uint256.fromNumber(fixture.orders.sell.priceDenom)
@@ -55,7 +53,6 @@ test('InvalidBuyyOrderTypeError', function () {
         type: enums_1.ORDER_TYPE.SELL,
         quotToken: fixtures_1.dai,
         variToken: fixtures_1.weth,
-        originator: fixtures_1.alice,
         tokenLimit: pollenium_buttercup_1.Uint256.fromNumber(1),
         priceNumer: pollenium_buttercup_1.Uint256.fromNumber(1),
         priceDenom: pollenium_buttercup_1.Uint256.fromNumber(1)
@@ -65,7 +62,6 @@ test('InvalidBuyyOrderTypeError', function () {
         type: enums_1.ORDER_TYPE.SELL,
         quotToken: fixtures_1.dai,
         variToken: fixtures_1.weth,
-        originator: fixtures_1.bob,
         tokenLimit: pollenium_buttercup_1.Uint256.fromNumber(1),
         priceNumer: pollenium_buttercup_1.Uint256.fromNumber(1),
         priceDenom: pollenium_buttercup_1.Uint256.fromNumber(1)
@@ -80,7 +76,6 @@ test('InvalidSellOrderTypeError', function () {
         type: enums_1.ORDER_TYPE.BUYY,
         quotToken: fixtures_1.dai,
         variToken: fixtures_1.weth,
-        originator: fixtures_1.alice,
         tokenLimit: pollenium_buttercup_1.Uint256.fromNumber(1),
         priceNumer: pollenium_buttercup_1.Uint256.fromNumber(1),
         priceDenom: pollenium_buttercup_1.Uint256.fromNumber(1)
@@ -90,7 +85,6 @@ test('InvalidSellOrderTypeError', function () {
         type: enums_1.ORDER_TYPE.BUYY,
         quotToken: fixtures_1.dai,
         variToken: fixtures_1.weth,
-        originator: fixtures_1.bob,
         tokenLimit: pollenium_buttercup_1.Uint256.fromNumber(1),
         priceNumer: pollenium_buttercup_1.Uint256.fromNumber(1),
         priceDenom: pollenium_buttercup_1.Uint256.fromNumber(1)
@@ -105,7 +99,6 @@ test('QuotTokenMismatchError', function () {
         type: enums_1.ORDER_TYPE.BUYY,
         quotToken: fixtures_1.dai,
         variToken: fixtures_1.weth,
-        originator: fixtures_1.alice,
         tokenLimit: pollenium_buttercup_1.Uint256.fromNumber(1),
         priceNumer: pollenium_buttercup_1.Uint256.fromNumber(1),
         priceDenom: pollenium_buttercup_1.Uint256.fromNumber(1)
@@ -115,7 +108,6 @@ test('QuotTokenMismatchError', function () {
         type: enums_1.ORDER_TYPE.SELL,
         quotToken: fixtures_1.usdc,
         variToken: fixtures_1.weth,
-        originator: fixtures_1.bob,
         tokenLimit: pollenium_buttercup_1.Uint256.fromNumber(1),
         priceNumer: pollenium_buttercup_1.Uint256.fromNumber(1),
         priceDenom: pollenium_buttercup_1.Uint256.fromNumber(1)
@@ -130,7 +122,6 @@ test('VariTokenMismatchError', function () {
         type: enums_1.ORDER_TYPE.BUYY,
         quotToken: fixtures_1.dai,
         variToken: fixtures_1.weth,
-        originator: fixtures_1.alice,
         tokenLimit: pollenium_buttercup_1.Uint256.fromNumber(1),
         priceNumer: pollenium_buttercup_1.Uint256.fromNumber(1),
         priceDenom: pollenium_buttercup_1.Uint256.fromNumber(1)
@@ -140,7 +131,6 @@ test('VariTokenMismatchError', function () {
         type: enums_1.ORDER_TYPE.SELL,
         quotToken: fixtures_1.dai,
         variToken: fixtures_1.mkr,
-        originator: fixtures_1.bob,
         tokenLimit: pollenium_buttercup_1.Uint256.fromNumber(1),
         priceNumer: pollenium_buttercup_1.Uint256.fromNumber(1),
         priceDenom: pollenium_buttercup_1.Uint256.fromNumber(1)
@@ -155,7 +145,6 @@ test('PriceConstraintError', function () {
         type: enums_1.ORDER_TYPE.BUYY,
         quotToken: fixtures_1.dai,
         variToken: fixtures_1.weth,
-        originator: fixtures_1.alice,
         tokenLimit: pollenium_buttercup_1.Uint256.fromNumber(1),
         priceNumer: pollenium_buttercup_1.Uint256.fromNumber(1),
         priceDenom: pollenium_buttercup_1.Uint256.fromNumber(1)
@@ -165,7 +154,6 @@ test('PriceConstraintError', function () {
         type: enums_1.ORDER_TYPE.SELL,
         quotToken: fixtures_1.dai,
         variToken: fixtures_1.weth,
-        originator: fixtures_1.bob,
         tokenLimit: pollenium_buttercup_1.Uint256.fromNumber(1),
         priceNumer: pollenium_buttercup_1.Uint256.fromNumber(2),
         priceDenom: pollenium_buttercup_1.Uint256.fromNumber(1)

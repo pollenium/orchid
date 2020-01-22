@@ -27,9 +27,6 @@ var Order = /** @class */ (function () {
         if (this.variToken.getIsNull()) {
             throw new NullVariTokenError;
         }
-        if (this.originator.getIsNull()) {
-            throw new NullOriginatorError;
-        }
         if (this.tokenLimit.getIsZero()) {
             throw new ZeroTokenLimitError;
         }
@@ -123,16 +120,6 @@ var NullVariTokenError = /** @class */ (function (_super) {
     return NullVariTokenError;
 }(NullError));
 exports.NullVariTokenError = NullVariTokenError;
-var NullOriginatorError = /** @class */ (function (_super) {
-    __extends(NullOriginatorError, _super);
-    function NullOriginatorError() {
-        var _this = _super.call(this, 'originator') || this;
-        Object.setPrototypeOf(_this, NullOriginatorError.prototype);
-        return _this;
-    }
-    return NullOriginatorError;
-}(NullError));
-exports.NullOriginatorError = NullOriginatorError;
 var ZeroTokenLimitError = /** @class */ (function (_super) {
     __extends(ZeroTokenLimitError, _super);
     function ZeroTokenLimitError() {

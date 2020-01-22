@@ -6,7 +6,6 @@ export interface OrderInterface {
   type: ORDER_TYPE,
   quotToken: Address,
   variToken: Address,
-  originator: Address,
   priceNumer: Uint256,
   priceDenom: Uint256,
   tokenLimit: Uint256,

@@ -11,7 +11,7 @@ import {
 } from './OrderPair'
 import crypto from 'crypto'
 import { Uint256, Address } from 'pollenium-buttercup'
-import { alice, bob, weth, mkr, dai, usdc, nullBytes32 } from '../fixtures'
+import { weth, mkr, dai, usdc, nullBytes32 } from '../fixtures'
 
 frangipani.forEach((fixture, index) => {
 
@@ -27,7 +27,6 @@ frangipani.forEach((fixture, index) => {
     type: ORDER_TYPE.BUYY,
     quotToken: dai,
     variToken: weth,
-    originator: alice,
     tokenLimit: Uint256.fromNumber(fixture.orders.buyy.tokenLimit),
     priceNumer: Uint256.fromNumber(fixture.orders.buyy.priceNumer),
     priceDenom: Uint256.fromNumber(fixture.orders.buyy.priceDenom)
@@ -38,7 +37,6 @@ frangipani.forEach((fixture, index) => {
     type: ORDER_TYPE.SELL,
     quotToken: dai,
     variToken: weth,
-    originator: bob,
     tokenLimit: Uint256.fromNumber(fixture.orders.sell.tokenLimit),
     priceNumer: Uint256.fromNumber(fixture.orders.sell.priceNumer),
     priceDenom: Uint256.fromNumber(fixture.orders.sell.priceDenom),
@@ -65,7 +63,6 @@ test('InvalidBuyyOrderTypeError', () => {
     type: ORDER_TYPE.SELL,
     quotToken: dai,
     variToken: weth,
-    originator: alice,
     tokenLimit: Uint256.fromNumber(1),
     priceNumer: Uint256.fromNumber(1),
     priceDenom: Uint256.fromNumber(1)
@@ -76,7 +73,6 @@ test('InvalidBuyyOrderTypeError', () => {
     type: ORDER_TYPE.SELL,
     quotToken: dai,
     variToken: weth,
-    originator: bob,
     tokenLimit: Uint256.fromNumber(1),
     priceNumer: Uint256.fromNumber(1),
     priceDenom: Uint256.fromNumber(1),
@@ -93,7 +89,6 @@ test('InvalidSellOrderTypeError', () => {
     type: ORDER_TYPE.BUYY,
     quotToken: dai,
     variToken: weth,
-    originator: alice,
     tokenLimit: Uint256.fromNumber(1),
     priceNumer: Uint256.fromNumber(1),
     priceDenom: Uint256.fromNumber(1)
@@ -104,7 +99,6 @@ test('InvalidSellOrderTypeError', () => {
     type: ORDER_TYPE.BUYY,
     quotToken: dai,
     variToken: weth,
-    originator: bob,
     tokenLimit: Uint256.fromNumber(1),
     priceNumer: Uint256.fromNumber(1),
     priceDenom: Uint256.fromNumber(1)
@@ -121,7 +115,6 @@ test('QuotTokenMismatchError', () => {
     type: ORDER_TYPE.BUYY,
     quotToken: dai,
     variToken: weth,
-    originator: alice,
     tokenLimit: Uint256.fromNumber(1),
     priceNumer: Uint256.fromNumber(1),
     priceDenom: Uint256.fromNumber(1)
@@ -132,7 +125,6 @@ test('QuotTokenMismatchError', () => {
     type: ORDER_TYPE.SELL,
     quotToken: usdc,
     variToken: weth,
-    originator: bob,
     tokenLimit: Uint256.fromNumber(1),
     priceNumer: Uint256.fromNumber(1),
     priceDenom: Uint256.fromNumber(1)
@@ -150,7 +142,6 @@ test('VariTokenMismatchError', () => {
     type: ORDER_TYPE.BUYY,
     quotToken: dai,
     variToken: weth,
-    originator: alice,
     tokenLimit: Uint256.fromNumber(1),
     priceNumer: Uint256.fromNumber(1),
     priceDenom: Uint256.fromNumber(1)
@@ -161,7 +152,6 @@ test('VariTokenMismatchError', () => {
     type: ORDER_TYPE.SELL,
     quotToken: dai,
     variToken: mkr,
-    originator: bob,
     tokenLimit: Uint256.fromNumber(1),
     priceNumer: Uint256.fromNumber(1),
     priceDenom: Uint256.fromNumber(1)
@@ -178,7 +168,6 @@ test('PriceConstraintError', () => {
     type: ORDER_TYPE.BUYY,
     quotToken: dai,
     variToken: weth,
-    originator: alice,
     tokenLimit: Uint256.fromNumber(1),
     priceNumer: Uint256.fromNumber(1),
     priceDenom: Uint256.fromNumber(1)
@@ -189,7 +178,6 @@ test('PriceConstraintError', () => {
     type: ORDER_TYPE.SELL,
     quotToken: dai,
     variToken: weth,
-    originator: bob,
     tokenLimit: Uint256.fromNumber(1),
     priceNumer: Uint256.fromNumber(2),
     priceDenom: Uint256.fromNumber(1)

@@ -13,7 +13,6 @@ import {
   QuotVariTokenMatchError,
   NullQuotTokenError,
   NullVariTokenError,
-  NullOriginatorError,
   ZeroTokenLimitError,
   ZeroPriceNumerError,
   ZeroPriceDenomError
@@ -36,12 +35,6 @@ const invalidOrderStructFixtures = [
     error: NullVariTokenError,
     delta: {
       variToken: nullAddress
-    }
-  },
-  {
-    error: NullOriginatorError,
-    delta: {
-      originator: nullAddress
     }
   },
   {
