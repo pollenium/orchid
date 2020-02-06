@@ -57,7 +57,7 @@ test('owner should be DEPLOYER', function () { return __awaiter(void 0, void 0, 
             case 0: return [4 /*yield*/, engineReader.fetchOwner()];
             case 1:
                 owner = _a.sent();
-                expect(owner.getIsEqual(utils_1.getAccountAddress(fixtures_1.AccountNames.DEPLOYER))).toBe(true);
+                expect(owner.uu.getIsEqual(utils_1.getAccountAddress(fixtures_1.AccountNames.DEPLOYER))).toBe(true);
                 return [2 /*return*/];
         }
     });
@@ -83,7 +83,7 @@ test('owner should be ADMIN', function () { return __awaiter(void 0, void 0, voi
             case 0: return [4 /*yield*/, engineReader.fetchOwner()];
             case 1:
                 owner = _a.sent();
-                expect(owner.getIsEqual(utils_1.getAccountAddress(fixtures_1.AccountNames.ADMIN))).toBe(true);
+                expect(owner.uu.getIsEqual(utils_1.getAccountAddress(fixtures_1.AccountNames.ADMIN))).toBe(true);
                 return [2 /*return*/];
         }
     });
@@ -115,7 +115,7 @@ test('executorOracle should be monarchicExecutorOracle', function () { return __
                 return [4 /*yield*/, utils_1.fetchOrDeployMonarchicExecutorOracleAddress()];
             case 2:
                 monarchicExecutorOracle = _a.sent();
-                expect(executorOracle.getIsEqual(monarchicExecutorOracle)).toBe(true);
+                expect(executorOracle.uu.getIsEqual(monarchicExecutorOracle)).toBe(true);
                 return [2 /*return*/];
         }
     });
@@ -127,7 +127,7 @@ test('owner should be ADMIN', function () { return __awaiter(void 0, void 0, voi
             case 0: return [4 /*yield*/, engineReader.fetchOwner()];
             case 1:
                 owner = _a.sent();
-                expect(owner.getIsEqual(utils_1.getAccountAddress(fixtures_1.AccountNames.ADMIN))).toBe(true);
+                expect(owner.uu.getIsEqual(utils_1.getAccountAddress(fixtures_1.AccountNames.ADMIN))).toBe(true);
                 return [2 /*return*/];
         }
     });
@@ -152,7 +152,7 @@ test('owner should be ADMIN', function () { return __awaiter(void 0, void 0, voi
             case 0: return [4 /*yield*/, engineReader.fetchOwner()];
             case 1:
                 owner = _a.sent();
-                expect(owner.getIsEqual(utils_1.getAccountAddress(fixtures_1.AccountNames.ADMIN))).toBe(true);
+                expect(owner.uu.getIsEqual(utils_1.getAccountAddress(fixtures_1.AccountNames.ADMIN))).toBe(true);
                 return [2 /*return*/];
         }
     });

@@ -52,12 +52,13 @@ exports.__esModule = true;
 var ethers_1 = require("ethers");
 var contractOutputs_1 = require("../contractOutputs");
 var pollenium_buttercup_1 = require("pollenium-buttercup");
+var pollenium_uvaursi_1 = require("pollenium-uvaursi");
 var ContractReader = /** @class */ (function () {
     function ContractReader(provider, abi, address) {
         this.provider = provider;
         this.abi = abi;
         this.address = address;
-        this.ethersContract = new ethers_1.ethers.Contract(address.getPhex(), this.abi, provider);
+        this.ethersContract = new ethers_1.ethers.Contract(address.uu.toPhex(), this.abi, provider);
     }
     return ContractReader;
 }());
@@ -67,7 +68,7 @@ var ContractWriter = /** @class */ (function () {
         this.signer = signer;
         this.abi = abi;
         this.address = address;
-        this.ethersContract = new ethers_1.ethers.Contract(address.getPhex(), this.abi, signer);
+        this.ethersContract = new ethers_1.ethers.Contract(address.uu.toPhex(), this.abi, signer);
     }
     return ContractWriter;
 }());
@@ -77,7 +78,7 @@ var ContractDeployer = /** @class */ (function () {
         this.signer = signer;
         this.abi = abi;
         this.bytecode = bytecode;
-        this.ethersContractFactory = new ethers_1.ethers.ContractFactory(abi, bytecode.getUint8Array(), signer);
+        this.ethersContractFactory = new ethers_1.ethers.ContractFactory(abi, bytecode.u, signer);
     }
     return ContractDeployer;
 }());
@@ -92,10 +93,10 @@ var TokenDeployer = /** @class */ (function (_super) {
             var ethersContract;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.ethersContractFactory.deploy(totalSupply.getUint8Array())];
+                    case 0: return [4 /*yield*/, this.ethersContractFactory.deploy(totalSupply.u)];
                     case 1:
                         ethersContract = _a.sent();
-                        return [2 /*return*/, pollenium_buttercup_1.Address.fromHexish(ethersContract.address)];
+                        return [2 /*return*/, new pollenium_buttercup_1.Address(pollenium_uvaursi_1.Uu.fromHexish(ethersContract.address))];
                 }
             });
         });
@@ -116,7 +117,7 @@ var EngineDeployer = /** @class */ (function (_super) {
                     case 0: return [4 /*yield*/, this.ethersContractFactory.deploy()];
                     case 1:
                         ethersContract = _a.sent();
-                        return [2 /*return*/, pollenium_buttercup_1.Address.fromHexish(ethersContract.address)];
+                        return [2 /*return*/, new pollenium_buttercup_1.Address(pollenium_uvaursi_1.Uu.fromHexish(ethersContract.address))];
                 }
             });
         });
@@ -137,7 +138,7 @@ var MonarchicExecutorOracleDeployer = /** @class */ (function (_super) {
                     case 0: return [4 /*yield*/, this.ethersContractFactory.deploy()];
                     case 1:
                         ethersContract = _a.sent();
-                        return [2 /*return*/, pollenium_buttercup_1.Address.fromHexish(ethersContract.address)];
+                        return [2 /*return*/, new pollenium_buttercup_1.Address(pollenium_uvaursi_1.Uu.fromHexish(ethersContract.address))];
                 }
             });
         });
@@ -152,32 +153,34 @@ var TokenReader = /** @class */ (function (_super) {
     }
     TokenReader.prototype.fetchBalance = function (holder) {
         return __awaiter(this, void 0, void 0, function () {
-            var holderBignumber, _a, _b;
-            return __generator(this, function (_c) {
-                switch (_c.label) {
-                    case 0: return [4 /*yield*/, this.ethersContract.balanceOf(holder.getPhex())];
+            var holderBignumber, _a, _b, _c;
+            return __generator(this, function (_d) {
+                switch (_d.label) {
+                    case 0: return [4 /*yield*/, this.ethersContract.balanceOf(holder.uu.toPhex())];
                     case 1:
-                        holderBignumber = _c.sent();
-                        _b = (_a = pollenium_buttercup_1.Uint256).fromHexish;
+                        holderBignumber = _d.sent();
+                        _a = pollenium_buttercup_1.Uint256.bind;
+                        _c = (_b = pollenium_uvaursi_1.Uu).fromHexish;
                         return [4 /*yield*/, ethers_1.ethers.utils.hexlify(holderBignumber)];
-                    case 2: return [2 /*return*/, _b.apply(_a, [_c.sent()])];
+                    case 2: return [2 /*return*/, new (_a.apply(pollenium_buttercup_1.Uint256, [void 0, _c.apply(_b, [_d.sent()])]))()];
                 }
             });
         });
     };
     TokenReader.prototype.fetchAllowance = function (struct) {
         return __awaiter(this, void 0, void 0, function () {
-            var holder, spender, allowanceBignumber, _a, _b;
-            return __generator(this, function (_c) {
-                switch (_c.label) {
+            var holder, spender, allowanceBignumber, _a, _b, _c;
+            return __generator(this, function (_d) {
+                switch (_d.label) {
                     case 0:
                         holder = struct.holder, spender = struct.spender;
-                        return [4 /*yield*/, this.ethersContract.allowance(holder.getPhex(), spender.getPhex())];
+                        return [4 /*yield*/, this.ethersContract.allowance(holder.uu.toPhex(), spender.uu.toPhex())];
                     case 1:
-                        allowanceBignumber = _c.sent();
-                        _b = (_a = pollenium_buttercup_1.Uint256).fromHexish;
+                        allowanceBignumber = _d.sent();
+                        _a = pollenium_buttercup_1.Uint256.bind;
+                        _c = (_b = pollenium_uvaursi_1.Uu).fromHexish;
                         return [4 /*yield*/, ethers_1.ethers.utils.hexlify(allowanceBignumber)];
-                    case 2: return [2 /*return*/, _b.apply(_a, [_c.sent()])];
+                    case 2: return [2 /*return*/, new (_a.apply(pollenium_buttercup_1.Uint256, [void 0, _c.apply(_b, [_d.sent()])]))()];
                 }
             });
         });
@@ -192,43 +195,46 @@ var EngineReader = /** @class */ (function (_super) {
     }
     EngineReader.prototype.fetchOwner = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var _a, _b;
-            return __generator(this, function (_c) {
-                switch (_c.label) {
+            var _a, _b, _c;
+            return __generator(this, function (_d) {
+                switch (_d.label) {
                     case 0:
-                        _b = (_a = pollenium_buttercup_1.Address).fromHexish;
+                        _a = pollenium_buttercup_1.Address.bind;
+                        _c = (_b = pollenium_uvaursi_1.Uu).fromHexish;
                         return [4 /*yield*/, this.ethersContract.owner()];
-                    case 1: return [2 /*return*/, _b.apply(_a, [_c.sent()])];
+                    case 1: return [2 /*return*/, new (_a.apply(pollenium_buttercup_1.Address, [void 0, _c.apply(_b, [_d.sent()])]))()];
                 }
             });
         });
     };
     EngineReader.prototype.fetchExecutorOracle = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var _a, _b;
-            return __generator(this, function (_c) {
-                switch (_c.label) {
+            var _a, _b, _c;
+            return __generator(this, function (_d) {
+                switch (_d.label) {
                     case 0:
-                        _b = (_a = pollenium_buttercup_1.Address).fromHexish;
+                        _a = pollenium_buttercup_1.Address.bind;
+                        _c = (_b = pollenium_uvaursi_1.Uu).fromHexish;
                         return [4 /*yield*/, this.ethersContract.executorOracle()];
-                    case 1: return [2 /*return*/, _b.apply(_a, [_c.sent()])];
+                    case 1: return [2 /*return*/, new (_a.apply(pollenium_buttercup_1.Address, [void 0, _c.apply(_b, [_d.sent()])]))()];
                 }
             });
         });
     };
     EngineReader.prototype.fetchBalance = function (struct) {
         return __awaiter(this, void 0, void 0, function () {
-            var holder, token, balanceBignumber, _a, _b;
-            return __generator(this, function (_c) {
-                switch (_c.label) {
+            var holder, token, balanceBignumber, _a, _b, _c;
+            return __generator(this, function (_d) {
+                switch (_d.label) {
                     case 0:
                         holder = struct.holder, token = struct.token;
-                        return [4 /*yield*/, this.ethersContract.balances(holder.getPhex(), token.getPhex())];
+                        return [4 /*yield*/, this.ethersContract.balances(holder.uu.toPhex(), token.uu.toPhex())];
                     case 1:
-                        balanceBignumber = _c.sent();
-                        _b = (_a = pollenium_buttercup_1.Uint256).fromHexish;
+                        balanceBignumber = _d.sent();
+                        _a = pollenium_buttercup_1.Uint256.bind;
+                        _c = (_b = pollenium_uvaursi_1.Uu).fromHexish;
                         return [4 /*yield*/, ethers_1.ethers.utils.hexlify(balanceBignumber)];
-                    case 2: return [2 /*return*/, _b.apply(_a, [_c.sent()])];
+                    case 2: return [2 /*return*/, new (_a.apply(pollenium_buttercup_1.Uint256, [void 0, _c.apply(_b, [_d.sent()])]))()];
                 }
             });
         });
@@ -241,41 +247,44 @@ var MonarchicExecutorOracleReader = /** @class */ (function (_super) {
     function MonarchicExecutorOracleReader(provider, address) {
         return _super.call(this, provider, contractOutputs_1.monarchicExecutorOracleOutput.abi, address) || this;
     }
-    MonarchicExecutorOracleReader.prototype.fetchOwner = function (address) {
+    MonarchicExecutorOracleReader.prototype.fetchOwner = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var _a, _b;
-            return __generator(this, function (_c) {
-                switch (_c.label) {
+            var _a, _b, _c;
+            return __generator(this, function (_d) {
+                switch (_d.label) {
                     case 0:
-                        _b = (_a = pollenium_buttercup_1.Address).fromHexish;
+                        _a = pollenium_buttercup_1.Address.bind;
+                        _c = (_b = pollenium_uvaursi_1.Uu).fromHexish;
                         return [4 /*yield*/, this.ethersContract.owner()];
-                    case 1: return [2 /*return*/, _b.apply(_a, [_c.sent()])];
+                    case 1: return [2 /*return*/, new (_a.apply(pollenium_buttercup_1.Address, [void 0, _c.apply(_b, [_d.sent()])]))()];
                 }
             });
         });
     };
     MonarchicExecutorOracleReader.prototype.fetchHot = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var _a, _b;
-            return __generator(this, function (_c) {
-                switch (_c.label) {
+            var _a, _b, _c;
+            return __generator(this, function (_d) {
+                switch (_d.label) {
                     case 0:
-                        _b = (_a = pollenium_buttercup_1.Address).fromHexish;
+                        _a = pollenium_buttercup_1.Address.bind;
+                        _c = (_b = pollenium_uvaursi_1.Uu).fromHexish;
                         return [4 /*yield*/, this.ethersContract.hot()];
-                    case 1: return [2 /*return*/, _b.apply(_a, [_c.sent()])];
+                    case 1: return [2 /*return*/, new (_a.apply(pollenium_buttercup_1.Address, [void 0, _c.apply(_b, [_d.sent()])]))()];
                 }
             });
         });
     };
     MonarchicExecutorOracleReader.prototype.fetchCold = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var _a, _b;
-            return __generator(this, function (_c) {
-                switch (_c.label) {
+            var _a, _b, _c;
+            return __generator(this, function (_d) {
+                switch (_d.label) {
                     case 0:
-                        _b = (_a = pollenium_buttercup_1.Address).fromHexish;
+                        _a = pollenium_buttercup_1.Address.bind;
+                        _c = (_b = pollenium_uvaursi_1.Uu).fromHexish;
                         return [4 /*yield*/, this.ethersContract.cold()];
-                    case 1: return [2 /*return*/, _b.apply(_a, [_c.sent()])];
+                    case 1: return [2 /*return*/, new (_a.apply(pollenium_buttercup_1.Address, [void 0, _c.apply(_b, [_d.sent()])]))()];
                 }
             });
         });
@@ -295,7 +304,7 @@ var TokenWriter = /** @class */ (function (_super) {
                 switch (_a.label) {
                     case 0:
                         to = struct.to, amount = struct.amount;
-                        return [4 /*yield*/, this.ethersContract.transfer(to.getPhex(), amount.getPhex())];
+                        return [4 /*yield*/, this.ethersContract.transfer(to.uu.toPhex(), amount.uu.toPhex())];
                     case 1:
                         _a.sent();
                         return [2 /*return*/];
@@ -310,7 +319,7 @@ var TokenWriter = /** @class */ (function (_super) {
                 switch (_a.label) {
                     case 0:
                         spender = struct.spender, amount = struct.amount;
-                        return [4 /*yield*/, this.ethersContract.approve(spender.getPhex(), amount.getPhex())];
+                        return [4 /*yield*/, this.ethersContract.approve(spender.uu.toPhex(), amount.uu.toPhex())];
                     case 1:
                         _a.sent();
                         return [2 /*return*/];
@@ -330,7 +339,7 @@ var EngineWriter = /** @class */ (function (_super) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.ethersContract.transferOwnership(owner.getPhex())];
+                    case 0: return [4 /*yield*/, this.ethersContract.transferOwnership(owner.uu.toPhex())];
                     case 1:
                         _a.sent();
                         return [2 /*return*/];
@@ -342,7 +351,7 @@ var EngineWriter = /** @class */ (function (_super) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.ethersContract.setExecutorOracle(executorOracle.getPhex())];
+                    case 0: return [4 /*yield*/, this.ethersContract.setExecutorOracle(executorOracle.uu.toPhex())];
                     case 1:
                         _a.sent();
                         return [2 /*return*/];
@@ -357,7 +366,7 @@ var EngineWriter = /** @class */ (function (_super) {
                 switch (_a.label) {
                     case 0:
                         to = struct.to, token = struct.token, amount = struct.amount;
-                        return [4 /*yield*/, this.ethersContract.deposit(to.getPhex(), token.getPhex(), amount.getPhex())];
+                        return [4 /*yield*/, this.ethersContract.deposit(to.uu.toPhex(), token.uu.toPhex(), amount.uu.toPhex())];
                     case 1:
                         _a.sent();
                         return [2 /*return*/];
@@ -373,7 +382,7 @@ var EngineWriter = /** @class */ (function (_super) {
                 switch (_b.label) {
                     case 0:
                         args = [
-                            executionRequest.prevBlockHash.getPhex(),
+                            executionRequest.prevBlockHash.uu.toPhex(),
                             executionRequest.buyyOrders.map(function (signedOrder) {
                                 return signedOrder.getEthersArg();
                             }),
@@ -382,11 +391,11 @@ var EngineWriter = /** @class */ (function (_super) {
                             }),
                             executionRequest.exchanges.map(function (exchange) {
                                 return {
-                                    buyyOrderIndex: exchange.signedBuyyOrderIndex.getPhex(),
-                                    sellOrderIndex: exchange.signedSellOrderIndex.getPhex(),
-                                    quotTokenTrans: exchange.quotTokenTrans.getPhex(),
-                                    variTokenTrans: exchange.variTokenTrans.getPhex(),
-                                    quotTokenArbit: exchange.quotTokenArbit.getPhex()
+                                    buyyOrderIndex: exchange.signedBuyyOrderIndex.uu.toPhex(),
+                                    sellOrderIndex: exchange.signedSellOrderIndex.uu.toPhex(),
+                                    quotTokenTrans: exchange.quotTokenTrans.uu.toPhex(),
+                                    variTokenTrans: exchange.variTokenTrans.uu.toPhex(),
+                                    quotTokenArbit: exchange.quotTokenArbit.uu.toPhex()
                                 };
                             })
                         ];
@@ -410,7 +419,7 @@ var MonarchicExecutorOracleWriter = /** @class */ (function (_super) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.ethersContract.setHot(hot.getPhex())];
+                    case 0: return [4 /*yield*/, this.ethersContract.setHot(hot.uu.toPhex())];
                     case 1:
                         _a.sent();
                         return [2 /*return*/];
@@ -422,7 +431,7 @@ var MonarchicExecutorOracleWriter = /** @class */ (function (_super) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.ethersContract.setCold(cold.getPhex())];
+                    case 0: return [4 /*yield*/, this.ethersContract.setCold(cold.uu.toPhex())];
                     case 1:
                         _a.sent();
                         return [2 /*return*/];

@@ -9,7 +9,7 @@ function getWallet(accountName) {
         return wallets[accountName];
     }
     var keypair = getKeypair_1.getKeypair(accountName);
-    wallets[accountName] = new ethers_1.Wallet(keypair.privateKey.getUint8Array(), web3Provider_1.web3Provider);
+    wallets[accountName] = new ethers_1.Wallet(keypair.privateKey.u, web3Provider_1.web3Provider);
     return wallets[accountName];
 }
 exports.getWallet = getWallet;

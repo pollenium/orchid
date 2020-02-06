@@ -30,7 +30,7 @@ var TokenNames;
 // const uint256Zero = Uint256.fromNumber(0)
 //
 exports.startBalance = pollenium_buttercup_1.Uint256.fromNumber(1000);
-exports.totalSupply = exports.startBalance.mul(pollenium_buttercup_1.Uint256.fromNumber(exports.traderNames.length));
+exports.totalSupply = exports.startBalance.opMul(pollenium_buttercup_1.Uint256.fromNumber(exports.traderNames.length));
 //
 // const addresses = {}
 // accountNames.forEach((accountName) => {

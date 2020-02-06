@@ -9,11 +9,12 @@ import {
   fetchOrDeployEngineAddress,
   getAccountAddress
 } from './lib/utils'
+import { EngineReader } from '../classes/Contract'
 
 require('./engine.test')
 require('./tokens.test')
 
-let engineReader
+let engineReader: EngineReader
 
 test('should fetch engineReader', async () => {
   engineReader = await fetchEngineReader()
@@ -34,7 +35,7 @@ traderNames.forEach((traderName) => {
         holder: getAccountAddress(traderName),
         spender: await fetchOrDeployEngineAddress()
       })
-      expect(allowance.getIsEqual(startBalance)).toBe(true)
+      expect(allowance.uu.getIsEqual(startBalance.uu)).toBe(true)
     })
     test(`${traderName} should deposit ${tokenName}`, async () => {
       const engineWriter = await fetchEngineWriter(traderName)

@@ -46,13 +46,13 @@ frangipani.forEach((fixture, index) => {
   const solution = orderPair.getSolution(chainState)
 
   test(`order pair #${index}: quotTokenTrans`, () => {
-    expect(solution.quotTokenTrans.getNumber()).toBe(fixture.solution.quotTokenTrans)
+    expect(solution.quotTokenTrans.toNumber()).toBe(fixture.solution.quotTokenTrans)
   })
   test(`order pair #${index}: variTokenTrans`, () => {
-    expect(solution.variTokenTrans.getNumber()).toBe(fixture.solution.variTokenTrans)
+    expect(solution.variTokenTrans.toNumber()).toBe(fixture.solution.variTokenTrans)
   })
   test(`order pair #${index}: quotTokenArbit`, () => {
-    expect(solution.quotTokenArbit.getNumber()).toBe(fixture.solution.quotTokenArbit)
+    expect(solution.quotTokenArbit.toNumber()).toBe(fixture.solution.quotTokenArbit)
   })
 
 })

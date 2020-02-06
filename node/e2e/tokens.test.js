@@ -41,13 +41,13 @@ var utils_1 = require("./lib/utils");
 var ts_enum_util_1 = require("ts-enum-util");
 var deployerAddress = utils_1.getAccountAddress(fixtures_1.AccountNames.DEPLOYER);
 ts_enum_util_1.$enum(fixtures_1.TokenNames).forEach(function (tokenName) {
-    var tokenContractReader;
+    var tokenReader;
     test("fetch " + tokenName + " reader/writer", function () { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, utils_1.fetchTokenReader(tokenName)];
                 case 1:
-                    tokenContractReader = _a.sent();
+                    tokenReader = _a.sent();
                     return [2 /*return*/];
             }
         });
@@ -56,10 +56,10 @@ ts_enum_util_1.$enum(fixtures_1.TokenNames).forEach(function (tokenName) {
         var balance;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, tokenContractReader.fetchBalance(deployerAddress)];
+                case 0: return [4 /*yield*/, tokenReader.fetchBalance(deployerAddress)];
                 case 1:
                     balance = _a.sent();
-                    expect(balance.getNumber()).toBe(fixtures_1.totalSupply.getNumber());
+                    expect(balance.toNumber()).toBe(fixtures_1.totalSupply.toNumber());
                     return [2 /*return*/];
             }
         });
@@ -88,10 +88,10 @@ ts_enum_util_1.$enum(fixtures_1.TokenNames).forEach(function (tokenName) {
             var balance;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, tokenContractReader.fetchBalance(utils_1.getAccountAddress(traderName))];
+                    case 0: return [4 /*yield*/, tokenReader.fetchBalance(utils_1.getAccountAddress(traderName))];
                     case 1:
                         balance = _a.sent();
-                        expect(balance.getNumber()).toBe(fixtures_1.startBalance.getNumber());
+                        expect(balance.toNumber()).toBe(fixtures_1.startBalance.toNumber());
                         return [2 /*return*/];
                 }
             });
@@ -101,10 +101,10 @@ ts_enum_util_1.$enum(fixtures_1.TokenNames).forEach(function (tokenName) {
         var balance;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, tokenContractReader.fetchBalance(deployerAddress)];
+                case 0: return [4 /*yield*/, tokenReader.fetchBalance(deployerAddress)];
                 case 1:
                     balance = _a.sent();
-                    expect(balance.getNumber()).toBe(0);
+                    expect(balance.toNumber()).toBe(0);
                     return [2 /*return*/];
             }
         });

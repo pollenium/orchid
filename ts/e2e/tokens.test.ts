@@ -7,17 +7,20 @@ import {
   getAccountAddress
 } from './lib/utils'
 import { $enum } from 'ts-enum-util'
+import { TokenReader } from '../classes/Contract'
 
 const deployerAddress = getAccountAddress(AccountNames.DEPLOYER)
 
 $enum(TokenNames).forEach((tokenName) => {
-  let tokenContractReader
+
+  let tokenReader: TokenReader
+
   test(`fetch ${tokenName} reader/writer`, async () => {
-    tokenContractReader = await fetchTokenReader(tokenName)
+    tokenReader = await fetchTokenReader(tokenName)
   })
   test('balance of DEPLOYER should be totalSupply', async () => {
-    const balance = await tokenContractReader.fetchBalance(deployerAddress)
-    expect(balance.getNumber()).toBe(totalSupply.getNumber())
+    const balance = await tokenReader.fetchBalance(deployerAddress)
+    expect(balance.toNumber()).toBe(totalSupply.toNumber())
   })
   traderNames.forEach((traderName) => {
     test(`transfer startBalance to ${traderName}`, async () => {
@@ -30,13 +33,13 @@ $enum(TokenNames).forEach((tokenName) => {
   })
   traderNames.forEach((traderName) => {
     test(`balance of ${traderName} should be startBalance`, async () => {
-      const balance = await tokenContractReader.fetchBalance(getAccountAddress(traderName))
-      expect(balance.getNumber()).toBe(startBalance.getNumber())
+      const balance = await tokenReader.fetchBalance(getAccountAddress(traderName))
+      expect(balance.toNumber()).toBe(startBalance.toNumber())
     })
   })
   test('balance of DEPLOYER should be 0', async () => {
-    const balance = await tokenContractReader.fetchBalance(deployerAddress)
-    expect(balance.getNumber()).toBe(0)
+    const balance = await tokenReader.fetchBalance(deployerAddress)
+    expect(balance.toNumber()).toBe(0)
   })
 
 })

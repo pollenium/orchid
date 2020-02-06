@@ -2,6 +2,7 @@ import { Address, Uint256, Bytes, Bytes1, Bytes32, Uint8 } from 'pollenium-butte
 import { ORDER_TYPE } from '../enums'
 import { OrderInterface } from '../interfaces/Order'
 import { soliditySha3 } from 'web3-utils'
+import { Uu } from 'pollenium-uvaursi'
 
 export class Order implements OrderInterface {
 
@@ -19,7 +20,7 @@ export class Order implements OrderInterface {
   constructor(struct: OrderInterface) {
     Object.assign(this, struct)
 
-    if (this.quotToken.getIsEqual(this.variToken)) {
+    if (this.quotToken.uu.getIsEqual(this.variToken.uu)) {
       throw new QuotVariTokenMatchError(this.quotToken)
     }
 
@@ -51,14 +52,15 @@ export class Order implements OrderInterface {
       return this.sugma
     }
 
-    this.sugma = Bytes.fromArray([])
-      .getAppended(this.prevBlockHash)
-      .getAppended(Uint8.fromNumber(this.type))
-      .getAppended(this.quotToken)
-      .getAppended(this.variToken)
-      .getAppended(this.priceNumer)
-      .getAppended(this.priceDenom)
-      .getAppended(this.tokenLimit)
+    this.sugma = new Bytes(Uu.genConcat([
+      this.prevBlockHash,
+      Uint8.fromNumber(this.type),
+      this.quotToken,
+      this.variToken,
+      this.priceNumer,
+      this.priceDenom,
+      this.tokenLimit,
+    ]))
     return this.sugma
   }
 
@@ -66,23 +68,23 @@ export class Order implements OrderInterface {
     if (this.sugmaHash) {
       return this.sugmaHash
     }
-    this.sugmaHash = Bytes32.fromHexish(
+    this.sugmaHash = new Bytes32(Uu.fromHexish(
       soliditySha3({
         t: 'bytes',
-        v: this.getSugma().getHex()
+        v: this.getSugma().uu.toHex()
       })
-    )
+    ))
     return this.sugmaHash
   }
 
 
   getTokenUnfilled(tokenFilled: Uint256): Uint256 {
-    return this.tokenLimit.sub(tokenFilled)
+    return this.tokenLimit.opSub(tokenFilled)
   }
 
   getTokenAvail(tokenFilled: Uint256, tokenBalance: Uint256): Uint256 {
     const tokenUnfilled = this.getTokenUnfilled(tokenFilled)
-    if (tokenUnfilled.lt(tokenBalance)) {
+    if (tokenUnfilled.compLt(tokenBalance)) {
       return tokenUnfilled
     } else {
       return tokenBalance
@@ -93,7 +95,7 @@ export class Order implements OrderInterface {
 
 export class QuotVariTokenMatchError extends Error {
   constructor(token) {
-    super(`quotToken and variToken should be different, received ${token.getHex()} for both`)
+    super(`quotToken and variToken should be different, received ${token.uu.toHex()} for both`)
     Object.setPrototypeOf(this, QuotVariTokenMatchError.prototype)
   }
 }

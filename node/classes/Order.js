@@ -15,10 +15,11 @@ var __extends = (this && this.__extends) || (function () {
 exports.__esModule = true;
 var pollenium_buttercup_1 = require("pollenium-buttercup");
 var web3_utils_1 = require("web3-utils");
+var pollenium_uvaursi_1 = require("pollenium-uvaursi");
 var Order = /** @class */ (function () {
     function Order(struct) {
         Object.assign(this, struct);
-        if (this.quotToken.getIsEqual(this.variToken)) {
+        if (this.quotToken.uu.getIsEqual(this.variToken.uu)) {
             throw new QuotVariTokenMatchError(this.quotToken);
         }
         if (this.quotToken.getIsNull()) {
@@ -41,32 +42,33 @@ var Order = /** @class */ (function () {
         if (this.sugma) {
             return this.sugma;
         }
-        this.sugma = pollenium_buttercup_1.Bytes.fromArray([])
-            .getAppended(this.prevBlockHash)
-            .getAppended(pollenium_buttercup_1.Uint8.fromNumber(this.type))
-            .getAppended(this.quotToken)
-            .getAppended(this.variToken)
-            .getAppended(this.priceNumer)
-            .getAppended(this.priceDenom)
-            .getAppended(this.tokenLimit);
+        this.sugma = new pollenium_buttercup_1.Bytes(pollenium_uvaursi_1.Uu.genConcat([
+            this.prevBlockHash,
+            pollenium_buttercup_1.Uint8.fromNumber(this.type),
+            this.quotToken,
+            this.variToken,
+            this.priceNumer,
+            this.priceDenom,
+            this.tokenLimit,
+        ]));
         return this.sugma;
     };
     Order.prototype.getSugmaHash = function () {
         if (this.sugmaHash) {
             return this.sugmaHash;
         }
-        this.sugmaHash = pollenium_buttercup_1.Bytes32.fromHexish(web3_utils_1.soliditySha3({
+        this.sugmaHash = new pollenium_buttercup_1.Bytes32(pollenium_uvaursi_1.Uu.fromHexish(web3_utils_1.soliditySha3({
             t: 'bytes',
-            v: this.getSugma().getHex()
-        }));
+            v: this.getSugma().uu.toHex()
+        })));
         return this.sugmaHash;
     };
     Order.prototype.getTokenUnfilled = function (tokenFilled) {
-        return this.tokenLimit.sub(tokenFilled);
+        return this.tokenLimit.opSub(tokenFilled);
     };
     Order.prototype.getTokenAvail = function (tokenFilled, tokenBalance) {
         var tokenUnfilled = this.getTokenUnfilled(tokenFilled);
-        if (tokenUnfilled.lt(tokenBalance)) {
+        if (tokenUnfilled.compLt(tokenBalance)) {
             return tokenUnfilled;
         }
         else {
@@ -79,7 +81,7 @@ exports.Order = Order;
 var QuotVariTokenMatchError = /** @class */ (function (_super) {
     __extends(QuotVariTokenMatchError, _super);
     function QuotVariTokenMatchError(token) {
-        var _this = _super.call(this, "quotToken and variToken should be different, received " + token.getHex() + " for both") || this;
+        var _this = _super.call(this, "quotToken and variToken should be different, received " + token.uu.toHex() + " for both") || this;
         Object.setPrototypeOf(_this, QuotVariTokenMatchError.prototype);
         return _this;
     }

@@ -16,6 +16,7 @@ exports.__esModule = true;
 var pollenium_buttercup_1 = require("pollenium-buttercup");
 var pollenium_ilex_1 = require("pollenium-ilex");
 var Order_1 = require("./Order");
+var pollenium_uvaursi_1 = require("pollenium-uvaursi");
 var SignedOrder = /** @class */ (function (_super) {
     __extends(SignedOrder, _super);
     function SignedOrder(orderStruct, signature) {
@@ -32,45 +33,46 @@ var SignedOrder = /** @class */ (function (_super) {
     };
     SignedOrder.prototype.getEthersArg = function () {
         return [
-            this.getTrader().getPhex(),
-            this.quotToken.getPhex(),
-            this.variToken.getPhex(),
-            this.priceNumer.getPhex(),
-            this.priceDenom.getPhex(),
-            this.tokenLimit.getPhex(),
-            this.signature.v.getNumber(),
-            this.signature.r.getPhex(),
-            this.signature.s.getPhex()
+            this.getTrader().uu.toPhex(),
+            this.quotToken.uu.toPhex(),
+            this.variToken.uu.toPhex(),
+            this.priceNumer.uu.toPhex(),
+            this.priceDenom.uu.toPhex(),
+            this.tokenLimit.uu.toPhex(),
+            this.signature.v.toNumber(),
+            this.signature.r.uu.toPhex(),
+            this.signature.s.uu.toPhex()
         ];
     };
     SignedOrder.prototype.getLigma = function () {
         if (this.ligma) {
             return this.ligma;
         }
-        this.ligma = pollenium_buttercup_1.Bytes.fromArray([])
-            .getAppended(this.prevBlockHash)
-            .getAppended(pollenium_buttercup_1.Uint8.fromNumber(this.type))
-            .getAppended(this.quotToken)
-            .getAppended(this.variToken)
-            .getAppended(this.priceNumer)
-            .getAppended(this.priceDenom)
-            .getAppended(this.tokenLimit)
-            .getAppended(this.signature.v)
-            .getAppended(this.signature.r)
-            .getAppended(this.signature.s);
+        this.ligma = new pollenium_buttercup_1.Bytes(pollenium_uvaursi_1.Uu.genConcat([
+            this.prevBlockHash,
+            pollenium_buttercup_1.Uint8.fromNumber(this.type),
+            this.quotToken,
+            this.variToken,
+            this.priceNumer,
+            this.priceDenom,
+            this.tokenLimit,
+            this.signature.v,
+            this.signature.r,
+            this.signature.s
+        ]));
         return this.ligma;
     };
     SignedOrder.fromLigma = function (ligma) {
-        var prevBlockHash = ligma.getSlice(0, 32).getCasted(pollenium_buttercup_1.Bytes32);
-        var type = ligma.getUint8Array()[32];
-        var quotToken = ligma.getSlice(33, 53).getCasted(pollenium_buttercup_1.Address);
-        var variToken = ligma.getSlice(53, 73).getCasted(pollenium_buttercup_1.Address);
-        var priceNumer = ligma.getSlice(73, 105).getCasted(pollenium_buttercup_1.Uint256);
-        var priceDenom = ligma.getSlice(105, 137).getCasted(pollenium_buttercup_1.Uint256);
-        var tokenLimit = ligma.getSlice(137, 169).getCasted(pollenium_buttercup_1.Uint256);
-        var signatureV = ligma.getSlice(169, 170).getCasted(pollenium_buttercup_1.Uint8);
-        var signatureR = ligma.getSlice(170, 202).getCasted(pollenium_buttercup_1.Bytes32);
-        var signatureS = ligma.getSlice(202, 234).getCasted(pollenium_buttercup_1.Bytes32);
+        var prevBlockHash = new pollenium_buttercup_1.Bytes32(ligma.u.slice(0, 32));
+        var type = ligma.u[32];
+        var quotToken = new pollenium_buttercup_1.Address(ligma.u.slice(33, 53));
+        var variToken = new pollenium_buttercup_1.Address(ligma.u.slice(53, 73));
+        var priceNumer = new pollenium_buttercup_1.Uint256(ligma.u.slice(73, 105));
+        var priceDenom = new pollenium_buttercup_1.Uint256(ligma.u.slice(105, 137));
+        var tokenLimit = new pollenium_buttercup_1.Uint256(ligma.u.slice(137, 169));
+        var signatureV = new pollenium_buttercup_1.Uint8(ligma.u.slice(169, 170));
+        var signatureR = new pollenium_buttercup_1.Bytes32(ligma.u.slice(170, 202));
+        var signatureS = new pollenium_buttercup_1.Bytes32(ligma.u.slice(202, 234));
         var orderStruct = {
             prevBlockHash: prevBlockHash,
             type: type,

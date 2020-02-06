@@ -19,63 +19,59 @@ test('getLigma/fromLigma', () => {
   const signedOrder1 = SignedOrder.fromLigma(ligma)
 
   expect(
-    signedOrder0.prevBlockHash.getIsEqual(
-      signedOrder1.prevBlockHash
+    signedOrder0.prevBlockHash.uu.getIsEqual(
+      signedOrder1.prevBlockHash.uu
     )
   ).toBe(true)
   expect(signedOrder0.type).toBe(signedOrder1.type)
   expect(
-    signedOrder0.quotToken.getIsEqual(
-      signedOrder1.quotToken
+    signedOrder0.quotToken.uu.getIsEqual(
+      signedOrder1.quotToken.uu
     )
   ).toBe(true)
   expect(
-    signedOrder0.variToken.getIsEqual(
-      signedOrder1.variToken
+    signedOrder0.variToken.uu.getIsEqual(
+      signedOrder1.variToken.uu
     )
   ).toBe(true)
   expect(
-    signedOrder0.priceNumer.getIsEqual(
-      signedOrder1.priceNumer
+    signedOrder0.priceNumer.uu.getIsEqual(
+      signedOrder1.priceNumer.uu
     )
   ).toBe(true)
   expect(
-    signedOrder0.priceDenom.getIsEqual(
-      signedOrder1.priceDenom
+    signedOrder0.priceDenom.uu.getIsEqual(
+      signedOrder1.priceDenom.uu
     )
   ).toBe(true)
   expect(
-    signedOrder0.tokenLimit.getIsEqual(
-      signedOrder1.tokenLimit
+    signedOrder0.tokenLimit.uu.getIsEqual(
+      signedOrder1.tokenLimit.uu
     )
   ).toBe(true)
   expect(
-    signedOrder0.signature.v.getIsEqual(
+    signedOrder0.signature.v.uu.getIsEqual(
       signedOrder1.signature.v
     )
   ).toBe(true)
   expect(
-    signedOrder0.signature.r.getIsEqual(
+    signedOrder0.signature.r.uu.getIsEqual(
       signedOrder1.signature.r
     )
   ).toBe(true)
   expect(
-    signedOrder0.signature.s.getIsEqual(
+    signedOrder0.signature.s.uu.getIsEqual(
       signedOrder1.signature.s
     )
   ).toBe(true)
   expect(
-    signedOrder0.getTrader().getIsEqual(
-      signedOrder1.getTrader()
+    signedOrder0.getTrader().uu.getIsEqual(
+      signedOrder1.getTrader().uu
     )
   ).toBe(true)
-
-
-
-
   expect(
-    signedOrder0.getTrader().getIsEqual(
-      signedOrder1.getTrader()
+    signedOrder0.getTrader().uu.getIsEqual(
+      signedOrder1.getTrader().uu
     )
   ).toBe(true)
 

@@ -23,14 +23,14 @@ var OrderPair = /** @class */ (function () {
         if (this.sellOrder.type !== enums_1.ORDER_TYPE.SELL) {
             throw new InvalidSellOrderTypeError();
         }
-        if (!this.buyyOrder.quotToken.getIsEqual(this.sellOrder.quotToken)) {
+        if (!this.buyyOrder.quotToken.uu.getIsEqual(this.sellOrder.quotToken)) {
             throw new QuotTokenMismatchError();
         }
-        if (!this.buyyOrder.variToken.getIsEqual(this.sellOrder.variToken)) {
+        if (!this.buyyOrder.variToken.uu.getIsEqual(this.sellOrder.variToken)) {
             throw new VariTokenMismatchError();
         }
-        if (this.buyyOrder.priceNumer.mul(this.sellOrder.priceDenom)
-            .lt(this.buyyOrder.priceDenom.mul(this.sellOrder.priceNumer))) {
+        if (this.buyyOrder.priceNumer.opMul(this.sellOrder.priceDenom)
+            .compLt(this.buyyOrder.priceDenom.opMul(this.sellOrder.priceNumer))) {
             throw new PriceConstraintError;
         }
         this.quotToken = this.buyyOrder.quotToken,
@@ -40,18 +40,18 @@ var OrderPair = /** @class */ (function () {
         var quotTokenAvail = this.buyyOrder.getTokenAvail(chainState.buyyOrderTokenFilled, chainState.buyyOrderTokenBalance);
         var variTokenAvail = this.sellOrder.getTokenAvail(chainState.buyyOrderTokenFilled, chainState.buyyOrderTokenBalance);
         var buyyOrderVariTokenTransMax = quotTokenAvail
-            .mul(this.buyyOrder.priceDenom)
-            .divDn(this.buyyOrder.priceNumer);
-        var variTokenTrans = (buyyOrderVariTokenTransMax.lt(variTokenAvail))
+            .opMul(this.buyyOrder.priceDenom)
+            .opDiv(this.buyyOrder.priceNumer);
+        var variTokenTrans = (buyyOrderVariTokenTransMax.compLt(variTokenAvail))
             ? buyyOrderVariTokenTransMax
             : variTokenAvail;
         var quotTokenTrans = variTokenTrans
-            .mul(this.sellOrder.priceNumer)
-            .divDn(this.sellOrder.priceDenom);
+            .opMul(this.sellOrder.priceNumer)
+            .opDiv(this.sellOrder.priceDenom);
         var quotTokenArbit = variTokenTrans
-            .mul(this.buyyOrder.priceNumer)
-            .divDn(this.buyyOrder.priceDenom)
-            .sub(quotTokenTrans);
+            .opMul(this.buyyOrder.priceNumer)
+            .opDiv(this.buyyOrder.priceDenom)
+            .opSub(quotTokenTrans);
         return {
             quotTokenTrans: quotTokenTrans,
             quotTokenArbit: quotTokenArbit,

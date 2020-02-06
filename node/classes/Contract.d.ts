@@ -54,7 +54,7 @@ export declare class EngineReader extends ContractReader {
 }
 export declare class MonarchicExecutorOracleReader extends ContractReader {
     constructor(provider: ethers.providers.Provider, address: Address);
-    fetchOwner(address: Address): Promise<Address>;
+    fetchOwner(): Promise<Address>;
     fetchHot(): Promise<Address>;
     fetchCold(): Promise<Address>;
 }

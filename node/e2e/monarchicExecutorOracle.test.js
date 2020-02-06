@@ -56,7 +56,7 @@ test('owner should be DEPLOYER', function () { return __awaiter(void 0, void 0, 
             case 0: return [4 /*yield*/, monarchicExecutorOracleReader.fetchOwner()];
             case 1:
                 owner = _a.sent();
-                expect(owner.getIsEqual(utils_1.getAccountAddress(fixtures_1.AccountNames.DEPLOYER))).toBe(true);
+                expect(owner.uu.getIsEqual(utils_1.getAccountAddress(fixtures_1.AccountNames.DEPLOYER))).toBe(true);
                 return [2 /*return*/];
         }
     });
@@ -82,7 +82,7 @@ test('hot should be MONARCH_HOT', function () { return __awaiter(void 0, void 0,
             case 0: return [4 /*yield*/, monarchicExecutorOracleReader.fetchHot()];
             case 1:
                 monarchHot = _a.sent();
-                expect(monarchHot.getIsEqual(utils_1.getAccountAddress(fixtures_1.AccountNames.MONARCH_HOT))).toBe(true);
+                expect(monarchHot.uu.getIsEqual(utils_1.getAccountAddress(fixtures_1.AccountNames.MONARCH_HOT))).toBe(true);
                 return [2 /*return*/];
         }
     });
@@ -108,7 +108,7 @@ test('cold should be MONARCH_COLD', function () { return __awaiter(void 0, void 
             case 0: return [4 /*yield*/, monarchicExecutorOracleReader.fetchCold()];
             case 1:
                 monarchCold = _a.sent();
-                expect(monarchCold.getIsEqual(utils_1.getAccountAddress(fixtures_1.AccountNames.MONARCH_COLD))).toBe(true);
+                expect(monarchCold.uu.getIsEqual(utils_1.getAccountAddress(fixtures_1.AccountNames.MONARCH_COLD))).toBe(true);
                 return [2 /*return*/];
         }
     });

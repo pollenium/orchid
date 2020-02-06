@@ -38,6 +38,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 var web3_1 = require("../web3");
 var pollenium_buttercup_1 = require("pollenium-buttercup");
+var pollenium_uvaursi_1 = require("pollenium-uvaursi");
 function fetchBlockHash() {
     return __awaiter(this, void 0, void 0, function () {
         var block;
@@ -46,7 +47,7 @@ function fetchBlockHash() {
                 case 0: return [4 /*yield*/, web3_1.web3.eth.getBlock('latest')];
                 case 1:
                     block = _a.sent();
-                    return [2 /*return*/, pollenium_buttercup_1.Bytes32.fromHexish(block.hash)];
+                    return [2 /*return*/, new pollenium_buttercup_1.Bytes32(pollenium_uvaursi_1.Uu.fromHexish(block.hash))];
             }
         });
     });

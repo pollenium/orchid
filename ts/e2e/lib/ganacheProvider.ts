@@ -10,7 +10,7 @@ export const ganacheProvider = ganache.provider({
     const keypair = getKeypair(name)
     return {
       balance: Number.MAX_SAFE_INTEGER,
-      secretKey: keypair.privateKey.getBuffer()
+      secretKey: new Buffer(keypair.privateKey.u)
     }
   })
 })

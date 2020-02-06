@@ -89,7 +89,7 @@ fixtures_1.traderNames.forEach(function (traderName) {
                                 _c)])];
                     case 3:
                         allowance = _d.sent();
-                        expect(allowance.getIsEqual(fixtures_1.startBalance)).toBe(true);
+                        expect(allowance.uu.getIsEqual(fixtures_1.startBalance.uu)).toBe(true);
                         return [2 /*return*/];
                 }
             });

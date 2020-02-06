@@ -38,13 +38,13 @@ pollenium_frangipani_1["default"].forEach(function (fixture, index) {
     var orderPair = new __2.OrderPair({ buyyOrder: buyyOrder, sellOrder: sellOrder });
     var solution = orderPair.getSolution(chainState);
     test("order pair #" + index + ": quotTokenTrans", function () {
-        expect(solution.quotTokenTrans.getNumber()).toBe(fixture.solution.quotTokenTrans);
+        expect(solution.quotTokenTrans.toNumber()).toBe(fixture.solution.quotTokenTrans);
     });
     test("order pair #" + index + ": variTokenTrans", function () {
-        expect(solution.variTokenTrans.getNumber()).toBe(fixture.solution.variTokenTrans);
+        expect(solution.variTokenTrans.toNumber()).toBe(fixture.solution.variTokenTrans);
     });
     test("order pair #" + index + ": quotTokenArbit", function () {
-        expect(solution.quotTokenArbit.getNumber()).toBe(fixture.solution.quotTokenArbit);
+        expect(solution.quotTokenArbit.toNumber()).toBe(fixture.solution.quotTokenArbit);
     });
 });
 test('InvalidBuyyOrderTypeError', function () {

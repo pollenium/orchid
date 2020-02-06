@@ -6,10 +6,11 @@ import {
   fetchOrDeployMonarchicExecutorOracleAddress
 } from './lib/utils'
 import { AccountNames } from './lib/fixtures'
+import { EngineReader } from '../classes/Contract'
 
 require('./monarchicExecutorOracle.test')
 
-let engineReader
+let engineReader: EngineReader
 
 test('fetch engineReader', async () => {
   engineReader = await fetchEngineReader()
@@ -18,7 +19,7 @@ test('fetch engineReader', async () => {
 test('owner should be DEPLOYER', async () => {
   const owner = await engineReader.fetchOwner()
   expect(
-    owner.getIsEqual(getAccountAddress(AccountNames.DEPLOYER))
+    owner.uu.getIsEqual(getAccountAddress(AccountNames.DEPLOYER))
   ).toBe(true)
 })
 
@@ -30,7 +31,7 @@ test('set owner to ADMIN', async () => {
 test('owner should be ADMIN', async () => {
   const owner = await engineReader.fetchOwner()
   expect(
-    owner.getIsEqual(getAccountAddress(AccountNames.ADMIN))
+    owner.uu.getIsEqual(getAccountAddress(AccountNames.ADMIN))
   ).toBe(true)
 })
 
@@ -44,7 +45,7 @@ test('executorOracle should be monarchicExecutorOracle', async () => {
   const executorOracle = await engineReader.fetchExecutorOracle()
   const monarchicExecutorOracle = await fetchOrDeployMonarchicExecutorOracleAddress()
   expect(
-    executorOracle.getIsEqual(monarchicExecutorOracle)
+    executorOracle.uu.getIsEqual(monarchicExecutorOracle)
   ).toBe(true)
 
 })
@@ -52,7 +53,7 @@ test('executorOracle should be monarchicExecutorOracle', async () => {
 test('owner should be ADMIN', async () => {
   const owner = await engineReader.fetchOwner()
   expect(
-    owner.getIsEqual(getAccountAddress(AccountNames.ADMIN))
+    owner.uu.getIsEqual(getAccountAddress(AccountNames.ADMIN))
   ).toBe(true)
 })
 
@@ -69,6 +70,6 @@ test('ATTACKER should not be able to set owner', async () => {
 test('owner should be ADMIN', async () => {
   const owner = await engineReader.fetchOwner()
   expect(
-    owner.getIsEqual(getAccountAddress(AccountNames.ADMIN))
+    owner.uu.getIsEqual(getAccountAddress(AccountNames.ADMIN))
   ).toBe(true)
 })

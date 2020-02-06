@@ -14,11 +14,12 @@ import frangipani from 'pollenium-frangipani'
 import { traderNames, TokenNames, AccountNames, startBalance } from './lib/fixtures'
 import { $enum } from 'ts-enum-util'
 import { ORDER_TYPE, Order, SignedOrder } from '../'
+import { EngineReader } from '../classes/Contract'
 
 require('./deposit.test')
 
 let snapshotId
-let engineReader
+let engineReader: EngineReader
 
 function arrayOf(length, callback) {
   const array = []
@@ -43,7 +44,7 @@ frangipani.forEach(async (fixture, index) => {
     const quotTokenTrans = Uint256.fromNumber(fixture.solution.quotTokenTrans)
     const variTokenTrans = Uint256.fromNumber(fixture.solution.variTokenTrans)
     const quotTokenArbit = Uint256.fromNumber(fixture.solution.quotTokenArbit)
-    const quotTokenTotal = quotTokenTrans.add(quotTokenArbit)
+    const quotTokenTotal = quotTokenTrans.opAdd(quotTokenArbit)
 
     traderNames.forEach((traderName) => {
       $enum(TokenNames).forEach((tokenName) => {
@@ -54,7 +55,7 @@ frangipani.forEach(async (fixture, index) => {
             holder: getAccountAddress(traderName),
             token: await fetchOrDeployTokenAddress(tokenName)
           })
-          expect(balance.getIsEqual(startBalance)).toBe(true)
+          expect(balance.uu.getIsEqual(startBalance.uu)).toBe(true)
         })
       })
       test('execute', async () => {
@@ -124,9 +125,9 @@ frangipani.forEach(async (fixture, index) => {
           token: await fetchOrDeployTokenAddress(TokenNames.DAI)
         })
 
-        expect(balanceAlice.getNumber()).toBe(startBalance.sub(quotTokenTotal).getNumber())
-        expect(balanceBob.getNumber()).toBe(startBalance.add(quotTokenTrans).getNumber())
-        expect(balanceMonarchCold.getNumber()).toBe(quotTokenArbit.getNumber())
+        expect(balanceAlice.toNumber()).toBe(startBalance.opSub(quotTokenTotal).toNumber())
+        expect(balanceBob.toNumber()).toBe(startBalance.opAdd(quotTokenTrans).toNumber())
+        expect(balanceMonarchCold.toNumber()).toBe(quotTokenArbit.toNumber())
       })
 
       test('should have transferred WETH from BOB to ALICE', async () => {
@@ -138,8 +139,8 @@ frangipani.forEach(async (fixture, index) => {
           holder: getAccountAddress(AccountNames.BOB),
           token: await fetchOrDeployTokenAddress(TokenNames.WETH)
         })
-        expect(balanceAlice.getNumber()).toBe(startBalance.add(variTokenTrans).getNumber())
-        expect(balanceBob.getNumber()).toBe(startBalance.sub(variTokenTrans).getNumber())
+        expect(balanceAlice.toNumber()).toBe(startBalance.opAdd(variTokenTrans).toNumber())
+        expect(balanceBob.toNumber()).toBe(startBalance.opSub(variTokenTrans).toNumber())
       })
     })
   })

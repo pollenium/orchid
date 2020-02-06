@@ -25,18 +25,18 @@ export class OrderPair implements OrderPairInterface {
       throw new InvalidSellOrderTypeError()
     }
 
-    if (!this.buyyOrder.quotToken.getIsEqual(this.sellOrder.quotToken)) {
+    if (!this.buyyOrder.quotToken.uu.getIsEqual(this.sellOrder.quotToken)) {
       throw new QuotTokenMismatchError()
     }
 
-    if (!this.buyyOrder.variToken.getIsEqual(this.sellOrder.variToken)) {
+    if (!this.buyyOrder.variToken.uu.getIsEqual(this.sellOrder.variToken)) {
       throw new VariTokenMismatchError()
     }
 
     if (
-      this.buyyOrder.priceNumer.mul(this.sellOrder.priceDenom)
-        .lt(
-          this.buyyOrder.priceDenom.mul(this.sellOrder.priceNumer)
+      this.buyyOrder.priceNumer.opMul(this.sellOrder.priceDenom)
+        .compLt(
+          this.buyyOrder.priceDenom.opMul(this.sellOrder.priceNumer)
         )
     ) {
       throw new PriceConstraintError
@@ -59,24 +59,24 @@ export class OrderPair implements OrderPairInterface {
 
     const buyyOrderVariTokenTransMax
       = quotTokenAvail
-        .mul(this.buyyOrder.priceDenom)
-        .divDn(this.buyyOrder.priceNumer)
+        .opMul(this.buyyOrder.priceDenom)
+        .opDiv(this.buyyOrder.priceNumer)
 
     const variTokenTrans
-      = (buyyOrderVariTokenTransMax.lt(variTokenAvail))
+      = (buyyOrderVariTokenTransMax.compLt(variTokenAvail))
       ? buyyOrderVariTokenTransMax
       : variTokenAvail
 
     const quotTokenTrans
       = variTokenTrans
-        .mul(this.sellOrder.priceNumer)
-        .divDn(this.sellOrder.priceDenom)
+        .opMul(this.sellOrder.priceNumer)
+        .opDiv(this.sellOrder.priceDenom)
 
     const quotTokenArbit
       = variTokenTrans
-        .mul(this.buyyOrder.priceNumer)
-        .divDn(this.buyyOrder.priceDenom)
-        .sub(quotTokenTrans)
+        .opMul(this.buyyOrder.priceNumer)
+        .opDiv(this.buyyOrder.priceDenom)
+        .opSub(quotTokenTrans)
 
     return {
       quotTokenTrans,

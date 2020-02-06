@@ -14,7 +14,7 @@ exports.ganacheProvider = ganache_cli_1["default"].provider({
         var keypair = utils_1.getKeypair(name);
         return {
             balance: Number.MAX_SAFE_INTEGER,
-            secretKey: keypair.privateKey.getBuffer()
+            secretKey: new Buffer(keypair.privateKey.u)
         };
     })
 });

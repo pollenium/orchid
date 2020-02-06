@@ -3,6 +3,7 @@ import { tokenOutput, engineOutput, monarchicExecutorOracleOutput } from '../con
 import { ContractOutput } from './ContractOutput'
 import { Address, Bytes, Bytes32, Uint256, Uint8 } from 'pollenium-buttercup'
 import { SignedOrder } from './SignedOrder'
+import { Uu } from 'pollenium-uvaursi'
 
 export class ContractReader {
   readonly ethersContract
@@ -13,7 +14,7 @@ export class ContractReader {
     readonly address: Address
   ) {
     this.ethersContract = new ethers.Contract(
-      address.getPhex(),
+      address.uu.toPhex(),
       this.abi,
       provider
     )
@@ -29,7 +30,7 @@ export class ContractWriter {
     readonly address: Address
   ) {
     this.ethersContract = new ethers.Contract(
-      address.getPhex(),
+      address.uu.toPhex(),
       this.abi,
       signer
     )
@@ -51,7 +52,7 @@ export abstract class ContractDeployer {
   ) {
     this.ethersContractFactory = new ethers.ContractFactory(
       abi,
-      bytecode.getUint8Array(),
+      bytecode.u,
       signer
     )
   }
@@ -65,8 +66,8 @@ export class TokenDeployer extends ContractDeployer {
   }
 
   async deploy(totalSupply: Uint256): Promise<Address> {
-    const ethersContract = await this.ethersContractFactory.deploy(totalSupply.getUint8Array())
-    return Address.fromHexish(ethersContract.address)
+    const ethersContract = await this.ethersContractFactory.deploy(totalSupply.u)
+    return new Address(Uu.fromHexish(ethersContract.address))
   }
 }
 
@@ -78,7 +79,7 @@ export class EngineDeployer extends ContractDeployer {
 
   async deploy(): Promise<Address> {
     const ethersContract = await this.ethersContractFactory.deploy()
-    return Address.fromHexish(ethersContract.address)
+    return new Address(Uu.fromHexish(ethersContract.address))
   }
 }
 
@@ -90,7 +91,7 @@ export class MonarchicExecutorOracleDeployer extends ContractDeployer {
 
   async deploy(): Promise<Address> {
     const ethersContract = await this.ethersContractFactory.deploy()
-    return Address.fromHexish(ethersContract.address)
+    return new Address(Uu.fromHexish(ethersContract.address))
   }
 }
 
@@ -106,10 +107,10 @@ export class TokenReader extends ContractReader {
 
 
   async fetchBalance(holder: Address): Promise<Uint256> {
-    const holderBignumber = await this.ethersContract.balanceOf(holder.getPhex())
-    return Uint256.fromHexish(
+    const holderBignumber = await this.ethersContract.balanceOf(holder.uu.toPhex())
+    return new Uint256(Uu.fromHexish(
       await ethers.utils.hexlify(holderBignumber)
-    )
+    ))
   }
 
   async fetchAllowance(struct: {
@@ -118,12 +119,12 @@ export class TokenReader extends ContractReader {
   }): Promise<Uint256> {
     const { holder, spender } = struct
     const allowanceBignumber = await this.ethersContract.allowance(
-      holder.getPhex(),
-      spender.getPhex()
+      holder.uu.toPhex(),
+      spender.uu.toPhex()
     )
-    return Uint256.fromHexish(
+    return new Uint256(Uu.fromHexish(
       await ethers.utils.hexlify(allowanceBignumber)
-    )
+    ))
   }
 
 }
@@ -138,15 +139,15 @@ export class EngineReader extends ContractReader {
   }
 
   async fetchOwner(): Promise<Address> {
-    return Address.fromHexish(
+    return new Address(Uu.fromHexish(
       await this.ethersContract.owner()
-    )
+    ))
   }
 
   async fetchExecutorOracle(): Promise<Address> {
-    return Address.fromHexish(
+    return new Address(Uu.fromHexish(
       await this.ethersContract.executorOracle()
-    )
+    ))
   }
 
   async fetchBalance(struct: {
@@ -155,12 +156,12 @@ export class EngineReader extends ContractReader {
   }): Promise<Uint256> {
     const { holder, token } = struct
     const balanceBignumber = await this.ethersContract.balances(
-      holder.getPhex(),
-      token.getPhex()
+      holder.uu.toPhex(),
+      token.uu.toPhex()
     )
-    return Uint256.fromHexish(
+    return new Uint256(Uu.fromHexish(
       await ethers.utils.hexlify(balanceBignumber)
-    )
+    ))
 
   }
 
@@ -175,22 +176,22 @@ export class MonarchicExecutorOracleReader extends ContractReader {
     super(provider, monarchicExecutorOracleOutput.abi, address)
   }
 
-  async fetchOwner(address: Address): Promise<Address> {
-    return Address.fromHexish(
+  async fetchOwner(): Promise<Address> {
+    return new Address(Uu.fromHexish(
       await this.ethersContract.owner()
-    )
+    ))
   }
 
   async fetchHot(): Promise<Address> {
-    return Address.fromHexish(
+    return new Address(Uu.fromHexish(
       await this.ethersContract.hot()
-    )
+    ))
   }
 
   async fetchCold(): Promise<Address> {
-    return Address.fromHexish(
+    return new Address(Uu.fromHexish(
       await this.ethersContract.cold()
-    )
+    ))
   }
 
 
@@ -213,7 +214,7 @@ export class TokenWriter extends ContractWriter {
     amount: Uint256
   }): Promise<void> {
     const { to, amount } = struct
-    await this.ethersContract.transfer(to.getPhex(), amount.getPhex())
+    await this.ethersContract.transfer(to.uu.toPhex(), amount.uu.toPhex())
   }
 
   async setAllowance(struct: {
@@ -221,7 +222,7 @@ export class TokenWriter extends ContractWriter {
     amount: Uint256
   }) {
     const { spender, amount } = struct
-    await this.ethersContract.approve(spender.getPhex(), amount.getPhex())
+    await this.ethersContract.approve(spender.uu.toPhex(), amount.uu.toPhex())
   }
 
 }
@@ -236,11 +237,11 @@ export class EngineWriter extends ContractWriter {
   }
 
   async setOwner(owner: Address): Promise<void> {
-    await this.ethersContract.transferOwnership(owner.getPhex())
+    await this.ethersContract.transferOwnership(owner.uu.toPhex())
   }
 
   async setExecutorOracle(executorOracle: Address): Promise<void> {
-    await this.ethersContract.setExecutorOracle(executorOracle.getPhex())
+    await this.ethersContract.setExecutorOracle(executorOracle.uu.toPhex())
   }
 
 
@@ -251,9 +252,9 @@ export class EngineWriter extends ContractWriter {
   }): Promise<void> {
     const { to, token, amount } = struct
     await this.ethersContract.deposit(
-      to.getPhex(),
-      token.getPhex(),
-      amount.getPhex()
+      to.uu.toPhex(),
+      token.uu.toPhex(),
+      amount.uu.toPhex()
     )
   }
 
@@ -271,7 +272,7 @@ export class EngineWriter extends ContractWriter {
   }): Promise<void> {
 
     const args = [
-      executionRequest.prevBlockHash.getPhex(),
+      executionRequest.prevBlockHash.uu.toPhex(),
       executionRequest.buyyOrders.map((signedOrder) => {
         return signedOrder.getEthersArg()
       }),
@@ -280,11 +281,11 @@ export class EngineWriter extends ContractWriter {
       }),
       executionRequest.exchanges.map((exchange) => {
         return {
-          buyyOrderIndex: exchange.signedBuyyOrderIndex.getPhex(),
-          sellOrderIndex: exchange.signedSellOrderIndex.getPhex(),
-          quotTokenTrans: exchange.quotTokenTrans.getPhex(),
-          variTokenTrans: exchange.variTokenTrans.getPhex(),
-          quotTokenArbit: exchange.quotTokenArbit.getPhex()
+          buyyOrderIndex: exchange.signedBuyyOrderIndex.uu.toPhex(),
+          sellOrderIndex: exchange.signedSellOrderIndex.uu.toPhex(),
+          quotTokenTrans: exchange.quotTokenTrans.uu.toPhex(),
+          variTokenTrans: exchange.variTokenTrans.uu.toPhex(),
+          quotTokenArbit: exchange.quotTokenArbit.uu.toPhex()
         }
       })
     ]
@@ -305,11 +306,11 @@ export class MonarchicExecutorOracleWriter extends ContractWriter {
   }
 
   async setHot(hot: Address): Promise<void> {
-    await this.ethersContract.setHot(hot.getPhex())
+    await this.ethersContract.setHot(hot.uu.toPhex())
   }
 
   async setCold(cold: Address): Promise<void> {
-    await this.ethersContract.setCold(cold.getPhex())
+    await this.ethersContract.setCold(cold.uu.toPhex())
   }
 
 

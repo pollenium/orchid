@@ -11,7 +11,7 @@ export function getWallet(accountName: AccountNames): Wallet {
   }
   const keypair = getKeypair(accountName)
   wallets[accountName] = new Wallet(
-    keypair.privateKey.getUint8Array(),
+    keypair.privateKey.u,
     web3Provider
   )
   return wallets[accountName]

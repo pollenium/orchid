@@ -3,12 +3,12 @@ import { ORDER_TYPE } from './enums'
 import crypto from 'crypto'
 import { Keypair } from 'pollenium-ilex'
 
-export const alice = Address.fromBuffer(crypto.randomBytes(20))
-export const bob = Address.fromBuffer(crypto.randomBytes(20))
-export const dai = Address.fromBuffer(crypto.randomBytes(20))
-export const usdc = Address.fromBuffer(crypto.randomBytes(20))
-export const weth = Address.fromBuffer(crypto.randomBytes(20))
-export const mkr = Address.fromBuffer(crypto.randomBytes(20))
+export const alice = new Address(crypto.randomBytes(20))
+export const bob = new Address(crypto.randomBytes(20))
+export const dai = new Address(crypto.randomBytes(20))
+export const usdc = new Address(crypto.randomBytes(20))
+export const weth = new Address(crypto.randomBytes(20))
+export const mkr = new Address(crypto.randomBytes(20))
 export const nullAddress = Address.genNull()
 export const uint256Zero = Uint256.fromNumber(0)
 export const nullBytes32 = new Bytes32(

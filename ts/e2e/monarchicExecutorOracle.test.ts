@@ -1,3 +1,5 @@
+import { MonarchicExecutorOracleReader } from '../classes/Contract'
+
 import {
   fetchMonarchicExecutorOracleReader,
   fetchMonarchicExecutorOracleWriter,
@@ -5,7 +7,7 @@ import {
 } from './lib/utils'
 import { AccountNames } from './lib/fixtures'
 
-let monarchicExecutorOracleReader
+let monarchicExecutorOracleReader: MonarchicExecutorOracleReader
 
 test('fetch monarchicExecutorOracle', async () => {
   monarchicExecutorOracleReader = await fetchMonarchicExecutorOracleReader()
@@ -14,7 +16,7 @@ test('fetch monarchicExecutorOracle', async () => {
 test('owner should be DEPLOYER', async () => {
   const owner = await monarchicExecutorOracleReader.fetchOwner()
   expect(
-    owner.getIsEqual(getAccountAddress(AccountNames.DEPLOYER))
+    owner.uu.getIsEqual(getAccountAddress(AccountNames.DEPLOYER))
   ).toBe(true)
 })
 
@@ -28,7 +30,7 @@ test('set hot to MONARCH_HOT', async () => {
 test('hot should be MONARCH_HOT', async () => {
   const monarchHot = await monarchicExecutorOracleReader.fetchHot()
   expect(
-    monarchHot.getIsEqual(getAccountAddress(AccountNames.MONARCH_HOT))
+    monarchHot.uu.getIsEqual(getAccountAddress(AccountNames.MONARCH_HOT))
   ).toBe(true)
 })
 
@@ -43,6 +45,6 @@ test('set cold to MONARCH_COLD', async () => {
 test('cold should be MONARCH_COLD', async () => {
   const monarchCold = await monarchicExecutorOracleReader.fetchCold()
   expect(
-    monarchCold.getIsEqual(getAccountAddress(AccountNames.MONARCH_COLD))
+    monarchCold.uu.getIsEqual(getAccountAddress(AccountNames.MONARCH_COLD))
   ).toBe(true)
 })
