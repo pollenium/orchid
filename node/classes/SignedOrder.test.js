@@ -6,10 +6,10 @@ var fixtures_1 = require("../fixtures");
 var order = new Order_1.Order(fixtures_1.validOrderStruct);
 var signature = fixtures_1.keypair.getSignature(order.getSugmaHash());
 test('Order -> SignedOrder', function () {
-    new SignedOrder_1.SignedOrder(order, signature);
+    new SignedOrder_1.SignedOrder({ order: order, signature: signature });
 });
 test('getLigma/fromLigma', function () {
-    var signedOrder0 = new SignedOrder_1.SignedOrder(order, signature);
+    var signedOrder0 = new SignedOrder_1.SignedOrder({ order: order, signature: signature });
     var ligma = signedOrder0.getLigma();
     var signedOrder1 = SignedOrder_1.SignedOrder.fromLigma(ligma);
     expect(signedOrder0.prevBlockHash.uu.getIsEqual(signedOrder1.prevBlockHash.uu)).toBe(true);

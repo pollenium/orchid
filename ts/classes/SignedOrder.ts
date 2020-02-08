@@ -1,25 +1,31 @@
 import { ORDER_TYPE } from '../enums'
 import { Bytes, Address, Bytes32, Uint8, Uint256 } from 'pollenium-buttercup'
-import { Signature } from 'pollenium-ilex'
-import { Order } from './Order'
-import { OrderInterface } from '../interfaces/Order'
-import { SignedOrderInterface } from '../interfaces/SignedOrder'
-import { Uu } from 'pollenium-uvaursi'
+import { Signature, SignatureStruct } from 'pollenium-ilex'
+import { Order, OrderStruct } from './Order'
+import { Uu, Uish } from 'pollenium-uvaursi'
 
-export class SignedOrder extends Order implements SignedOrderInterface {
+export interface SignedOrderStruct {
+  order: Order | OrderStruct,
+  signature: SignatureStruct
+}
+
+export class SignedOrder extends Order {
+
+  readonly signature
 
   private trader: Address;
-  private ligma: Bytes;
+  private ligma: Uu;
 
-  constructor(orderStruct: OrderInterface, public signature: Signature) {
-    super(orderStruct)
+  constructor(struct: SignedOrderStruct) {
+    super(struct.order instanceof Order ? struct.order.struct : struct.order)
+    this.signature = new Signature(struct.signature)
   }
 
   getTrader(): Address {
     if (this.trader) {
       return this.trader
     }
-    this.trader = this.signature.getSigner(this.getSugmaHash())
+    this.trader = new Address(this.signature.getSigner(this.getSugmaHash()))
     return this.trader
   }
 
@@ -37,11 +43,11 @@ export class SignedOrder extends Order implements SignedOrderInterface {
     ]
   }
 
-  public getLigma(): Bytes {
+  public getLigma(): Uu {
     if (this.ligma) {
       return this.ligma
     }
-    this.ligma = new Bytes(Uu.genConcat([
+    this.ligma = Uu.genConcat([
       this.prevBlockHash,
       Uint8.fromNumber(this.type),
       this.quotToken,
@@ -52,12 +58,13 @@ export class SignedOrder extends Order implements SignedOrderInterface {
       this.signature.v,
       this.signature.r,
       this.signature.s
-    ]))
+    ])
     return this.ligma
 
   }
 
-  static fromLigma(ligma: Bytes): SignedOrder {
+  static fromLigma(uishLigma: Uish): SignedOrder {
+    const ligma = Uu.wrap(uishLigma)
     const prevBlockHash = new Bytes32(ligma.u.slice(0, 32))
     const type: ORDER_TYPE = ligma.u[32]
     const quotToken = new Address(ligma.u.slice(33, 53))
@@ -69,7 +76,7 @@ export class SignedOrder extends Order implements SignedOrderInterface {
     const signatureR = new Bytes32(ligma.u.slice(170, 202))
     const signatureS = new Bytes32(ligma.u.slice(202, 234))
 
-    const orderStruct = {
+    const orderStruct: OrderStruct = {
       prevBlockHash,
       type,
       quotToken,
@@ -83,7 +90,7 @@ export class SignedOrder extends Order implements SignedOrderInterface {
       r: signatureR,
       s: signatureS
     })
-    return new SignedOrder(orderStruct, signature)
+    return new SignedOrder({ order: orderStruct, signature })
   }
 
 }

@@ -19,16 +19,16 @@ var Order_1 = require("./Order");
 var pollenium_uvaursi_1 = require("pollenium-uvaursi");
 var SignedOrder = /** @class */ (function (_super) {
     __extends(SignedOrder, _super);
-    function SignedOrder(orderStruct, signature) {
-        var _this = _super.call(this, orderStruct) || this;
-        _this.signature = signature;
+    function SignedOrder(struct) {
+        var _this = _super.call(this, struct.order instanceof Order_1.Order ? struct.order.struct : struct.order) || this;
+        _this.signature = new pollenium_ilex_1.Signature(struct.signature);
         return _this;
     }
     SignedOrder.prototype.getTrader = function () {
         if (this.trader) {
             return this.trader;
         }
-        this.trader = this.signature.getSigner(this.getSugmaHash());
+        this.trader = new pollenium_buttercup_1.Address(this.signature.getSigner(this.getSugmaHash()));
         return this.trader;
     };
     SignedOrder.prototype.getEthersArg = function () {
@@ -48,7 +48,7 @@ var SignedOrder = /** @class */ (function (_super) {
         if (this.ligma) {
             return this.ligma;
         }
-        this.ligma = new pollenium_buttercup_1.Bytes(pollenium_uvaursi_1.Uu.genConcat([
+        this.ligma = pollenium_uvaursi_1.Uu.genConcat([
             this.prevBlockHash,
             pollenium_buttercup_1.Uint8.fromNumber(this.type),
             this.quotToken,
@@ -59,10 +59,11 @@ var SignedOrder = /** @class */ (function (_super) {
             this.signature.v,
             this.signature.r,
             this.signature.s
-        ]));
+        ]);
         return this.ligma;
     };
-    SignedOrder.fromLigma = function (ligma) {
+    SignedOrder.fromLigma = function (uishLigma) {
+        var ligma = pollenium_uvaursi_1.Uu.wrap(uishLigma);
         var prevBlockHash = new pollenium_buttercup_1.Bytes32(ligma.u.slice(0, 32));
         var type = ligma.u[32];
         var quotToken = new pollenium_buttercup_1.Address(ligma.u.slice(33, 53));
@@ -87,7 +88,7 @@ var SignedOrder = /** @class */ (function (_super) {
             r: signatureR,
             s: signatureS
         });
-        return new SignedOrder(orderStruct, signature);
+        return new SignedOrder({ order: orderStruct, signature: signature });
     };
     return SignedOrder;
 }(Order_1.Order));

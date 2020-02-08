@@ -14,8 +14,12 @@ var __extends = (this && this.__extends) || (function () {
 })();
 exports.__esModule = true;
 var enums_1 = require("../enums");
+var Order_1 = require("./Order");
 var OrderPair = /** @class */ (function () {
     function OrderPair(struct) {
+        this.struct = struct;
+        this.buyyOrder = struct.buyyOrder instanceof Order_1.Order ? this.buyyOrder : new Order_1.Order(this.buyyOrder);
+        this.sellOrder = struct.sellOrder instanceof Order_1.Order ? this.sellOrder : new Order_1.Order(this.sellOrder);
         Object.assign(this, struct);
         if (this.buyyOrder.type !== enums_1.ORDER_TYPE.BUYY) {
             throw new InvalidBuyyOrderTypeError();
@@ -36,9 +40,15 @@ var OrderPair = /** @class */ (function () {
         this.quotToken = this.buyyOrder.quotToken,
             this.variToken = this.buyyOrder.variToken;
     }
-    OrderPair.prototype.getSolution = function (chainState) {
-        var quotTokenAvail = this.buyyOrder.getTokenAvail(chainState.buyyOrderTokenFilled, chainState.buyyOrderTokenBalance);
-        var variTokenAvail = this.sellOrder.getTokenAvail(chainState.buyyOrderTokenFilled, chainState.buyyOrderTokenBalance);
+    OrderPair.prototype.getSolution = function (struct) {
+        var quotTokenAvail = this.buyyOrder.getTokenAvail({
+            tokenFilled: struct.buyyOrderTokenFilled,
+            tokenBalance: struct.buyyOrderTokenBalance
+        });
+        var variTokenAvail = this.sellOrder.getTokenAvail({
+            tokenFilled: struct.sellOrderTokenFilled,
+            tokenBalance: struct.sellOrderTokenBalance
+        });
         var buyyOrderVariTokenTransMax = quotTokenAvail
             .opMul(this.buyyOrder.priceDenom)
             .opDiv(this.buyyOrder.priceNumer);

@@ -18,7 +18,14 @@ var web3_utils_1 = require("web3-utils");
 var pollenium_uvaursi_1 = require("pollenium-uvaursi");
 var Order = /** @class */ (function () {
     function Order(struct) {
-        Object.assign(this, struct);
+        this.struct = struct;
+        this.type = struct.type,
+            this.prevBlockHash = new pollenium_buttercup_1.Bytes32(struct.prevBlockHash);
+        this.quotToken = new pollenium_buttercup_1.Address(struct.quotToken);
+        this.variToken = new pollenium_buttercup_1.Address(struct.variToken);
+        this.tokenLimit = new pollenium_buttercup_1.Uint256(struct.tokenLimit);
+        this.priceNumer = new pollenium_buttercup_1.Uint256(struct.priceNumer);
+        this.priceDenom = new pollenium_buttercup_1.Uint256(struct.priceDenom);
         if (this.quotToken.uu.getIsEqual(this.variToken.uu)) {
             throw new QuotVariTokenMatchError(this.quotToken);
         }
@@ -63,10 +70,13 @@ var Order = /** @class */ (function () {
         })));
         return this.sugmaHash;
     };
-    Order.prototype.getTokenUnfilled = function (tokenFilled) {
+    Order.prototype.getTokenUnfilled = function (tokenFilledUintable) {
+        var tokenFilled = new pollenium_buttercup_1.Uint256(tokenFilledUintable);
         return this.tokenLimit.opSub(tokenFilled);
     };
-    Order.prototype.getTokenAvail = function (tokenFilled, tokenBalance) {
+    Order.prototype.getTokenAvail = function (struct) {
+        var tokenFilled = new pollenium_buttercup_1.Uint256(struct.tokenFilled);
+        var tokenBalance = new pollenium_buttercup_1.Uint256(struct.tokenBalance);
         var tokenUnfilled = this.getTokenUnfilled(tokenFilled);
         if (tokenUnfilled.compLt(tokenBalance)) {
             return tokenUnfilled;

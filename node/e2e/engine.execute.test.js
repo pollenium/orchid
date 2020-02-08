@@ -152,8 +152,14 @@ pollenium_frangipani_1["default"].forEach(function (fixture, index) { return __a
                                         _d.priceNumer = pollenium_buttercup_1.Uint256.fromNumber(fixture.orders.sell.priceNumer),
                                         _d.priceDenom = pollenium_buttercup_1.Uint256.fromNumber(fixture.orders.sell.priceDenom),
                                         _d)]))();
-                                signedBuyyOrder = new __1.SignedOrder(buyyOrder, utils_1.getKeypair(fixtures_1.AccountNames.ALICE).getSignature(buyyOrder.getSugmaHash()));
-                                signedSellOrder = new __1.SignedOrder(sellOrder, utils_1.getKeypair(fixtures_1.AccountNames.BOB).getSignature(sellOrder.getSugmaHash()));
+                                signedBuyyOrder = new __1.SignedOrder({
+                                    order: buyyOrder,
+                                    signature: utils_1.getKeypair(fixtures_1.AccountNames.ALICE).getSignature(buyyOrder.getSugmaHash())
+                                });
+                                signedSellOrder = new __1.SignedOrder({
+                                    order: sellOrder,
+                                    signature: utils_1.getKeypair(fixtures_1.AccountNames.BOB).getSignature(sellOrder.getSugmaHash())
+                                });
                                 return [4 /*yield*/, utils_1.fetchEngineWriter(fixtures_1.AccountNames.MONARCH_HOT)];
                             case 8:
                                 engineWriter = _e.sent();
@@ -322,8 +328,14 @@ describe('multis', function () {
                                     _d.priceNumer = pollenium_buttercup_1.Uint256.fromNumber(1),
                                     _d.priceDenom = pollenium_buttercup_1.Uint256.fromNumber(1),
                                     _d)]))();
-                            signedBuyyOrder = new __1.SignedOrder(buyyOrder, utils_1.getKeypair(fixtures_1.AccountNames.ALICE).getSignature(buyyOrder.getSugmaHash()));
-                            signedSellOrder = new __1.SignedOrder(sellOrder, utils_1.getKeypair(fixtures_1.AccountNames.BOB).getSignature(sellOrder.getSugmaHash()));
+                            signedBuyyOrder = new __1.SignedOrder({
+                                order: buyyOrder,
+                                signature: utils_1.getKeypair(fixtures_1.AccountNames.ALICE).getSignature(buyyOrder.getSugmaHash())
+                            });
+                            signedSellOrder = new __1.SignedOrder({
+                                order: sellOrder,
+                                signature: utils_1.getKeypair(fixtures_1.AccountNames.BOB).getSignature(sellOrder.getSugmaHash())
+                            });
                             signedBuyyOrders = [];
                             signedSellOrders = [];
                             exchanges = [];

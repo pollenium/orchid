@@ -8,5 +8,3 @@ var SignedOrder_1 = require("./classes/SignedOrder");
 exports.SignedOrder = SignedOrder_1.SignedOrder;
 var OrderPair_1 = require("./classes/OrderPair");
 exports.OrderPair = OrderPair_1.OrderPair;
-var SignedOrderPair_1 = require("./classes/SignedOrderPair");
-exports.SignedOrderPair = SignedOrderPair_1.SignedOrderPair;

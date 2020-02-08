@@ -1,19 +1,23 @@
 import { ORDER_TYPE } from '../enums'
-import { Address, Uint256 } from 'pollenium-buttercup'
-import { Order } from './Order'
-import { ChainStateInterface } from '../interfaces/ChainState'
-import { SolutionInterface } from '../interfaces/Solution'
-import { OrderPairInterface } from '../interfaces/OrderPair'
+import { Address, Uint256, Uintable } from 'pollenium-buttercup'
+import { Order, OrderStruct } from './Order'
 import Bn from 'bn.js'
 
-export class OrderPair implements OrderPairInterface {
+
+export class OrderPair {
 
   public buyyOrder: Order;
   public sellOrder: Order;
   public quotToken: Address;
   public variToken: Address;
 
-  constructor(struct: OrderPairInterface) {
+  constructor(readonly struct: {
+    buyyOrder: Order | OrderStruct,
+    sellOrder: Order | OrderStruct
+  }) {
+
+    this.buyyOrder = struct.buyyOrder instanceof Order ? this.buyyOrder : new Order(this.buyyOrder)
+    this.sellOrder = struct.sellOrder instanceof Order ? this.sellOrder : new Order(this.sellOrder)
 
     Object.assign(this, struct)
 
@@ -46,16 +50,25 @@ export class OrderPair implements OrderPairInterface {
     this.variToken = this.buyyOrder.variToken
   }
 
-  getSolution(chainState: ChainStateInterface): SolutionInterface {
+  getSolution(struct: {
+    buyyOrderTokenFilled: Uintable,
+    buyyOrderTokenBalance: Uintable,
+    sellOrderTokenFilled: Uintable,
+    sellOrderTokenBalance: Uintable
+  }): {
+    quotTokenTrans: Uint256,
+    variTokenTrans: Uint256,
+    quotTokenArbit: Uint256
+  } {
 
-    const quotTokenAvail = this.buyyOrder.getTokenAvail(
-      chainState.buyyOrderTokenFilled,
-      chainState.buyyOrderTokenBalance
-    )
-    const variTokenAvail = this.sellOrder.getTokenAvail(
-      chainState.buyyOrderTokenFilled,
-      chainState.buyyOrderTokenBalance
-    )
+    const quotTokenAvail = this.buyyOrder.getTokenAvail({
+      tokenFilled: struct.buyyOrderTokenFilled,
+      tokenBalance: struct.buyyOrderTokenBalance
+    })
+    const variTokenAvail = this.sellOrder.getTokenAvail({
+      tokenFilled: struct.sellOrderTokenFilled,
+      tokenBalance: struct.sellOrderTokenBalance
+    })
 
     const buyyOrderVariTokenTransMax
       = quotTokenAvail

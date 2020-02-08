@@ -10,11 +10,11 @@ const signature = keypair.getSignature(
 )
 
 test('Order -> SignedOrder', () => {
-  new SignedOrder(order, signature)
+  new SignedOrder({ order, signature })
 })
 
 test('getLigma/fromLigma', () => {
-  const signedOrder0 = new SignedOrder(order, signature)
+  const signedOrder0 = new SignedOrder({ order, signature })
   const ligma = signedOrder0.getLigma()
   const signedOrder1 = SignedOrder.fromLigma(ligma)
 

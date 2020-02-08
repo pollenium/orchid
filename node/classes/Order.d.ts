@@ -1,24 +1,37 @@
-import { Address, Uint256, Bytes32 } from 'pollenium-buttercup';
+import { Address, Uint256, Bytes32, Uintable } from 'pollenium-buttercup';
 import { ORDER_TYPE } from '../enums';
-import { OrderInterface } from '../interfaces/Order';
-export declare class Order implements OrderInterface {
+import { Uish } from 'pollenium-uvaursi';
+export interface OrderStruct {
     type: ORDER_TYPE;
-    prevBlockHash: Bytes32;
-    quotToken: Address;
-    variToken: Address;
-    tokenLimit: Uint256;
-    priceNumer: Uint256;
-    priceDenom: Uint256;
+    prevBlockHash: Uish;
+    quotToken: Uish;
+    variToken: Uish;
+    tokenLimit: Uintable;
+    priceNumer: Uintable;
+    priceDenom: Uintable;
+}
+export declare class Order {
+    readonly struct: OrderStruct;
+    readonly type: ORDER_TYPE;
+    readonly prevBlockHash: Bytes32;
+    readonly quotToken: Address;
+    readonly variToken: Address;
+    readonly tokenLimit: Uint256;
+    readonly priceNumer: Uint256;
+    readonly priceDenom: Uint256;
     private sugma;
     private sugmaHash;
-    constructor(struct: OrderInterface);
+    constructor(struct: OrderStruct);
     private getSugma;
     getSugmaHash(): Bytes32;
-    getTokenUnfilled(tokenFilled: Uint256): Uint256;
-    getTokenAvail(tokenFilled: Uint256, tokenBalance: Uint256): Uint256;
+    getTokenUnfilled(tokenFilledUintable: Uintable): Uint256;
+    getTokenAvail(struct: {
+        tokenFilled: Uintable;
+        tokenBalance: Uintable;
+    }): Uint256;
 }
 export declare class QuotVariTokenMatchError extends Error {
-    constructor(token: any);
+    constructor(token: Address);
 }
 declare class NullError extends Error {
     constructor(variableName: string);

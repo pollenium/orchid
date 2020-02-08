@@ -1,15 +1,28 @@
-import { Address } from 'pollenium-buttercup';
-import { Order } from './Order';
-import { ChainStateInterface } from '../interfaces/ChainState';
-import { SolutionInterface } from '../interfaces/Solution';
-import { OrderPairInterface } from '../interfaces/OrderPair';
-export declare class OrderPair implements OrderPairInterface {
+import { Address, Uint256, Uintable } from 'pollenium-buttercup';
+import { Order, OrderStruct } from './Order';
+export declare class OrderPair {
+    readonly struct: {
+        buyyOrder: Order | OrderStruct;
+        sellOrder: Order | OrderStruct;
+    };
     buyyOrder: Order;
     sellOrder: Order;
     quotToken: Address;
     variToken: Address;
-    constructor(struct: OrderPairInterface);
-    getSolution(chainState: ChainStateInterface): SolutionInterface;
+    constructor(struct: {
+        buyyOrder: Order | OrderStruct;
+        sellOrder: Order | OrderStruct;
+    });
+    getSolution(struct: {
+        buyyOrderTokenFilled: Uintable;
+        buyyOrderTokenBalance: Uintable;
+        sellOrderTokenFilled: Uintable;
+        sellOrderTokenBalance: Uintable;
+    }): {
+        quotTokenTrans: Uint256;
+        variTokenTrans: Uint256;
+        quotTokenArbit: Uint256;
+    };
 }
 export declare class InvalidBuyyOrderTypeError extends Error {
     constructor();

@@ -1,24 +1,41 @@
-import { Address, Uint256, Bytes, Bytes1, Bytes32, Uint8 } from 'pollenium-buttercup'
+import { Address, Uint256, Bytes, Bytes1, Bytes32, Uint8, Uintable } from 'pollenium-buttercup'
 import { ORDER_TYPE } from '../enums'
-import { OrderInterface } from '../interfaces/Order'
 import { soliditySha3 } from 'web3-utils'
-import { Uu } from 'pollenium-uvaursi'
+import { Uu, Uish } from 'pollenium-uvaursi'
 
-export class Order implements OrderInterface {
+export interface OrderStruct {
+  type: ORDER_TYPE;
+  prevBlockHash: Uish;
+  quotToken: Uish;
+  variToken: Uish;
+  tokenLimit: Uintable;
+  priceNumer: Uintable;
+  priceDenom: Uintable;
 
-  public type: ORDER_TYPE;
-  public prevBlockHash: Bytes32;
-  public quotToken: Address;
-  public variToken: Address;
-  public tokenLimit: Uint256;
-  public priceNumer: Uint256;
-  public priceDenom: Uint256;
+}
+
+export class Order {
+
+  readonly type: ORDER_TYPE;
+  readonly prevBlockHash: Bytes32;
+  readonly quotToken: Address;
+  readonly variToken: Address;
+  readonly tokenLimit: Uint256;
+  readonly priceNumer: Uint256;
+  readonly priceDenom: Uint256;
 
   private sugma: Bytes;
   private sugmaHash: Bytes32;
 
-  constructor(struct: OrderInterface) {
-    Object.assign(this, struct)
+  constructor(readonly struct: OrderStruct) {
+
+    this.type = struct.type,
+    this.prevBlockHash = new Bytes32(struct.prevBlockHash)
+    this.quotToken = new Address(struct.quotToken)
+    this.variToken = new Address(struct.variToken)
+    this.tokenLimit = new Uint256(struct.tokenLimit)
+    this.priceNumer = new Uint256(struct.priceNumer)
+    this.priceDenom = new Uint256(struct.priceDenom)
 
     if (this.quotToken.uu.getIsEqual(this.variToken.uu)) {
       throw new QuotVariTokenMatchError(this.quotToken)
@@ -78,11 +95,17 @@ export class Order implements OrderInterface {
   }
 
 
-  getTokenUnfilled(tokenFilled: Uint256): Uint256 {
+  getTokenUnfilled(tokenFilledUintable: Uintable): Uint256 {
+    const tokenFilled = new Uint256(tokenFilledUintable)
     return this.tokenLimit.opSub(tokenFilled)
   }
 
-  getTokenAvail(tokenFilled: Uint256, tokenBalance: Uint256): Uint256 {
+  getTokenAvail(struct: {
+    tokenFilled: Uintable,
+    tokenBalance: Uintable
+  }): Uint256 {
+    const tokenFilled = new Uint256(struct.tokenFilled)
+    const tokenBalance = new Uint256(struct.tokenBalance)
     const tokenUnfilled = this.getTokenUnfilled(tokenFilled)
     if (tokenUnfilled.compLt(tokenBalance)) {
       return tokenUnfilled
@@ -94,7 +117,7 @@ export class Order implements OrderInterface {
 }
 
 export class QuotVariTokenMatchError extends Error {
-  constructor(token) {
+  constructor(token: Address) {
     super(`quotToken and variToken should be different, received ${token.uu.toHex()} for both`)
     Object.setPrototypeOf(this, QuotVariTokenMatchError.prototype)
   }

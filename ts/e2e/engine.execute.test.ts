@@ -83,15 +83,15 @@ frangipani.forEach(async (fixture, index) => {
           priceDenom: Uint256.fromNumber(fixture.orders.sell.priceDenom)
         })
 
-        const signedBuyyOrder = new SignedOrder(
-          buyyOrder,
-          getKeypair(AccountNames.ALICE).getSignature(buyyOrder.getSugmaHash())
-        )
+        const signedBuyyOrder = new SignedOrder({
+          order: buyyOrder,
+          signature: getKeypair(AccountNames.ALICE).getSignature(buyyOrder.getSugmaHash())
+        })
 
-        const signedSellOrder = new SignedOrder(
-          sellOrder,
-          getKeypair(AccountNames.BOB).getSignature(sellOrder.getSugmaHash())
-        )
+        const signedSellOrder = new SignedOrder({
+          order: sellOrder,
+          signature: getKeypair(AccountNames.BOB).getSignature(sellOrder.getSugmaHash())
+        })
 
         const engineWriter = await fetchEngineWriter(AccountNames.MONARCH_HOT)
         await engineWriter.execute({
@@ -202,15 +202,15 @@ describe('multis', () => {
           priceDenom: Uint256.fromNumber(1)
         })
 
-        const signedBuyyOrder = new SignedOrder(
-          buyyOrder,
-          getKeypair(AccountNames.ALICE).getSignature(buyyOrder.getSugmaHash())
-        )
+        const signedBuyyOrder = new SignedOrder({
+          order: buyyOrder,
+          signature: getKeypair(AccountNames.ALICE).getSignature(buyyOrder.getSugmaHash())
+        })
 
-        const signedSellOrder = new SignedOrder(
-          sellOrder,
-          getKeypair(AccountNames.BOB).getSignature(sellOrder.getSugmaHash())
-        )
+        const signedSellOrder = new SignedOrder({
+          order: sellOrder,
+          signature: getKeypair(AccountNames.BOB).getSignature(sellOrder.getSugmaHash())
+        })
 
         const signedBuyyOrders = []
         const signedSellOrders = []
