@@ -36,7 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-var Contract_1 = require("../../../classes/Contract");
+var __1 = require("../../../");
 var fetchOrDeployEngineAddress_1 = require("./fetchOrDeployEngineAddress");
 var web3Provider_1 = require("../web3Provider");
 var engineReader;
@@ -52,7 +52,7 @@ function fetchEngineReader() {
                     return [4 /*yield*/, fetchOrDeployEngineAddress_1.fetchOrDeployEngineAddress()];
                 case 1:
                     engineAddress = _a.sent();
-                    engineReader = new Contract_1.EngineReader(web3Provider_1.web3Provider, engineAddress);
+                    engineReader = new __1.EngineReader(web3Provider_1.web3Provider, engineAddress);
                     return [2 /*return*/, engineReader];
             }
         });

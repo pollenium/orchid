@@ -36,7 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-var Contract_1 = require("../../../classes/Contract");
+var __1 = require("../../../");
 var fetchOrDeployTokenAddress_1 = require("./fetchOrDeployTokenAddress");
 var web3Provider_1 = require("../web3Provider");
 var tokenContractReaders = {};
@@ -52,7 +52,7 @@ function fetchTokenReader(tokenName) {
                     return [4 /*yield*/, fetchOrDeployTokenAddress_1.fetchOrDeployTokenAddress(tokenName)];
                 case 1:
                     tokenAddress = _a.sent();
-                    tokenContractReader = new Contract_1.TokenReader(web3Provider_1.web3Provider, tokenAddress);
+                    tokenContractReader = new __1.TokenReader(web3Provider_1.web3Provider, tokenAddress);
                     tokenContractReaders[tokenName] = tokenContractReader;
                     return [2 /*return*/, tokenContractReader];
             }

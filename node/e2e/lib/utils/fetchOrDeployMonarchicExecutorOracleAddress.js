@@ -38,7 +38,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 var fixtures_1 = require("../fixtures");
 var getWallet_1 = require("./getWallet");
-var Contract_1 = require("../../../classes/Contract");
+var __1 = require("../../../");
 var monarchicExecutorOracleAddress;
 function fetchOrDeployMonarchicExecutorOracleAddress() {
     return __awaiter(this, void 0, void 0, function () {
@@ -49,7 +49,7 @@ function fetchOrDeployMonarchicExecutorOracleAddress() {
                     if (monarchicExecutorOracleAddress) {
                         return [2 /*return*/, monarchicExecutorOracleAddress];
                     }
-                    monarchicExecutorOracleDeployer = new Contract_1.MonarchicExecutorOracleDeployer(getWallet_1.getWallet(fixtures_1.AccountNames.DEPLOYER));
+                    monarchicExecutorOracleDeployer = new __1.MonarchicExecutorOracleDeployer(getWallet_1.getWallet(fixtures_1.AccountNames.DEPLOYER));
                     return [4 /*yield*/, monarchicExecutorOracleDeployer.deploy()];
                 case 1:
                     monarchicExecutorOracleAddress = _a.sent();

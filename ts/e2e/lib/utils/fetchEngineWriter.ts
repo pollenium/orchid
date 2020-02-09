@@ -1,4 +1,4 @@
-import { EngineWriter } from '../../../classes/Contract'
+import { EngineWriter } from '../../../'
 import { fetchOrDeployEngineAddress } from './fetchOrDeployEngineAddress'
 import { AccountNames } from '../fixtures'
 import { getWallet } from './getWallet'

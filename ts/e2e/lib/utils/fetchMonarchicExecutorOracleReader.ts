@@ -1,4 +1,4 @@
-import { MonarchicExecutorOracleReader } from '../../../classes/Contract'
+import { MonarchicExecutorOracleReader } from '../../../'
 import { fetchOrDeployMonarchicExecutorOracleAddress } from './fetchOrDeployMonarchicExecutorOracleAddress'
 import { web3Provider } from '../web3Provider'
 

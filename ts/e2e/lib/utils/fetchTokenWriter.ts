@@ -1,4 +1,4 @@
-import { TokenWriter } from '../../../classes/Contract'
+import { TokenWriter } from '../../../'
 import { fetchOrDeployTokenAddress } from './fetchOrDeployTokenAddress'
 import { ethers } from 'ethers'
 import { AccountNames, TokenNames } from '../fixtures'

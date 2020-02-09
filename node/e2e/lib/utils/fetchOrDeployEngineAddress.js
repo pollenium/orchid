@@ -38,7 +38,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 var fixtures_1 = require("../fixtures");
 var getWallet_1 = require("./getWallet");
-var Contract_1 = require("../../../classes/Contract");
+var __1 = require("../../../");
 var engineAddress;
 function fetchOrDeployEngineAddress() {
     return __awaiter(this, void 0, void 0, function () {
@@ -49,7 +49,7 @@ function fetchOrDeployEngineAddress() {
                     if (engineAddress) {
                         return [2 /*return*/, engineAddress];
                     }
-                    engineDeployer = new Contract_1.EngineDeployer(getWallet_1.getWallet(fixtures_1.AccountNames.DEPLOYER));
+                    engineDeployer = new __1.EngineDeployer(getWallet_1.getWallet(fixtures_1.AccountNames.DEPLOYER));
                     return [4 /*yield*/, engineDeployer.deploy()];
                 case 1:
                     engineAddress = _a.sent();

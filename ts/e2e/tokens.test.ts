@@ -7,7 +7,7 @@ import {
   getAccountAddress
 } from './lib/utils'
 import { $enum } from 'ts-enum-util'
-import { TokenReader } from '../classes/Contract'
+import { TokenReader } from '../'
 
 const deployerAddress = getAccountAddress(AccountNames.DEPLOYER)
 

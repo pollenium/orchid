@@ -1,6 +1,6 @@
 import { AccountNames, TokenNames, totalSupply } from '../fixtures'
 import { getWallet } from './getWallet'
-import { MonarchicExecutorOracleDeployer } from '../../../classes/Contract'
+import { MonarchicExecutorOracleDeployer } from '../../../'
 import { Address } from 'pollenium-buttercup'
 
 let monarchicExecutorOracleAddress

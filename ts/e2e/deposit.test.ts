@@ -9,7 +9,7 @@ import {
   fetchOrDeployEngineAddress,
   getAccountAddress
 } from './lib/utils'
-import { EngineReader } from '../classes/Contract'
+import { EngineReader } from '../'
 
 require('./engine.test')
 require('./tokens.test')

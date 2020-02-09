@@ -1,6 +1,6 @@
 import { AccountNames, TokenNames, totalSupply } from '../fixtures'
 import { getWallet } from './getWallet'
-import { TokenDeployer } from '../../../classes/Contract'
+import { TokenDeployer } from '../../../'
 import { Address } from 'pollenium-buttercup'
 
 const tokenAddresses = {}

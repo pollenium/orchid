@@ -1,4 +1,4 @@
-import { MonarchicExecutorOracleWriter } from '../../../classes/Contract'
+import { MonarchicExecutorOracleWriter } from '../../../'
 import { fetchOrDeployMonarchicExecutorOracleAddress } from './fetchOrDeployMonarchicExecutorOracleAddress'
 import { AccountNames } from '../fixtures'
 import { getWallet } from './getWallet'

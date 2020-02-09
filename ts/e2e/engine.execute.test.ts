@@ -14,7 +14,7 @@ import frangipani from 'pollenium-frangipani'
 import { traderNames, TokenNames, AccountNames, startBalance } from './lib/fixtures'
 import { $enum } from 'ts-enum-util'
 import { ORDER_TYPE, Order, SignedOrder } from '../'
-import { EngineReader } from '../classes/Contract'
+import { EngineReader } from '../'
 
 require('./deposit.test')
 

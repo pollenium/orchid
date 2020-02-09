@@ -38,7 +38,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 var fixtures_1 = require("../fixtures");
 var getWallet_1 = require("./getWallet");
-var Contract_1 = require("../../../classes/Contract");
+var __1 = require("../../../");
 var tokenAddresses = {};
 function fetchOrDeployTokenAddress(tokenName) {
     return __awaiter(this, void 0, void 0, function () {
@@ -49,7 +49,7 @@ function fetchOrDeployTokenAddress(tokenName) {
                     if (tokenAddresses[tokenName]) {
                         return [2 /*return*/, tokenAddresses[tokenName]];
                     }
-                    tokenContractDeployer = new Contract_1.TokenDeployer(getWallet_1.getWallet(fixtures_1.AccountNames.DEPLOYER));
+                    tokenContractDeployer = new __1.TokenDeployer(getWallet_1.getWallet(fixtures_1.AccountNames.DEPLOYER));
                     return [4 /*yield*/, tokenContractDeployer.deploy(fixtures_1.totalSupply)];
                 case 1:
                     tokenAddress = _a.sent();

@@ -1,2 +1,2 @@
-import { EngineReader } from '../../../classes/Contract';
+import { EngineReader } from '../../../';
 export declare function fetchEngineReader(): Promise<EngineReader>;

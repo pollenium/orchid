@@ -36,7 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-var Contract_1 = require("../../../classes/Contract");
+var __1 = require("../../../");
 var fetchOrDeployEngineAddress_1 = require("./fetchOrDeployEngineAddress");
 var getWallet_1 = require("./getWallet");
 var engineWriters = {};
@@ -52,7 +52,7 @@ function fetchEngineWriter(accountName) {
                     return [4 /*yield*/, fetchOrDeployEngineAddress_1.fetchOrDeployEngineAddress()];
                 case 1:
                     engineAddress = _a.sent();
-                    engineWriters[accountName] = new Contract_1.EngineWriter(getWallet_1.getWallet(accountName), engineAddress);
+                    engineWriters[accountName] = new __1.EngineWriter(getWallet_1.getWallet(accountName), engineAddress);
                     return [2 /*return*/, engineWriters[accountName]];
             }
         });

@@ -6,7 +6,7 @@ import {
   fetchOrDeployMonarchicExecutorOracleAddress
 } from './lib/utils'
 import { AccountNames } from './lib/fixtures'
-import { EngineReader } from '../classes/Contract'
+import { EngineReader } from '../'
 
 require('./monarchicExecutorOracle.test')
 

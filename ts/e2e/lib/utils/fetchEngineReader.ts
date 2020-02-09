@@ -1,4 +1,4 @@
-import { EngineReader } from '../../../classes/Contract'
+import { EngineReader } from '../../../'
 import { fetchOrDeployEngineAddress } from './fetchOrDeployEngineAddress'
 import { web3Provider } from '../web3Provider'
 

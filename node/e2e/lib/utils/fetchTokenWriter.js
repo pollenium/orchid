@@ -36,7 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-var Contract_1 = require("../../../classes/Contract");
+var __1 = require("../../../");
 var fetchOrDeployTokenAddress_1 = require("./fetchOrDeployTokenAddress");
 var getWallet_1 = require("./getWallet");
 var tokenContractWriters = {};
@@ -55,7 +55,7 @@ function fetchTokenWriter(accountName, tokenName) {
                     return [4 /*yield*/, fetchOrDeployTokenAddress_1.fetchOrDeployTokenAddress(tokenName)];
                 case 1:
                     tokenAddress = _a.sent();
-                    tokenContractWriter = new Contract_1.TokenWriter(getWallet_1.getWallet(accountName), tokenAddress);
+                    tokenContractWriter = new __1.TokenWriter(getWallet_1.getWallet(accountName), tokenAddress);
                     tokenContractWriters[accountName][tokenName] = tokenContractWriter;
                     return [2 /*return*/, tokenContractWriter];
             }

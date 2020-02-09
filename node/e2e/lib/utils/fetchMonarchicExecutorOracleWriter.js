@@ -36,7 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-var Contract_1 = require("../../../classes/Contract");
+var __1 = require("../../../");
 var fetchOrDeployMonarchicExecutorOracleAddress_1 = require("./fetchOrDeployMonarchicExecutorOracleAddress");
 var getWallet_1 = require("./getWallet");
 var monarchicExecutorOracleWriters = {};
@@ -52,7 +52,7 @@ function fetchMonarchicExecutorOracleWriter(accountName) {
                     return [4 /*yield*/, fetchOrDeployMonarchicExecutorOracleAddress_1.fetchOrDeployMonarchicExecutorOracleAddress()];
                 case 1:
                     monarchicExecutorOracleAddress = _a.sent();
-                    monarchicExecutorOracleWriters[accountName] = new Contract_1.MonarchicExecutorOracleWriter(getWallet_1.getWallet(accountName), monarchicExecutorOracleAddress);
+                    monarchicExecutorOracleWriters[accountName] = new __1.MonarchicExecutorOracleWriter(getWallet_1.getWallet(accountName), monarchicExecutorOracleAddress);
                     return [2 /*return*/, monarchicExecutorOracleWriters[accountName]];
             }
         });

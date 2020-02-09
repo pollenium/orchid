@@ -1,4 +1,4 @@
-import { MonarchicExecutorOracleReader } from '../classes/Contract'
+import { MonarchicExecutorOracleReader } from '../'
 
 import {
   fetchMonarchicExecutorOracleReader,

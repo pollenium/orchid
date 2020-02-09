@@ -1,4 +1,4 @@
-import { TokenReader } from '../../../classes/Contract'
+import { TokenReader } from '../../../'
 import { fetchOrDeployTokenAddress } from './fetchOrDeployTokenAddress'
 import { web3Provider } from '../web3Provider'
 import { TokenNames } from '../fixtures'

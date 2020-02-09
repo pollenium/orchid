@@ -1,6 +1,6 @@
 import { AccountNames, TokenNames, totalSupply } from '../fixtures'
 import { getWallet } from './getWallet'
-import { EngineDeployer } from '../../../classes/Contract'
+import { EngineDeployer } from '../../../'
 import { Address } from 'pollenium-buttercup'
 
 let engineAddress
