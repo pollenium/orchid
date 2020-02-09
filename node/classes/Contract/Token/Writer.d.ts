@@ -1,4 +1,4 @@
-import ethers from 'ethers';
+import { ethers } from 'ethers';
 import { Address, Uint256 } from 'pollenium-buttercup';
 import { ContractWriter } from '../../Contract';
 export declare class TokenWriter extends ContractWriter {

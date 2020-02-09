@@ -48,11 +48,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 exports.__esModule = true;
-var ethers_1 = __importDefault(require("ethers"));
+var ethers_1 = require("ethers");
 var pollenium_buttercup_1 = require("pollenium-buttercup");
 var pollenium_uvaursi_1 = require("pollenium-uvaursi");
 var Contract_1 = require("../../Contract");
@@ -72,7 +69,7 @@ var TokenReader = /** @class */ (function (_super) {
                         holderBignumber = _d.sent();
                         _a = pollenium_buttercup_1.Uint256.bind;
                         _c = (_b = pollenium_uvaursi_1.Uu).fromHexish;
-                        return [4 /*yield*/, ethers_1["default"].utils.hexlify(holderBignumber)];
+                        return [4 /*yield*/, ethers_1.ethers.utils.hexlify(holderBignumber)];
                     case 2: return [2 /*return*/, new (_a.apply(pollenium_buttercup_1.Uint256, [void 0, _c.apply(_b, [_d.sent()])]))()];
                 }
             });
@@ -90,7 +87,7 @@ var TokenReader = /** @class */ (function (_super) {
                         allowanceBignumber = _d.sent();
                         _a = pollenium_buttercup_1.Uint256.bind;
                         _c = (_b = pollenium_uvaursi_1.Uu).fromHexish;
-                        return [4 /*yield*/, ethers_1["default"].utils.hexlify(allowanceBignumber)];
+                        return [4 /*yield*/, ethers_1.ethers.utils.hexlify(allowanceBignumber)];
                     case 2: return [2 /*return*/, new (_a.apply(pollenium_buttercup_1.Uint256, [void 0, _c.apply(_b, [_d.sent()])]))()];
                 }
             });

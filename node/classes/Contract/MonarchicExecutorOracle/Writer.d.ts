@@ -1,4 +1,4 @@
-import ethers from 'ethers';
+import { ethers } from 'ethers';
 import { Address } from 'pollenium-buttercup';
 import { ContractWriter } from '../../Contract';
 export declare class MonarchicExecutorOracleWriter extends ContractWriter {

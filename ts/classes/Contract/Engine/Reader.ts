@@ -1,4 +1,4 @@
-import ethers from 'ethers'
+import { ethers } from 'ethers'
 import { Address, Uint256 } from 'pollenium-buttercup'
 import { Uu } from 'pollenium-uvaursi'
 import { ContractReader } from '../../Contract'

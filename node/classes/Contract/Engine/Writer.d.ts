@@ -1,4 +1,4 @@
-import ethers from 'ethers';
+import { ethers } from 'ethers';
 import { Address, Uint256, Bytes32, Uint8 } from 'pollenium-buttercup';
 import { ContractWriter } from '../../Contract';
 import { SignedOrder } from '../../SignedOrder';
