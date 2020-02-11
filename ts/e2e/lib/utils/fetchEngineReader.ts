@@ -1,6 +1,6 @@
 import { EngineReader } from '../../../'
 import { fetchOrDeployEngineAddress } from './fetchOrDeployEngineAddress'
-import { web3Provider } from '../web3Provider'
+import { gaillardia } from '../gaillardia'
 
 let engineReader
 
@@ -10,7 +10,7 @@ export async function fetchEngineReader(): Promise<EngineReader> {
   }
   const engineAddress = await fetchOrDeployEngineAddress()
   engineReader = new EngineReader(
-    web3Provider,
+    gaillardia.ethersWeb3Provider,
     engineAddress
   )
   return engineReader

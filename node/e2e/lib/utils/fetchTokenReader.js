@@ -38,7 +38,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 var __1 = require("../../../");
 var fetchOrDeployTokenAddress_1 = require("./fetchOrDeployTokenAddress");
-var web3Provider_1 = require("../web3Provider");
+var gaillardia_1 = require("../gaillardia");
 var tokenContractReaders = {};
 function fetchTokenReader(tokenName) {
     return __awaiter(this, void 0, void 0, function () {
@@ -52,7 +52,7 @@ function fetchTokenReader(tokenName) {
                     return [4 /*yield*/, fetchOrDeployTokenAddress_1.fetchOrDeployTokenAddress(tokenName)];
                 case 1:
                     tokenAddress = _a.sent();
-                    tokenContractReader = new __1.TokenReader(web3Provider_1.web3Provider, tokenAddress);
+                    tokenContractReader = new __1.TokenReader(gaillardia_1.gaillardia.ethersWeb3Provider, tokenAddress);
                     tokenContractReaders[tokenName] = tokenContractReader;
                     return [2 /*return*/, tokenContractReader];
             }

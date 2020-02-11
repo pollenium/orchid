@@ -39,6 +39,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 exports.__esModule = true;
+var gaillardia_1 = require("./lib/gaillardia");
 var utils_1 = require("./lib/utils");
 var pollenium_buttercup_1 = require("pollenium-buttercup");
 var pollenium_frangipani_1 = __importDefault(require("pollenium-frangipani"));
@@ -68,7 +69,7 @@ test('fetch engineReader', function () { return __awaiter(void 0, void 0, void 0
 test('snapshot', function () { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, utils_1.takeSnapshot()];
+            case 0: return [4 /*yield*/, gaillardia_1.gaillardia.takeSnapshot()];
             case 1:
                 snapshotId = _a.sent();
                 return [2 /*return*/];
@@ -88,10 +89,10 @@ pollenium_frangipani_1["default"].forEach(function (fixture, index) { return __a
                         var balance, _a, _b, _c;
                         return __generator(this, function (_d) {
                             switch (_d.label) {
-                                case 0: return [4 /*yield*/, utils_1.restoreSnapshot(snapshotId)];
+                                case 0: return [4 /*yield*/, gaillardia_1.gaillardia.restoreSnapshot(snapshotId)];
                                 case 1:
                                     _d.sent();
-                                    return [4 /*yield*/, utils_1.takeSnapshot()];
+                                    return [4 /*yield*/, gaillardia_1.gaillardia.takeSnapshot()];
                                 case 2:
                                     snapshotId = _d.sent();
                                     _b = (_a = engineReader).fetchBalance;
@@ -113,13 +114,13 @@ pollenium_frangipani_1["default"].forEach(function (fixture, index) { return __a
                     var prevBlockHash, buyyOrder, _a, _b, sellOrder, _c, _d, signedBuyyOrder, signedSellOrder, engineWriter;
                     return __generator(this, function (_e) {
                         switch (_e.label) {
-                            case 0: return [4 /*yield*/, utils_1.restoreSnapshot(snapshotId)];
+                            case 0: return [4 /*yield*/, gaillardia_1.gaillardia.restoreSnapshot(snapshotId)];
                             case 1:
                                 _e.sent();
-                                return [4 /*yield*/, utils_1.takeSnapshot()];
+                                return [4 /*yield*/, gaillardia_1.gaillardia.takeSnapshot()];
                             case 2:
                                 snapshotId = _e.sent();
-                                return [4 /*yield*/, utils_1.fetchBlockHash()];
+                                return [4 /*yield*/, gaillardia_1.gaillardia.fetchLatestBlockHash()];
                             case 3:
                                 prevBlockHash = _e.sent();
                                 _a = __1.Order.bind;
@@ -289,13 +290,13 @@ describe('multis', function () {
                 var prevBlockHash, buyyOrder, _a, _b, sellOrder, _c, _d, signedBuyyOrder, signedSellOrder, signedBuyyOrders, signedSellOrders, exchanges, i, i, i, exchangeFixture, engineWriter;
                 return __generator(this, function (_e) {
                     switch (_e.label) {
-                        case 0: return [4 /*yield*/, utils_1.restoreSnapshot(snapshotId)];
+                        case 0: return [4 /*yield*/, gaillardia_1.gaillardia.restoreSnapshot(snapshotId)];
                         case 1:
                             _e.sent();
-                            return [4 /*yield*/, utils_1.takeSnapshot()];
+                            return [4 /*yield*/, gaillardia_1.gaillardia.takeSnapshot()];
                         case 2:
                             snapshotId = _e.sent();
-                            return [4 /*yield*/, utils_1.fetchBlockHash()];
+                            return [4 /*yield*/, gaillardia_1.gaillardia.fetchLatestBlockHash()];
                         case 3:
                             prevBlockHash = _e.sent();
                             _a = __1.Order.bind;

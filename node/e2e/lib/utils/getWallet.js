@@ -2,14 +2,14 @@
 exports.__esModule = true;
 var ethers_1 = require("ethers");
 var getKeypair_1 = require("./getKeypair");
-var web3Provider_1 = require("../web3Provider");
+var gaillardia_1 = require("../gaillardia");
 var wallets = {};
 function getWallet(accountName) {
     if (wallets[accountName]) {
         return wallets[accountName];
     }
     var keypair = getKeypair_1.getKeypair(accountName);
-    wallets[accountName] = new ethers_1.Wallet(keypair.privateKey.u, web3Provider_1.web3Provider);
+    wallets[accountName] = new ethers_1.Wallet(keypair.privateKey.u, gaillardia_1.gaillardia.ethersWeb3Provider);
     return wallets[accountName];
 }
 exports.getWallet = getWallet;

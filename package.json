@@ -18,12 +18,11 @@
   },
   "homepage": "https://github.com/pollenium/#readme",
   "devDependencies": {
-    "bignumber.js": "^9.0.0",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
-    "ganache-cli": "^6.8.1",
     "jest": "^24.9.0",
     "mocha": "^6.2.2",
+    "pollenium-gaillardia": "^2.0.1",
     "pollenium-wallflower": "^1.1.3",
     "ts-enum-util": "^4.0.1",
     "ts-jest": "^24.1.0",
@@ -40,6 +39,8 @@
     "pollenium-buttercup": "^19.1.0",
     "pollenium-frangipani": "^2.0.0",
     "pollenium-ilex": "^9.2.0",
+    "pollenium-ursinia": "^1.0.0",
+    "pollenium-weigela": "^2.0.0",
     "web3-utils": "^1.2.4"
   }
 }

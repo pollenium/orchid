@@ -38,7 +38,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 var __1 = require("../../../");
 var fetchOrDeployMonarchicExecutorOracleAddress_1 = require("./fetchOrDeployMonarchicExecutorOracleAddress");
-var web3Provider_1 = require("../web3Provider");
+var gaillardia_1 = require("../gaillardia");
 var monarchicExecutorOracleReader;
 function fetchMonarchicExecutorOracleReader() {
     return __awaiter(this, void 0, void 0, function () {
@@ -52,7 +52,7 @@ function fetchMonarchicExecutorOracleReader() {
                     return [4 /*yield*/, fetchOrDeployMonarchicExecutorOracleAddress_1.fetchOrDeployMonarchicExecutorOracleAddress()];
                 case 1:
                     monarchicExecutorOracleAddress = _a.sent();
-                    monarchicExecutorOracleReader = new __1.MonarchicExecutorOracleReader(web3Provider_1.web3Provider, monarchicExecutorOracleAddress);
+                    monarchicExecutorOracleReader = new __1.MonarchicExecutorOracleReader(gaillardia_1.gaillardia.ethersWeb3Provider, monarchicExecutorOracleAddress);
                     return [2 /*return*/, monarchicExecutorOracleReader];
             }
         });

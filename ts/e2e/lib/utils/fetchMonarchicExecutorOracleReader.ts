@@ -1,6 +1,6 @@
 import { MonarchicExecutorOracleReader } from '../../../'
 import { fetchOrDeployMonarchicExecutorOracleAddress } from './fetchOrDeployMonarchicExecutorOracleAddress'
-import { web3Provider } from '../web3Provider'
+import { gaillardia } from '../gaillardia'
 
 let monarchicExecutorOracleReader
 
@@ -10,7 +10,7 @@ export async function fetchMonarchicExecutorOracleReader(): Promise<MonarchicExe
   }
   const monarchicExecutorOracleAddress = await fetchOrDeployMonarchicExecutorOracleAddress()
   monarchicExecutorOracleReader = new MonarchicExecutorOracleReader(
-    web3Provider,
+    gaillardia.ethersWeb3Provider,
     monarchicExecutorOracleAddress
   )
   return monarchicExecutorOracleReader

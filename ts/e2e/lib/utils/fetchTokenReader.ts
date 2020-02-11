@@ -1,6 +1,6 @@
 import { TokenReader } from '../../../'
 import { fetchOrDeployTokenAddress } from './fetchOrDeployTokenAddress'
-import { web3Provider } from '../web3Provider'
+import { gaillardia } from '../gaillardia'
 import { TokenNames } from '../fixtures'
 
 const tokenContractReaders = {}
@@ -11,7 +11,7 @@ export async function fetchTokenReader(tokenName: TokenNames): Promise<TokenRead
   }
   const tokenAddress = await fetchOrDeployTokenAddress(tokenName)
   const tokenContractReader = new TokenReader(
-    web3Provider,
+    gaillardia.ethersWeb3Provider,
     tokenAddress
   )
   tokenContractReaders[tokenName] = tokenContractReader

@@ -1,4 +1,3 @@
-import ganache from 'ganache-cli'
 import { Keypair } from 'pollenium-ilex'
 import { Address, Uint256 } from 'pollenium-buttercup'
 import { $enum } from 'ts-enum-util'

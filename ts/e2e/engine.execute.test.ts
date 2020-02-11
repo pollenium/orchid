@@ -1,13 +1,11 @@
+import { gaillardia } from './lib/gaillardia'
 import {
-  takeSnapshot,
-  restoreSnapshot,
   fetchTokenReader,
   fetchEngineReader,
   fetchEngineWriter,
   getAccountAddress,
   fetchOrDeployTokenAddress,
-  getKeypair,
-  fetchBlockHash
+  getKeypair
 } from './lib/utils'
 import { Bytes32, Uint256, Uint8 } from 'pollenium-buttercup'
 import frangipani from 'pollenium-frangipani'
@@ -35,7 +33,7 @@ test('fetch engineReader', async () => {
 })
 
 test('snapshot', async () => {
-  snapshotId = await takeSnapshot()
+  snapshotId = await gaillardia.takeSnapshot()
 })
 
 frangipani.forEach(async (fixture, index) => {
@@ -49,8 +47,8 @@ frangipani.forEach(async (fixture, index) => {
     traderNames.forEach((traderName) => {
       $enum(TokenNames).forEach((tokenName) => {
         test(`${traderName}'s ${tokenName} balance should be startBalance`, async () => {
-          await restoreSnapshot(snapshotId)
-          snapshotId = await takeSnapshot()
+          await gaillardia.restoreSnapshot(snapshotId)
+          snapshotId = await gaillardia.takeSnapshot()
           const balance = await engineReader.fetchBalance({
             holder: getAccountAddress(traderName),
             token: await fetchOrDeployTokenAddress(tokenName)
@@ -59,9 +57,9 @@ frangipani.forEach(async (fixture, index) => {
         })
       })
       test('execute', async () => {
-        await restoreSnapshot(snapshotId)
-        snapshotId = await takeSnapshot()
-        const prevBlockHash = await fetchBlockHash()
+        await gaillardia.restoreSnapshot(snapshotId)
+        snapshotId = await gaillardia.takeSnapshot()
+        const prevBlockHash = await gaillardia.fetchLatestBlockHash()
 
         const buyyOrder = new Order({
           prevBlockHash: prevBlockHash,
@@ -178,9 +176,9 @@ describe('multis', () => {
     describe(`multisFixture #${index}: [${multisFixture.buyyOrdersCount}, ${multisFixture.sellOrdersCount}, ${multisFixture.exchanges.length}]`, () => {
       it(`should execute batch of orders`, async () => {
 
-        await restoreSnapshot(snapshotId)
-        snapshotId = await takeSnapshot()
-        const prevBlockHash = await fetchBlockHash()
+        await gaillardia.restoreSnapshot(snapshotId)
+        snapshotId = await gaillardia.takeSnapshot()
+        const prevBlockHash = await gaillardia.fetchLatestBlockHash()
 
         const buyyOrder = new Order({
           prevBlockHash: prevBlockHash,
