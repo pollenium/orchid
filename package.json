@@ -21,7 +21,7 @@
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
     "jest": "^24.9.0",
-    "mocha": "^6.2.2",
+    "mocha": "^10.2.0",
     "pollenium-gaillardia": "^2.0.1",
     "pollenium-wallflower": "^1.1.3",
     "ts-enum-util": "^4.0.1",
